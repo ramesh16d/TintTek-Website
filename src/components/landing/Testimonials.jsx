@@ -31,7 +31,7 @@ const Testimonials = () => {
     const fetchReviews = async () => {
       try {
         // const response = await axios.get("http://localhost:5001/api/google-reviews");
-        const response = await axios.get("https://tinttek-website.onrender.com/api/google-reviews");
+        const response = await axios.get("https://tinttek-website-server.onrender.com/api/google-reviews");
         const formattedReviews = response.data.map((review) => ({
           author_name: review.author_name,
           profile_photo_url: review.profile_photo_url,

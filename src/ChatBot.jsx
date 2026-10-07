@@ -52,7 +52,7 @@ export default function Chatbot({ open, onClose }) {
 
     try {
       const { data } = await axios.post(
-        "https://tinttek-website.onrender.com/chat",
+        "https://tinttek-website-server.onrender.com/chat",
         // "http://localhost:5001/chat",
         { message: input }
       );
