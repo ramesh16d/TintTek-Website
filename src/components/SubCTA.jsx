@@ -1,3 +1,4 @@
+import QuoteForm from "./QuoteForm";
 import React, {useState} from "react";
 import { useParams } from "react-router-dom"; // 👈 Add this
 import {
@@ -168,6 +169,7 @@ const CallToAction = () => {
               width: isMobile ? "100%" : "auto",
             }}
             onClick={handleOpenModal}
+            aria-label="Open footer quote form"
           >
             Get a Free Quote
           </Button>
@@ -197,14 +199,14 @@ const CallToAction = () => {
                   >
                     <CloseIcon />
                   </IconButton>
-                  <iframe
+                  <QuoteForm
                     src="https://app.tintwiz.com/web/cs/gwnvrcfde7mplcffmgqi7sfqo8pcyt1t"
                     width="100%"
                     height="800px"
                     loading="lazy"
                     style={{ border: "none" }}
                     title="Fast Quote"
-                  ></iframe>
+                  ></QuoteForm>
                 </Box>
               </Dialog>
       </Box>

@@ -10,6 +10,7 @@ import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Box, IconButton } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./App.css";
+import { quoteServices } from "./data/quoteServices";
 
 // Eagerly loaded — needed on every page before any route resolves
 import Topbar from "./components/key-components/Topbar";
@@ -243,6 +244,9 @@ export function AppContent() {
 
           {/* Lead form thank-you page */}
           <Route path="/thank-you" element={<ThankYou />} />
+          {quoteServices.map(({ slug }) => (
+            <Route key={slug} path={`/thank-you/${slug}`} element={<ThankYou />} />
+          ))}
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

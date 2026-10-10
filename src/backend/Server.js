@@ -448,6 +448,8 @@ const knownRoutes = [
   /^\/support$/,
   /^\/privacy-policy$/,
   /^\/chat$/,
+  /^\/thank-you\/?$/,
+  /^\/thank-you\/(vehicletint|teslatint|ppf|ceramic|paint-correction)\/?$/,
   /^\/mockup$/,
   /^\/simulators\/commercial-window-tinting$/,
   /^\/simulators\/residential-window-tinting$/,

@@ -18,5 +18,12 @@ https://www.tinttekplus.com/* https://tinttekplus.com/:splat 301!
 /residential-window-tinting             /services/residential-window-tinting  301
 /ceramic-coating                        /services/ceramic-coating             301
 
+# Serve the actual confirmation HTML at the exact campaign destination URL.
+/thank-you /thank-you/index.html 200
+/thank-you/vehicletint /thank-you/vehicletint/index.html 200
+/thank-you/teslatint /thank-you/teslatint/index.html 200
+/thank-you/ppf /thank-you/ppf/index.html 200
+/thank-you/ceramic /thank-you/ceramic/index.html 200
+/thank-you/paint-correction /thank-you/paint-correction/index.html 200
 # SPA catch-all (must be last)
 /*  /index.html  200

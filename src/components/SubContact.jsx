@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Card, Grid, useMediaQuery } from "@mui/material";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 import ObfuscatedEmail from "./ObfuscatedEmail";
+import QuoteForm from "./QuoteForm";
 import { trackEvent } from "../utils/analytics";
 
 const Contact = ({ city }) => {
@@ -280,7 +281,7 @@ const Contact = ({ city }) => {
                 },
               }}
             >
-              <iframe
+              <QuoteForm
                 title="TintWiz Contact Form"
                 src="https://app.tintwiz.com/web/ce/gwnvrcfde7mplcffmgqi7sfqo8pcyt1t"
                 loading="lazy"
@@ -289,7 +290,7 @@ const Contact = ({ city }) => {
                   height: isMobile ? "650px" : "650px",
                   border: 0,
                 }}
-              ></iframe>
+              />
             </Box>
           </Grid>
         </Grid>

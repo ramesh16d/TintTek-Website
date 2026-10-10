@@ -12,7 +12,9 @@ const app = (
   </React.StrictMode>
 );
 
-if (rootElement.hasChildNodes()) {
+// Vite's unrendered template contains an HTML comment (and may contain
+// whitespace). Hydrate only real prerendered elements, not that empty shell.
+if (rootElement.children.length > 0) {
   hydrateRoot(rootElement, app);
 } else {
   createRoot(rootElement).render(app);

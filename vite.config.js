@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { quoteServices } from './src/data/quoteServices.js'
+
+const confirmationPaths = new Set(['/thank-you', ...quoteServices.map(({ slug }) => `/thank-you/${slug}`)]);
 
 // Node built-ins + backend-only packages that must stay external in SSR
 const SSR_EXTERNAL = [
@@ -13,9 +16,31 @@ const SSR_EXTERNAL = [
   'mongodb', 'bson',
 ]
 
-export default defineConfig({
+export default defineConfig(({ command, mode }) => ({
   base: '/',
-  plugins: [react()],
+  plugins: [react(), {
+    name: 'confirmation-page-preview-routes',
+    configurePreviewServer(server) {
+      // Vite preview ignores public/_redirects. Match the explicit host rules
+      // so slashless confirmation URLs serve their own generated HTML locally.
+      server.middlewares.use((request, _response, next) => {
+        const url = new URL(request.url || '/', 'http://localhost');
+        const path = url.pathname.replace(/\/+$/, '');
+        if (['GET', 'HEAD'].includes(request.method) && confirmationPaths.has(path)) {
+          request.url = `${path}/index.html${url.search}`;
+        }
+        next();
+      });
+    },
+  }, ...(command === 'serve' && mode === 'quote-test' ? [{
+    name: 'local-quote-test-no-google-tags',
+    transformIndexHtml(html) {
+      // The simulation must never load production GTM, including noscript.
+      return html
+        .replace(/<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager -->/g, '')
+        .replace(/<!-- Google Tag Manager \(noscript\) -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->/g, '');
+    },
+  }] : [])],
   build: {
     // Merge all CSS into the single entry stylesheet so SSR-prerendered markup
     // is never briefly unstyled — component CSS files would otherwise only load
@@ -56,4 +81,4 @@ export default defineConfig({
     // These always stay external (Node built-ins + server-only packages).
     external: SSR_EXTERNAL,
   },
-})
+}))

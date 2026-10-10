@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:quotes": "vite --mode quote-test --host 127.0.0.1",
+    "test:quotes": "node --test tests/quoteServices.test.js",
     "build": "npm run build:client && npm run build:ssr && npm run prerender && node generate-sitemap.cjs",
     "build:client": "vite build",
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist-ssr",

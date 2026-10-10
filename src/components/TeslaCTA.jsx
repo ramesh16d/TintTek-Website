@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { PlayArrow, Pause, VolumeUp, VolumeOff } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import QuoteForm from "./QuoteForm";
 
 /**
  * Add a `formUrl` for each service.
@@ -257,7 +258,7 @@ export default function TeslaCTA() {
               </IconButton>
 
               {/* Dynamic form per service */}
-              <iframe
+              <QuoteForm
                 src={formUrl}
                 width="100%"
                 height="800"

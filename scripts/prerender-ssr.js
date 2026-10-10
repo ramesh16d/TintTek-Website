@@ -14,7 +14,8 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { quoteServices } from '../src/data/quoteServices.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -23,6 +24,8 @@ const serverDist = path.join(rootDir, 'dist-ssr');
 
 const ROUTES = [
   '/',
+  '/thank-you',
+  ...quoteServices.map(({ slug }) => `/thank-you/${slug}`),
   '/services/vehicle-window-tinting',
   '/services/tesla-window-tinting',
   '/services/commercial-window-tinting',
@@ -114,7 +117,7 @@ async function prerender() {
     console.error('SSR build not found. Run `npm run build:ssr` first.');
     process.exit(1);
   }
-  const { render } = await import(ssrEntry);
+  const { render } = await import(pathToFileURL(ssrEntry).href);
 
   let succeeded = 0;
   let failed = 0;
@@ -145,6 +148,8 @@ async function prerender() {
       // Inject CSS preload immediately after <head> so the browser starts
       // fetching the stylesheet before parsing the rest of the document.
       const pageHtml = template
+        // Avoid conflicting static index and per-route noindex directives.
+        .replace(/<meta name="robots" content="index, follow"\s*\/?>/i, '')
         .replace('<head>', `<head>\n    ${cssPreloadTag}`)
         .replace('<!--app-head-->', injectedHead)
         .replace('<!--app-html-->', html);

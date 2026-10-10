@@ -1,3 +1,4 @@
+import QuoteForm from "../QuoteForm";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -49,6 +50,10 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
   const isMobile = useMediaQuery("(max-width: 1300px)");
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    setQuoteOpen(false);
+  }, [location.pathname]);
 
   // Detect Scroll Position
   useEffect(() => {
@@ -705,14 +710,14 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
           </IconButton>
 
           {/* Embedded Quote Form */}
-          <iframe
+          <QuoteForm
             src="https://app.tintwiz.com/web/cs/gwnvrcfde7mplcffmgqi7sfqo8pcyt1t"
             width="100%"
             height="800px"
             loading="lazy"
             style={{ border: "none" }}
             title="Fast Quote"
-          ></iframe>
+          ></QuoteForm>
         </DialogContent>
       </Dialog>
     </>

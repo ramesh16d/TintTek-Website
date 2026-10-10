@@ -12,6 +12,7 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import QuoteForm from "./QuoteForm";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -225,7 +226,7 @@ const ImageCTA = () => {
             <CloseIcon />
           </IconButton>
 
-          <iframe
+          <QuoteForm
             src={effectiveFormUrl}
             width="100%"
             height="800"

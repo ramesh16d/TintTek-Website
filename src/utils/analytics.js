@@ -2,13 +2,12 @@
 // Nothing here runs during SSR/prerendering; every export no-ops when
 // `window` doesn't exist or the relevant ID isn't configured.
 //
-// GA4's gtag.js script + initial config is hardcoded in index.html (not
-// injected here) so it survives even if a hosting provider's build is
-// missing VITE_GA_MEASUREMENT_ID. GA_ID here still falls back to that same
-// literal ID so trackPageView/trackEvent keep sending gtag events.
+// GTM owns the Google tag configuration. Local quote-test mode keeps events
+// in dataLayer only and never loads Meta Pixel or calls Google/Meta tracking.
 
 const GA_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || "G-N4QT9CLD9T";
 const PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID;
+const LOCAL_QUOTE_TEST = import.meta.env.DEV && import.meta.env.MODE === "quote-test";
 
 let initialized = false;
 
@@ -48,14 +47,19 @@ function injectScriptOnce(id, src) {
 }
 
 /**
- * Boots Meta Pixel (GA4's script + config are hardcoded in index.html, not
- * here — see the comment above GA_ID). Idempotent — safe to call on every
+ * Boots Meta Pixel (Google tag configuration is managed through GTM).
+ * Idempotent — safe to call on every
  * render, only does work once. Call this on the client after mount (e.g.
  * from App.jsx).
  */
 export function initAnalytics() {
   if (typeof window === "undefined" || initialized) return;
   initialized = true;
+
+  if (LOCAL_QUOTE_TEST) {
+    window.dataLayer = window.dataLayer || [];
+    return;
+  }
 
   ensureGtagStub();
 
@@ -73,6 +77,10 @@ export function initAnalytics() {
 /** Sends a page_view to GA4 and a PageView to Meta Pixel for `url`. */
 export function trackPageView(url) {
   if (typeof window === "undefined") return;
+  if (LOCAL_QUOTE_TEST) {
+    pushDataLayerEvent("page_view", { page_path: url, test_mode: true });
+    return;
+  }
 
   if (GA_ID && typeof window.gtag === "function") {
     window.gtag("event", "page_view", {
@@ -92,8 +100,8 @@ const PAGE_STORAGE_KEY = "ttp_last_page";
 /**
  * Records the path of the most recently visited page for this session.
  * Needed because the lead form (embedded on nearly every page — see
- * SubContact) is an external TintWiz iframe that redirects the whole page
- * to /thank-you on submit — by then the original page's URL is gone, so
+ * SubContact) is an external TintWiz iframe. Configure its successful-submit
+ * redirect in TintWiz; by arrival at /thank-you the original URL is gone, so
  * ThankYou reads this back to attribute the lead to the page it was
  * submitted from. Called from useRouteTracking on every route change.
  */
@@ -158,6 +166,10 @@ const META_STANDARD_EVENTS = new Set([
  */
 export function trackEvent(action, category, label, value, properties = {}) {
   if (typeof window === "undefined") return;
+  if (LOCAL_QUOTE_TEST) {
+    pushDataLayerEvent(action, { ...properties, test_mode: true });
+    return;
+  }
 
   if (GA_ID && typeof window.gtag === "function") {
     window.gtag("event", action, {

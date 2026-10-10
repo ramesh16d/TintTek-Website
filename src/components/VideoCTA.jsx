@@ -13,6 +13,7 @@ import {
 import { PlayArrow, Pause, VolumeUp, VolumeOff } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import CloseIcon from "@mui/icons-material/Close";
+import QuoteForm from "./QuoteForm";
 
 const videoContent = {
   "vehicle-window-tinting": {
@@ -285,6 +286,7 @@ export default function VideoCTA() {
             {/* Desktop/Tablet CTA (hidden on mobile) */}
             <Button
               component={motion.button}
+              aria-label="Open quote form"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               whileHover={{ scale: 1.1 }}
@@ -325,7 +327,7 @@ export default function VideoCTA() {
                 >
                   <CloseIcon />
                 </IconButton>
-                <iframe
+                <QuoteForm
                   src={formUrl}
                   width="100%"
                   height="800px"

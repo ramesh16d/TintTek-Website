@@ -1,3 +1,4 @@
+import QuoteForm from "./QuoteForm";
 import React, { useState } from "react";
 import {
   Box,
@@ -302,7 +303,7 @@ const TeslaTintPackages = () => {
             <CloseIcon />
           </IconButton>
 
-          <iframe
+          <QuoteForm
             src="https://app.tintwiz.com/web/cs/gwnvrcfde7mplcffmgqi7sfqo8pcyt1t"
             width="100%"
             height="800px"

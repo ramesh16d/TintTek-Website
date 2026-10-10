@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { getThankYouService } from "../data/quoteServices";
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -48,19 +50,31 @@ const badges = [
 
 const ThankYou = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const location = useLocation();
+  const service = getThankYouService(location.pathname);
+  const lastTracked = useRef(null);
+  const localTest = import.meta.env.DEV && import.meta.env.MODE === "quote-test";
 
   useEffect(() => {
+    const visit = `${location.key}:${location.pathname}`;
+    if (lastTracked.current === visit) return;
+    lastTracked.current = visit;
     const sourcePage = getLastPageVisited();
     const city = getCityFromPath(sourcePage);
     pushDataLayerEvent("thank_you_page_view", {
       source_page: sourcePage || "unknown",
       city: city || "unknown",
+      service: service?.eventService || "general",
+      page_path: location.pathname,
+      ...(localTest ? { test_mode: true } : {}),
     });
-    trackEvent("Form", "Lead", "Thank You Page View", undefined, {
+    // Preserve the existing generic-page event. New destinations are tracked
+    // by page views; do not introduce a second automatic lead conversion.
+    if (!service) trackEvent("Form", "Lead", "Thank You Page View", undefined, {
       source_page: sourcePage || "unknown",
       ...(city ? { city } : {}),
     });
-  }, []);
+  }, [location.key, location.pathname, service, localTest]);
 
   const handlePhoneClick = () => {
     const sourcePage = getLastPageVisited();
@@ -86,7 +100,7 @@ const ThankYou = () => {
       }}
     >
       <SEO
-        title="Thank You | Tint Tek Plus"
+        title={service ? `Thank You — ${service.label} | Tint Tek Plus` : "Thank You | Tint Tek Plus"}
         description="Thanks for reaching out to Tint Tek Plus. We've received your request and will be in touch shortly."
         robots="noindex, nofollow"
       />
@@ -132,9 +146,10 @@ const ThankYou = () => {
         >
           <Typography
             variant={isMobile ? "h4" : "h2"}
+            component="h1"
             sx={{ fontWeight: 700, mb: 2, letterSpacing: "-0.5px" }}
           >
-            Thank You!
+            {service ? `Thank You for Your ${service.label} Request!` : "Thank You!"}
           </Typography>
 
           <Typography
@@ -147,9 +162,9 @@ const ThankYou = () => {
               lineHeight: 1.6,
             }}
           >
-            Your request has been received. A Tint Tek Plus specialist will
-            reach out within 1 business day to confirm your appointment
-            details.
+            {localTest
+              ? "Local test complete. No real quote request was submitted. Check the browser address and local dataLayer events."
+              : "Your quote request has been received. A Tint Tek Plus specialist will reach out within 1 business day to discuss your request."}
           </Typography>
         </motion.div>
 
