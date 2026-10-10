@@ -1,5 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { quoteServices } from './src/data/quoteServices.js'
+
+const thankYouPaths = new Set([
+  '/thank-you',
+  ...quoteServices.map(({ slug }) => `/thank-you/${slug}`),
+])
 
 // Node built-ins + backend-only packages that must stay external in SSR
 const SSR_EXTERNAL = [
@@ -15,7 +21,19 @@ const SSR_EXTERNAL = [
 
 export default defineConfig({
   base: '/',
-  plugins: [react()],
+  plugins: [react(), {
+    name: 'prerendered-thank-you-preview-routes',
+    configurePreviewServer(server) {
+      server.middlewares.use((request, _response, next) => {
+        const url = new URL(request.url || '/', 'http://localhost')
+        const path = url.pathname.replace(/\/+$/, '') || '/'
+        if (['GET', 'HEAD'].includes(request.method) && thankYouPaths.has(path)) {
+          request.url = `${path}/index.html${url.search}`
+        }
+        next()
+      })
+    },
+  }],
   build: {
     // Merge all CSS into the single entry stylesheet so SSR-prerendered markup
     // is never briefly unstyled — component CSS files would otherwise only load
