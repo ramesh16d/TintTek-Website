@@ -15,7 +15,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { quoteServices } from '../src/data/quoteServices.js';
+import { isThankYouPath, quoteServices } from '../src/data/quoteServices.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -147,9 +147,16 @@ async function prerender() {
 
       // Inject CSS preload immediately after <head> so the browser starts
       // fetching the stylesheet before parsing the rest of the document.
-      const pageTemplate = route === '/thank-you' || route.startsWith('/thank-you/')
-        ? template.replace(/<meta name="robots" content="index, follow"\s*\/?>/i, '')
-        : template;
+      let pageTemplate = template;
+      if (isThankYouPath(route)) {
+        pageTemplate = template.replace(
+          /<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["']index,\s*follow["'])[^>]*\/?>/i,
+          ''
+        );
+        if (pageTemplate === template) {
+          console.warn(`Could not remove the default robots tag for ${route}.`);
+        }
+      }
       const pageHtml = pageTemplate
         .replace('<head>', `<head>\n    ${cssPreloadTag}`)
         .replace('<!--app-head-->', injectedHead)

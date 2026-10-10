@@ -61,14 +61,15 @@ const ThankYou = () => {
 
     const sourcePage = getLastPageVisited();
     const city = getCityFromPath(sourcePage);
+    const trackedService = getThankYouService(location.pathname);
     pushDataLayerEvent("thank_you_page_view", {
       source_page: sourcePage || "unknown",
       city: city || "unknown",
-      service: service?.service || "general",
+      service: trackedService?.service || "general",
       page_path: location.pathname,
       submission_confirmed: false,
     });
-  }, [location.key, location.pathname, service]);
+  }, [location.key, location.pathname]);
 
   const handlePhoneClick = () => {
     const sourcePage = getLastPageVisited();

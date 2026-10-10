@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import {
   getQuoteService,
   getThankYouService,
@@ -32,9 +34,20 @@ test("unrelated quote source pages do not inherit a service conversion", () => {
   assert.equal(getQuoteService("/services/commercial-window-tinting"), undefined);
 });
 
-test("thank-you routes preserve the last service page for attribution", () => {
+test("isThankYouPath matches thank-you routes only", () => {
   for (const path of ["/thank-you", "/thank-you/", "/thank-you/ppf"]) {
     assert.equal(isThankYouPath(path), true);
   }
   assert.equal(isThankYouPath("/thank-you-other"), false);
+});
+
+test("static-host rewrites include every service thank-you route", () => {
+  const redirectsPath = fileURLToPath(new URL("../public/_redirects", import.meta.url));
+  const redirects = readFileSync(redirectsPath, "utf8");
+  for (const { slug } of quoteServices) {
+    assert.ok(
+      new RegExp(`^/thank-you/${slug}\\s+/thank-you/${slug}/index\\.html\\s+200$`, "m").test(redirects),
+      `Missing static-host rewrite for ${slug}`,
+    );
+  }
 });
