@@ -1,6 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { getQuoteService, getThankYouService, quoteServices } from "../src/data/quoteServices.js";
+import {
+  getQuoteService,
+  getThankYouService,
+  isThankYouPath,
+  quoteServices,
+} from "../src/data/quoteServices.js";
 
 test("the requested service pages map to their dedicated thank-you routes", () => {
   assert.deepEqual(
@@ -25,4 +30,11 @@ test("thank-you routes resolve only known service slugs", () => {
 
 test("unrelated quote source pages do not inherit a service conversion", () => {
   assert.equal(getQuoteService("/services/commercial-window-tinting"), undefined);
+});
+
+test("thank-you routes preserve the last service page for attribution", () => {
+  for (const path of ["/thank-you", "/thank-you/", "/thank-you/ppf"]) {
+    assert.equal(isThankYouPath(path), true);
+  }
+  assert.equal(isThankYouPath("/thank-you-other"), false);
 });

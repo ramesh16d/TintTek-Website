@@ -147,8 +147,10 @@ async function prerender() {
 
       // Inject CSS preload immediately after <head> so the browser starts
       // fetching the stylesheet before parsing the rest of the document.
-      const pageHtml = template
-        .replace(/<meta name="robots" content="index, follow"\s*\/?>/i, '')
+      const pageTemplate = route === '/thank-you' || route.startsWith('/thank-you/')
+        ? template.replace(/<meta name="robots" content="index, follow"\s*\/?>/i, '')
+        : template;
+      const pageHtml = pageTemplate
         .replace('<head>', `<head>\n    ${cssPreloadTag}`)
         .replace('<!--app-head-->', injectedHead)
         .replace('<!--app-html-->', html);
