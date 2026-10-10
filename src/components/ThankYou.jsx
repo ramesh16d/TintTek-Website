@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -13,11 +14,12 @@ import SEO from "./SEO";
 import Footer from "./key-components/Footer";
 import SubQuickLinks from "./SubQuickLinks";
 import {
-  trackEvent,
   getLastPageVisited,
   getCityFromPath,
   pushDataLayerEvent,
+  trackEvent,
 } from "../utils/analytics";
+import { getThankYouService } from "../data/quoteServices";
 
 const steps = [
   {
@@ -48,19 +50,25 @@ const badges = [
 
 const ThankYou = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const location = useLocation();
+  const service = getThankYouService(location.pathname);
+  const trackedVisit = useRef(null);
 
   useEffect(() => {
+    const visitKey = `${location.key}:${location.pathname}`;
+    if (trackedVisit.current === visitKey) return;
+    trackedVisit.current = visitKey;
+
     const sourcePage = getLastPageVisited();
     const city = getCityFromPath(sourcePage);
     pushDataLayerEvent("thank_you_page_view", {
       source_page: sourcePage || "unknown",
       city: city || "unknown",
+      service: service?.service || "general",
+      page_path: location.pathname,
+      submission_confirmed: false,
     });
-    trackEvent("Form", "Lead", "Thank You Page View", undefined, {
-      source_page: sourcePage || "unknown",
-      ...(city ? { city } : {}),
-    });
-  }, []);
+  }, [location.key, location.pathname, service]);
 
   const handlePhoneClick = () => {
     const sourcePage = getLastPageVisited();
@@ -86,9 +94,9 @@ const ThankYou = () => {
       }}
     >
       <SEO
-        title="Thank You | Tint Tek Plus"
+        title={service ? `Thank You — ${service.label} | Tint Tek Plus` : "Thank You | Tint Tek Plus"}
         description="Thanks for reaching out to Tint Tek Plus. We've received your request and will be in touch shortly."
-        robots="noindex, nofollow"
+        robots="noindex, follow"
       />
 
       <Box
@@ -132,9 +140,10 @@ const ThankYou = () => {
         >
           <Typography
             variant={isMobile ? "h4" : "h2"}
+            component="h1"
             sx={{ fontWeight: 700, mb: 2, letterSpacing: "-0.5px" }}
           >
-            Thank You!
+            {service ? `Thank You for Your ${service.label} Request!` : "Thank You!"}
           </Typography>
 
           <Typography

@@ -11,6 +11,7 @@
     "prerender": "node scripts/prerender-ssr.js",
     "prerender:legacy": "node scripts/prerender.js",
     "lint": "eslint .",
+    "test:quotes": "node --test tests/quoteServices.test.js",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

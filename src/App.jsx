@@ -17,6 +17,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import SEO from "./components/SEO";
 import useRouteTracking from "./hooks/useRouteTracking";
 import { initAnalytics, trackEvent } from "./utils/analytics";
+import { quoteServices } from "./data/quoteServices";
 
 // Hero must be eager: it is the LCP element on the home page and hydrates first
 import Hero from "./components/hero/Hero";
@@ -243,6 +244,9 @@ export function AppContent() {
 
           {/* Lead form thank-you page */}
           <Route path="/thank-you" element={<ThankYou />} />
+          {quoteServices.map(({ slug }) => (
+            <Route key={slug} path={`/thank-you/${slug}`} element={<ThankYou />} />
+          ))}
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

@@ -15,6 +15,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { quoteServices } from '../src/data/quoteServices.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -23,6 +24,8 @@ const serverDist = path.join(rootDir, 'dist-ssr');
 
 const ROUTES = [
   '/',
+  '/thank-you',
+  ...quoteServices.map(({ slug }) => `/thank-you/${slug}`),
   '/services/vehicle-window-tinting',
   '/services/tesla-window-tinting',
   '/services/commercial-window-tinting',
@@ -145,6 +148,7 @@ async function prerender() {
       // Inject CSS preload immediately after <head> so the browser starts
       // fetching the stylesheet before parsing the rest of the document.
       const pageHtml = template
+        .replace(/<meta name="robots" content="index, follow"\s*\/?>/i, '')
         .replace('<head>', `<head>\n    ${cssPreloadTag}`)
         .replace('<!--app-head-->', injectedHead)
         .replace('<!--app-html-->', html);
