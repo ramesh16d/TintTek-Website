@@ -29,6 +29,7 @@ const ROUTES = [
   { path: '/blog/paint-protection-film-dallas-texas', priority: '0.7', changefreq: 'yearly', lastmod: '2025-08-30' },
   { path: '/blog/headlight-restoration-protection-film-garland-tx', priority: '0.7', changefreq: 'yearly', lastmod: '2026-06-28' },
   { path: '/blog/headlight-tinting-protection-plano-tx', priority: '0.7', changefreq: 'yearly', lastmod: '2026-06-29' },
+  { path: '/blog/ceramic-coating-frisco-tx', priority: '0.7', changefreq: 'yearly', lastmod: '2026-09-28' },
   { path: '/privacy-policy', priority: '0.5', changefreq: 'yearly' },
   // City landing pages
   { path: '/locations/plano', priority: '0.9', changefreq: 'monthly' },
