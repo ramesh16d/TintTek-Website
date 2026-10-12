@@ -1,0 +1,138 @@
+[
+  {
+    "route": "/services/vehicle-window-tinting",
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "h1": "Vehicle Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10837,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 91,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 598.078125,
+      "y": 472.3125,
+      "width": 243.828125,
+      "height": 54.78125,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 1440
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/tesla-window-tinting",
+    "status": 200,
+    "dom": {
+      "title": "Tesla Window Tinting Garland, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/tesla-window-tinting",
+      "h1": "Tesla Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10412,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 72,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 598.078125,
+      "y": 472.59375,
+      "width": 243.828125,
+      "height": 54.78125,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 1440
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/ceramic-coating",
+    "status": 200,
+    "dom": {
+      "title": "Ceramic Coating Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/ceramic-coating",
+      "h1": "Ceramic Coating",
+      "retainedH1": true,
+      "bodyChars": 8311,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 75,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 774.078125,
+      "y": 472.6875,
+      "width": 243.828125,
+      "height": 54.78125,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedi",
+      "innerWidth": 1440
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/vehicle-paint-protection",
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Paint Protection Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-paint-protection",
+      "h1": "Vehicle Paint Protection",
+      "retainedH1": true,
+      "bodyChars": 9857,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 82,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 598.078125,
+      "y": 472.875,
+      "width": 243.828125,
+      "height": 54.78125,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 1440
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  }
+]

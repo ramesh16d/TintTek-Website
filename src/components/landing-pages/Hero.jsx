@@ -359,6 +359,7 @@ export default function Hero({
                   >
                     <Typography
                       variant="h2"
+                      component="h1"
                       sx={{
                         color: "#fff",
                         fontWeight: 800,

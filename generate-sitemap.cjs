@@ -52,7 +52,7 @@ const ROUTES = [
   // Brand pages
   { path: '/brands/llumar', priority: '0.8', changefreq: 'monthly' },
   { path: '/brands/stek', priority: '0.8', changefreq: 'monthly' },
-  { path: '/brands/pureppf', priority: '0.8', changefreq: 'monthly' },
+  { path: '/brands/gtechniq', priority: '0.8', changefreq: 'monthly' },
   { path: '/brands/exoshield', priority: '0.8', changefreq: 'monthly' },
   // Texas tint laws
   { path: '/texas-window-tint-laws', priority: '0.9', changefreq: 'yearly' },

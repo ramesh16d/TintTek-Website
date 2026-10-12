@@ -1,0 +1,26 @@
+[
+  {
+    "route": "/services/vehicle-window-tinting",
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "h1": "Vehicle Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10613,
+      "h1Visible": true,
+      "overflow": false
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [
+      "Minified React error #418; visit https://reactjs.org/docs/error-decoder.html?invariant=418 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+      "Minified React error #422; visit https://reactjs.org/docs/error-decoder.html?invariant=422 for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+    ],
+    "warnings": [],
+    "resources": [],
+    "pass": false
+  }
+]

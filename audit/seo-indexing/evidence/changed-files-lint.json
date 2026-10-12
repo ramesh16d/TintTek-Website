@@ -1,0 +1,65 @@
+[
+  {
+    "file": "src/App.jsx",
+    "beforeErrors": 2,
+    "afterErrors": 0,
+    "beforeWarnings": 1,
+    "afterWarnings": 1
+  },
+  {
+    "file": "src/components/BrandPage.jsx",
+    "beforeErrors": 6,
+    "afterErrors": 4,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/PrivacyPolicy.jsx",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/ServicesPage.jsx",
+    "beforeErrors": 14,
+    "afterErrors": 11,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/TeslaModelPage.jsx",
+    "beforeErrors": 6,
+    "afterErrors": 4,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/TintLaws.jsx",
+    "beforeErrors": 8,
+    "afterErrors": 6,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/landing-pages/Hero.jsx",
+    "beforeErrors": 11,
+    "afterErrors": 11,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/landing/Services.jsx",
+    "beforeErrors": 11,
+    "afterErrors": 11,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  },
+  {
+    "file": "src/components/InViewMount.jsx",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "beforeWarnings": 0,
+    "afterWarnings": 0
+  }
+]

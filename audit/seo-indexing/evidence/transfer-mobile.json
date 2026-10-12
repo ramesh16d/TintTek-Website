@@ -1,0 +1,482 @@
+[
+  {
+    "route": "/",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/",
+      "h1": "Enhance your Ride, Home or Business withPrecision Tinting and Protection",
+      "retainedH1": true,
+      "bodyChars": 4423,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 89,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 8,
+      "y": 342.09375,
+      "width": 396,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedi",
+      "innerWidth": 412
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/vehicle-window-tinting",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "h1": "Vehicle Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10692,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 85,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/tesla-window-tinting",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Tesla Window Tinting Garland, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/tesla-window-tinting",
+      "h1": "Tesla Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10262,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 90,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/ceramic-coating",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Ceramic Coating Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/ceramic-coating",
+      "h1": "Ceramic Coating",
+      "retainedH1": true,
+      "bodyChars": 8227,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 85,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 27.796875,
+      "y": 369.375,
+      "width": 356.390625,
+      "height": 43.6875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/vehicle-paint-protection",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Paint Protection Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-paint-protection",
+      "h1": "Vehicle Paint Protection",
+      "retainedH1": true,
+      "bodyChars": 9751,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 80,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/services/windshield-protection-film",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Windshield Protection Film Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/windshield-protection-film",
+      "h1": "Windshield Protection Film",
+      "retainedH1": true,
+      "bodyChars": 9080,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 83,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 27.796875,
+      "y": 369.375,
+      "width": 356.390625,
+      "height": 43.6875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/tesla/model-y",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Tesla Model Y Window Tinting Dallas, TX | Tint Tek Plus | Ceramic Films",
+      "canonical": "https://tinttekplus.com/tesla/model-y",
+      "h1": "Tesla Model Y Window Tinting in Dallas, TX",
+      "retainedH1": true,
+      "bodyChars": 8091,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 100,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/tesla/cybertruck",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Tesla Cybertruck Window Tinting Dallas, TX | Tint Tek Plus | Tint & PPF",
+      "canonical": "https://tinttekplus.com/tesla/cybertruck",
+      "h1": "Tesla Cybertruck Window Tinting & PPF in Dallas, TX",
+      "retainedH1": true,
+      "bodyChars": 8742,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 100,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.4375,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/locations/plano",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Window Tinting Plano, TX | Tint Tek Plus | LLumar, STEK & Gtechniq",
+      "canonical": "https://tinttekplus.com/locations/plano",
+      "h1": "Block 89% Of Heat.Drive Cooler In3 Hours!",
+      "retainedH1": true,
+      "bodyChars": 5689,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 81,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 91.0625,
+      "y": 284.207763671875,
+      "width": 229.859375,
+      "height": 62.78125,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-large MuiButton-largePrimary MuiButton-sizeMedium MuiButton-largeSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-large MuiButton-largePrimary MuiButton-sizeMedium MuiButton-largeSi",
+      "innerWidth": 412
+    },
+    "quoteEmbedded": {
+      "tintwiz": true,
+      "hasLayout": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/brands/llumar",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "LLumar Window Tint Dealer Dallas, TX | Tint Tek Plus | Certified Installer",
+      "canonical": "https://tinttekplus.com/brands/llumar",
+      "h1": "LLumar Window Film — Certified Dealer in Dallas, TX",
+      "retainedH1": true,
+      "bodyChars": 5314,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 96,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 8,
+      "y": 342.078125,
+      "width": 396,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedi",
+      "innerWidth": 412
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/texas-window-tint-laws",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Texas Window Tint Laws 2026: Complete Guide | VLT Limits, Exemptions & More",
+      "canonical": "https://tinttekplus.com/texas-window-tint-laws",
+      "h1": "Texas Window Tint Laws 2026: Complete Legal Guide",
+      "retainedH1": true,
+      "bodyChars": 6979,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 97,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 8,
+      "y": 342.375,
+      "width": 396,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedi",
+      "innerWidth": 412
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/blog/llumar-vs-xpel-window-tint-dallas",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 500,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "LLumar vs. XPEL Window Tint: Why LLumar Comes Out Ahead | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/llumar-vs-xpel-window-tint-dallas",
+      "h1": "LLumar vs. XPEL Window Tint: Why LLumar Comes Out Ahead",
+      "retainedH1": true,
+      "bodyChars": 4188,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 78,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 8,
+      "y": 342.53125,
+      "width": 396,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedi",
+      "innerWidth": 412
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  }
+]

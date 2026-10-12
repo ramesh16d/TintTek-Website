@@ -1,5 +1,6 @@
+import InViewMount from "./InViewMount";
 // src/components/BrandPage.jsx
-import React, { useRef, useState, useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import {
   Box,
@@ -37,24 +38,7 @@ const TYPE_LABELS = {
   "Windshield Protection Film": { emoji: "🪟", color: "#f59e0b" },
 };
 
-function InViewMount({ children, rootMargin = "400px" }) {
-  const ref = useRef(null);
-  const [ready, setReady] = useState(typeof window === "undefined");
-  useEffect(() => {
-    if (ready) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { setReady(true); io.disconnect(); }
-      },
-      { rootMargin }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [rootMargin, ready]);
-  return <div ref={ref} suppressHydrationWarning>{ready ? children : null}</div>;
-}
+
 
 export default function BrandPage() {
   const { brand: brandSlug } = useParams();

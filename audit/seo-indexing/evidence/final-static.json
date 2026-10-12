@@ -1,0 +1,466 @@
+{
+  "results": [
+    {
+      "route": "/",
+      "title": "Window Tinting Garland &amp; Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/",
+      "robots": "index, follow",
+      "h1": [
+        "Enhance your Ride, Home or Business withPrecision Tinting and Protection"
+      ],
+      "bodyChars": 4422,
+      "sha256": "f2a1306455d72f53541b9ae2835e0b02ae08c184c2abc1458c1aec05d029bbee"
+    },
+    {
+      "route": "/services/vehicle-window-tinting",
+      "title": "Vehicle Window Tinting Garland &amp; Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "robots": "index, follow",
+      "h1": [
+        "Vehicle Window Tinting"
+      ],
+      "bodyChars": 11903,
+      "sha256": "9b8323fef75dd215a74c9950c953c38da614b23d18e0297d24421fc1957ac223"
+    },
+    {
+      "route": "/services/tesla-window-tinting",
+      "title": "Tesla Window Tinting Garland, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/tesla-window-tinting",
+      "robots": "index, follow",
+      "h1": [
+        "Tesla Window Tinting"
+      ],
+      "bodyChars": 11515,
+      "sha256": "01704c0ad793d8641350522706ea10a40772bb54cd6d10c057975002bf66c98c"
+    },
+    {
+      "route": "/services/commercial-window-tinting",
+      "title": "Commercial Window Tinting Garland, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/commercial-window-tinting",
+      "robots": "index, follow",
+      "h1": [
+        "Commercial Window Tinting"
+      ],
+      "bodyChars": 8841,
+      "sha256": "afdde7cd39abb5a8b8f3c6c354273406d6aa05664f2ab6cad60ab4bacd7616d1"
+    },
+    {
+      "route": "/services/residential-window-tinting",
+      "title": "Residential Window Tinting Garland, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/residential-window-tinting",
+      "robots": "index, follow",
+      "h1": [
+        "Residential Window Tinting"
+      ],
+      "bodyChars": 10969,
+      "sha256": "0c7d5a5da054637772a6b6550701cfe4879e530f2049367130457c8467e006d7"
+    },
+    {
+      "route": "/services/vehicle-paint-correction",
+      "title": "Vehicle Paint Correction Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-paint-correction",
+      "robots": "index, follow",
+      "h1": [
+        "Vehicle Paint Correction"
+      ],
+      "bodyChars": 10957,
+      "sha256": "d41c47ac43b2492cce14c3dccf5e9e67a5f02d8df56a2622c687f755c23ff5cc"
+    },
+    {
+      "route": "/services/vehicle-paint-protection",
+      "title": "Vehicle Paint Protection Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-paint-protection",
+      "robots": "index, follow",
+      "h1": [
+        "Vehicle Paint Protection"
+      ],
+      "bodyChars": 14113,
+      "sha256": "264db0bd514dfaefa33c9fdae6873b8b85a455c8d0044b0390acc02ef41b7f16"
+    },
+    {
+      "route": "/services/headlight-services",
+      "title": "Tinted Headlights &amp; Taillights Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/headlight-services",
+      "robots": "index, follow",
+      "h1": [
+        "Headlight &amp; Taillight Services"
+      ],
+      "bodyChars": 8497,
+      "sha256": "77baee8b03c30bd20c2bd82e843bca9a3a72eae7924627580117824eb4928208"
+    },
+    {
+      "route": "/services/ceramic-coating",
+      "title": "Ceramic Coating Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/ceramic-coating",
+      "robots": "index, follow",
+      "h1": [
+        "Ceramic Coating"
+      ],
+      "bodyChars": 9770,
+      "sha256": "317e3027c2df5c518e6f813fc9c3acf15493831584ac5696e1e12044277f3e66"
+    },
+    {
+      "route": "/services/windshield-protection-film",
+      "title": "Windshield Protection Film Services in Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/windshield-protection-film",
+      "robots": "index, follow",
+      "h1": [
+        "Windshield Protection Film"
+      ],
+      "bodyChars": 10092,
+      "sha256": "d11a668055f4ad95be99a03c3f960dd15f831ec77327a307443ede01923aea63"
+    },
+    {
+      "route": "/gallery",
+      "title": "Gallery | Window Tint, PPF &amp; Detailing Work | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/gallery",
+      "robots": "index, follow",
+      "h1": [],
+      "bodyChars": 1361,
+      "sha256": "9ef882d5649e16580359efe97917f76c0d67ba03d21940da4a9a858234ed58fa"
+    },
+    {
+      "route": "/support",
+      "title": "Window Tinting FAQ – Garland &amp; Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/support",
+      "robots": "index, follow",
+      "h1": [],
+      "bodyChars": 4272,
+      "sha256": "9ebc78847358a5779851161dd33ba069bcf65aa4a8fbe51de013a47ab61b0c00"
+    },
+    {
+      "route": "/blogs",
+      "title": "Blog | Window Tinting Tips &amp; PPF Guides | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/blogs",
+      "robots": "index, follow",
+      "h1": [],
+      "bodyChars": 3434,
+      "sha256": "fa20a0a4c9534022c5b6320657cc5fecab1bba0d6fd0dff835cee63acc93040d"
+    },
+    {
+      "route": "/blog/llumar-vs-xpel-window-tint-dallas",
+      "title": "LLumar vs. XPEL Window Tint: Why LLumar Comes Out Ahead | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/llumar-vs-xpel-window-tint-dallas",
+      "robots": "index, follow",
+      "h1": [
+        "LLumar vs. XPEL Window Tint: Why LLumar Comes Out Ahead"
+      ],
+      "bodyChars": 5131,
+      "sha256": "4aa1aec2f4f5acaa71987f163e734f71aaec411a727b6e9d599017044d8ed566"
+    },
+    {
+      "route": "/blog/5-reasons-tint-car-windows-dallas-tx",
+      "title": "5 Reasons to Tint Your Car Windows in Dallas, TX | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/5-reasons-tint-car-windows-dallas-tx",
+      "robots": "index, follow",
+      "h1": [
+        "5 Reasons to Tint Your Car Windows in Dallas, TX"
+      ],
+      "bodyChars": 4976,
+      "sha256": "05c8022ce51e31a25af73b763a358b4de1a07c040b4b0221e248b36f68c306f9"
+    },
+    {
+      "route": "/blog/residential-window-tinting-benefits-dfw",
+      "title": "Top 7 Benefits of Residential Window Tinting in Dallas–Fort Worth | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/residential-window-tinting-benefits-dfw",
+      "robots": "index, follow",
+      "h1": [
+        "Top 7 Benefits of Residential Window Tinting in Dallas–Fort Worth"
+      ],
+      "bodyChars": 5487,
+      "sha256": "ff99abe047ed9226c8d2ae3e9f7d7a8686b82f01190a947e4fc0a8fb2f0ba9af"
+    },
+    {
+      "route": "/blog/paint-protection-film-dallas-texas",
+      "title": "Why Paint Protection Film (PPF) Is a MUST in Dallas, Texas | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/paint-protection-film-dallas-texas",
+      "robots": "index, follow",
+      "h1": [
+        "Why Paint Protection Film (PPF) Is a MUST in Dallas, Texas"
+      ],
+      "bodyChars": 6812,
+      "sha256": "17178991b0daff3ee291b6e04637a1aea930588e75eedda5883eb0a3baf5ef27"
+    },
+    {
+      "route": "/blog/headlight-restoration-protection-film-garland-tx",
+      "title": "Headlight Restoration vs. Headlight Protection Film: What Garland, TX Drivers Need to Know | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/headlight-restoration-protection-film-garland-tx",
+      "robots": "index, follow",
+      "h1": [
+        "Headlight Restoration vs. Headlight Protection Film: What Garland, TX Drivers Need to Know"
+      ],
+      "bodyChars": 6688,
+      "sha256": "2ee84208f4c897daa0b0bfde4b685855f297b7f9493f54a56a86e0676399a8e9"
+    },
+    {
+      "route": "/blog/headlight-tinting-protection-plano-tx",
+      "title": "Headlight Tinting in Plano, TX: STEK Protection Film vs. Smoked Vinyl Tint | Tint Tek Plus Blog",
+      "canonical": "https://tinttekplus.com/blog/headlight-tinting-protection-plano-tx",
+      "robots": "index, follow",
+      "h1": [
+        "Headlight Tinting in Plano, TX: STEK Protection Film vs. Smoked Vinyl Tint"
+      ],
+      "bodyChars": 7309,
+      "sha256": "022ffeb4fe0efd0949aae6d08dde2dc07c399ac8f8790a4fb5ecdfa45df030c3"
+    },
+    {
+      "route": "/privacy-policy",
+      "title": "Privacy Policy | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/privacy-policy",
+      "robots": "index, follow",
+      "h1": [
+        "Privacy Policy"
+      ],
+      "bodyChars": 8730,
+      "sha256": "beab0d966f9af74fd9015264676188a271055464fd7d8f2c731d0ac156840d4d"
+    },
+    {
+      "route": "/locations/plano",
+      "title": "Window Tinting Plano, TX | Tint Tek Plus | LLumar, STEK &amp; Gtechniq",
+      "canonical": "https://tinttekplus.com/locations/plano",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5825,
+      "sha256": "23bfc9b2df394ffe6905e0d98a998ddac43e5a7e74ca71a0d7c315aa27300db3"
+    },
+    {
+      "route": "/locations/frisco",
+      "title": "Window Tinting Frisco, TX | Tint Tek Plus | Premium Ceramic Tint &amp; PPF",
+      "canonical": "https://tinttekplus.com/locations/frisco",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5814,
+      "sha256": "8f24f40699cb592f31679ebc3a2b45e819717d9e684c8d79faa18e160cfb1501"
+    },
+    {
+      "route": "/locations/richardson",
+      "title": "Window Tinting Richardson, TX | Tint Tek Plus | LLumar Certified",
+      "canonical": "https://tinttekplus.com/locations/richardson",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5820,
+      "sha256": "8c42afb568edf4df5b9c4edbfb52f3c9eba3ced4e37066ca7289e90b00350dd7"
+    },
+    {
+      "route": "/locations/mesquite",
+      "title": "Window Tinting Mesquite, TX | Tint Tek Plus | Ceramic Tint &amp; PPF",
+      "canonical": "https://tinttekplus.com/locations/mesquite",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5602,
+      "sha256": "77024da05adcc9d5b900b945773ed5ef5dedc3b41fe57578751ec29d73a3704d"
+    },
+    {
+      "route": "/locations/rowlett",
+      "title": "Window Tinting Rowlett, TX | Tint Tek Plus | LLumar &amp; STEK Installer",
+      "canonical": "https://tinttekplus.com/locations/rowlett",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5659,
+      "sha256": "d4aff0692038977c02ee9c6c83b79e1daa7c5c13b03416232e19a7c037eb5c9e"
+    },
+    {
+      "route": "/locations/sachse",
+      "title": "Window Tinting Sachse, TX | Tint Tek Plus | Ceramic Tint &amp; PPF Near You",
+      "canonical": "https://tinttekplus.com/locations/sachse",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5570,
+      "sha256": "b99c63b12ef30aa6cd7e3f395b39411180d30c25610350ef19e1303ae8a45895"
+    },
+    {
+      "route": "/locations/wylie",
+      "title": "Window Tinting Wylie, TX | Tint Tek Plus | Premium LLumar &amp; STEK PPF",
+      "canonical": "https://tinttekplus.com/locations/wylie",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5745,
+      "sha256": "7fbf83cd5197fa91a8bf96cc2538412984d5bc689f7fef2da706be96bb1e0eaa"
+    },
+    {
+      "route": "/locations/murphy",
+      "title": "Window Tinting Murphy, TX | Tint Tek Plus | LLumar Ceramic Tint Near You",
+      "canonical": "https://tinttekplus.com/locations/murphy",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5600,
+      "sha256": "6148ac53b88bdba91fd8c2bf4a15632a1fbf6b6c797d9dc71cfbcb4c17463532"
+    },
+    {
+      "route": "/locations/allen",
+      "title": "Window Tinting Allen, TX | Tint Tek Plus | LLumar &amp; STEK Certified",
+      "canonical": "https://tinttekplus.com/locations/allen",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5711,
+      "sha256": "d22db1b1fb848f049aac5372cb57e04e9342d224ac4aa54085db798ec0cb02ff"
+    },
+    {
+      "route": "/locations/mckinney",
+      "title": "Window Tinting McKinney, TX | Tint Tek Plus | Premium Ceramic &amp; PPF",
+      "canonical": "https://tinttekplus.com/locations/mckinney",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5692,
+      "sha256": "20b64b58f219d9535257792745a9491c60d7af6efc325ab75adc20382416808f"
+    },
+    {
+      "route": "/locations/carrollton",
+      "title": "Window Tinting Carrollton, TX | Tint Tek Plus | LLumar &amp; STEK Installer",
+      "canonical": "https://tinttekplus.com/locations/carrollton",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5703,
+      "sha256": "8a69bf2f34b90d81a8ef74d39fc41e2062a094eafe1c5720b1e3ff9d9e7639bd"
+    },
+    {
+      "route": "/locations/addison",
+      "title": "Window Tinting Addison, TX | Tint Tek Plus | Ceramic Tint &amp; PPF Near Dallas",
+      "canonical": "https://tinttekplus.com/locations/addison",
+      "robots": "index, follow",
+      "h1": [
+        "Block 89% Of Heat.Drive Cooler In3 Hours!"
+      ],
+      "bodyChars": 5688,
+      "sha256": "eb27fd629144d154aad442765a62e9979b72740637bffad1aa6b31e02edfdf39"
+    },
+    {
+      "route": "/tesla/model-3",
+      "title": "Tesla Model 3 Window Tinting Dallas, TX | Tint Tek Plus | LLumar Ceramic",
+      "canonical": "https://tinttekplus.com/tesla/model-3",
+      "robots": "index, follow",
+      "h1": [
+        "Tesla Model 3 Window Tinting in Dallas, TX"
+      ],
+      "bodyChars": 9457,
+      "sha256": "89a09a019c38a225d810f379f2ce4f44a73878bbc22b95bdc22419974d6413ac"
+    },
+    {
+      "route": "/tesla/model-y",
+      "title": "Tesla Model Y Window Tinting Dallas, TX | Tint Tek Plus | Ceramic Films",
+      "canonical": "https://tinttekplus.com/tesla/model-y",
+      "robots": "index, follow",
+      "h1": [
+        "Tesla Model Y Window Tinting in Dallas, TX"
+      ],
+      "bodyChars": 9311,
+      "sha256": "08e708cc5fe0049cf87fc841692f8b702e054692e5402a481935167df2937f32"
+    },
+    {
+      "route": "/tesla/model-s",
+      "title": "Tesla Model S Window Tinting Dallas, TX | Tint Tek Plus | Premium Ceramic",
+      "canonical": "https://tinttekplus.com/tesla/model-s",
+      "robots": "index, follow",
+      "h1": [
+        "Tesla Model S Window Tinting in Dallas, TX"
+      ],
+      "bodyChars": 8842,
+      "sha256": "a265cd57ad85c10a004e1ce0a01f49520b7c42c671fa9090890a88bc717bb779"
+    },
+    {
+      "route": "/tesla/model-x",
+      "title": "Tesla Model X Window Tinting Dallas, TX | Tint Tek Plus | Complex Glass Expert",
+      "canonical": "https://tinttekplus.com/tesla/model-x",
+      "robots": "index, follow",
+      "h1": [
+        "Tesla Model X Window Tinting in Dallas, TX"
+      ],
+      "bodyChars": 9148,
+      "sha256": "739c7b96567734603e9bd711c2035803e8d24677f3aa9c5bb143d7749f3097c8"
+    },
+    {
+      "route": "/tesla/cybertruck",
+      "title": "Tesla Cybertruck Window Tinting Dallas, TX | Tint Tek Plus | Tint &amp; PPF",
+      "canonical": "https://tinttekplus.com/tesla/cybertruck",
+      "robots": "index, follow",
+      "h1": [
+        "Tesla Cybertruck Window Tinting &amp; PPF in Dallas, TX"
+      ],
+      "bodyChars": 10006,
+      "sha256": "7e9d1abc13f07fb767ef6166753606eec1ce604a1d379769b49aec380e103151"
+    },
+    {
+      "route": "/brands/llumar",
+      "title": "LLumar Window Tint Dealer Dallas, TX | Tint Tek Plus | Certified Installer",
+      "canonical": "https://tinttekplus.com/brands/llumar",
+      "robots": "index, follow",
+      "h1": [
+        "LLumar Window Film — Certified Dealer in Dallas, TX"
+      ],
+      "bodyChars": 6402,
+      "sha256": "7f8f112689bf5512804eb36bc60451e06723c5fdd710dfbc597e07c3b8b7f087"
+    },
+    {
+      "route": "/brands/stek",
+      "title": "STEK PPF Installer Dallas, TX | Tint Tek Plus | DynoShield &amp; DynoMatte",
+      "canonical": "https://tinttekplus.com/brands/stek",
+      "robots": "index, follow",
+      "h1": [
+        "STEK Paint Protection Film Installer in Dallas, TX"
+      ],
+      "bodyChars": 6252,
+      "sha256": "d30204fbab3cf08d6cfb2c510019985d595f24226ea016fc077c5f6cf1ab38fe"
+    },
+    {
+      "route": "/brands/gtechniq",
+      "title": "Gtechniq Ceramic Coating Dallas, TX | Tint Tek Plus | Accredited Installer",
+      "canonical": "https://tinttekplus.com/brands/gtechniq",
+      "robots": "index, follow",
+      "h1": [
+        "Gtechniq Ceramic Coating Installer in Dallas, TX"
+      ],
+      "bodyChars": 6367,
+      "sha256": "14bb96b1bde5c95a5dda3487d2fd4ad010b22e044fcc32f0af7b5d7310a34b2f"
+    },
+    {
+      "route": "/brands/exoshield",
+      "title": "ExoShield GT3 Windshield Protection Film Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/brands/exoshield",
+      "robots": "index, follow",
+      "h1": [
+        "ExoShield GT3 Windshield Protection Film in Dallas, TX"
+      ],
+      "bodyChars": 6055,
+      "sha256": "2d62f25e75fea85ad0fa12996a0a2e5ca6d9f516caff90d9270943f26ad53101"
+    },
+    {
+      "route": "/texas-window-tint-laws",
+      "title": "Texas Window Tint Laws 2026: Complete Guide | VLT Limits, Exemptions &amp; More",
+      "canonical": "https://tinttekplus.com/texas-window-tint-laws",
+      "robots": "index, follow",
+      "h1": [
+        "Texas Window Tint Laws 2026: Complete Legal Guide"
+      ],
+      "bodyChars": 10055,
+      "sha256": "4a9c34799e615cf3f28133dd2eb6f110f28afc58a077f5e6b78b314475f45c33"
+    }
+  ],
+  "failures": [],
+  "warnings": [
+    "/gallery: 0 H1 elements",
+    "/support: 0 H1 elements",
+    "/blogs: 0 H1 elements"
+  ]
+}

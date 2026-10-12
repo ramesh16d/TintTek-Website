@@ -1,3 +1,4 @@
+import InViewMount from "./components/InViewMount";
 // src/App.jsx
 import {
   BrowserRouter as Router,
@@ -6,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Box, IconButton } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./App.css";
@@ -64,24 +65,7 @@ const ChatbotPopup = lazy(() => import("./components/ChatbotPopup"));
 
 // Defers mounting children until they scroll near the viewport.
 // SSR: starts ready so crawlers see content; client: waits for IntersectionObserver.
-function InViewMount({ children, rootMargin = "200px" }) {
-  const ref = useRef(null);
-  const [ready, setReady] = useState(typeof window === "undefined");
-  useEffect(() => {
-    if (ready) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { setReady(true); io.disconnect(); }
-      },
-      { rootMargin }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [rootMargin, ready]);
-  return <div ref={ref} suppressHydrationWarning>{ready ? children : null}</div>;
-}
+
 
 // ---- Theme ----
 export const theme = createTheme({

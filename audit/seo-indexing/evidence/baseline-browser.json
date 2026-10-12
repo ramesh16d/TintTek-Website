@@ -1,0 +1,69 @@
+[
+  {
+    "route": "/services/vehicle-window-tinting",
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "h1": "Vehicle Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10613,
+      "h1Visible": true,
+      "overflow": false
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [
+      "Minified React error #421; visit https://reactjs.org/docs/error-decoder.html?invariant=421 for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+    ],
+    "warnings": [],
+    "resources": [],
+    "pass": false
+  },
+  {
+    "route": "/tesla/model-y",
+    "status": 200,
+    "dom": {
+      "title": "Tesla Model Y Window Tinting Dallas, TX | Tint Tek Plus | Ceramic Films",
+      "canonical": "https://tinttekplus.com/tesla/model-y",
+      "h1": "Tesla Model Y Window Tinting in Dallas, TX",
+      "retainedH1": false,
+      "bodyChars": 2838,
+      "h1Visible": true,
+      "overflow": false
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [
+      "Minified React error #418; visit https://reactjs.org/docs/error-decoder.html?invariant=418 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+      "Minified React error #422; visit https://reactjs.org/docs/error-decoder.html?invariant=422 for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+    ],
+    "warnings": [],
+    "resources": [],
+    "pass": false
+  },
+  {
+    "route": "/brands/llumar",
+    "status": 200,
+    "dom": {
+      "title": "LLumar Window Tint Dealer Dallas, TX | Tint Tek Plus | Certified Installer",
+      "canonical": "https://tinttekplus.com/brands/llumar",
+      "h1": "LLumar Window Film — Certified Dealer in Dallas, TX",
+      "retainedH1": false,
+      "bodyChars": 5314,
+      "h1Visible": true,
+      "overflow": false
+    },
+    "errors": [
+      "Minified React error #418; visit https://reactjs.org/docs/error-decoder.html?invariant=418 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+      "Minified React error #422; visit https://reactjs.org/docs/error-decoder.html?invariant=422 for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+    ],
+    "warnings": [],
+    "resources": [],
+    "pass": false
+  }
+]

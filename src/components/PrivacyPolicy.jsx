@@ -4,6 +4,7 @@ import Footer from "./key-components/Footer";
 import Contact from "./SubContact";
 import CallToAction from "./SubCTA";
 import QuickLinks from "./SubQuickLinks";
+import SEO from "./SEO";
 
 const PrivacyPolicy = () => {
   // ✅ Updated Privacy Policy Data Structure
@@ -140,6 +141,11 @@ const PrivacyPolicy = () => {
         color: "white", // White text throughout
       }}
     >
+      <SEO
+        title="Privacy Policy | Tint Tek Plus"
+        description="Read the Tint Tek Plus privacy policy, including how information is collected, used, and protected."
+        canonical="https://tinttekplus.com/privacy-policy"
+      />
        {/* Hero */}
            <Box
               sx={{
@@ -213,6 +219,7 @@ const PrivacyPolicy = () => {
      
                  <Typography
                    variant="h2"
+                   component="h1"
                    sx={{
                      fontWeight: 800,
                      color: "#fff",
