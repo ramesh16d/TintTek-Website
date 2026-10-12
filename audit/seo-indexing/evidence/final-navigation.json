@@ -1,0 +1,63 @@
+[
+  {
+    "route": "/services/vehicle-window-tinting",
+    "mode": {
+      "desktop": false,
+      "noJS": false,
+      "delayMs": 0,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "h1": "Vehicle Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10692,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 82,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "chatOpened": true,
+    "navigation": {
+      "title": "LLumar Window Tint Dealer Dallas, TX | Tint Tek Plus | Certified Installer",
+      "originalDocument": "/services/vehicle-window-tinting",
+      "productsInitiallyPresent": true,
+      "gateObservations": [
+        {
+          "initialChildren": 0
+        },
+        {
+          "initialChildren": 0
+        },
+        {
+          "initialChildren": 0
+        },
+        {
+          "initialChildren": 0
+        }
+      ],
+      "productsAfterScroll": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  }
+]

@@ -1,3 +1,4 @@
+import InViewMount from "./InViewMount";
 // src/components/ServicePage.jsx
 // NOTE: Wrap your app once with <HelmetProvider> in main.jsx/App.jsx.
 
@@ -6,15 +7,12 @@ import React, {
   useMemo,
   lazy,
   Suspense,
-  useRef,
-  useState,
 } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import {
   Box,
   Typography,
   Button,
-  useMediaQuery,
   GlobalStyles,
 } from "@mui/material";
 import Link from "@mui/material/Link";
@@ -59,33 +57,6 @@ const SERVICES_BASE = "/services";
 // Null fallback for below-fold lazy components — a height placeholder causes
 // CLS when real content is a different size; null avoids the mismatch.
 const Fallback = null;
-
-// In-view gate to defer mounting until scrolled near
-function InViewMount({ children, rootMargin = "200px" }) {
-  const ref = useRef(null);
-  // SSR: no window → render immediately so crawlers see content.
-  // Client: start false, let IntersectionObserver activate rendering.
-  const [ready, setReady] = useState(typeof window === "undefined");
-
-  useEffect(() => {
-    if (ready) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setReady(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [rootMargin, ready]);
-
-  return <div ref={ref} suppressHydrationWarning>{ready ? children : null}</div>;
-}
 
 // Service copy
 const serviceDetails = {
@@ -415,7 +386,6 @@ const ServicePage = () => {
   const { serviceId } = useParams();
   const location = useLocation();
   const service = serviceDetails[serviceId];
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const seoParagraphs = useMemo(() => {
     return parseParagraphs(serviceBodyContent[serviceId]);
@@ -773,17 +743,17 @@ const ServicePage = () => {
           <SEOContentSection paragraphs={seoParagraphs} service={service} />
 
           {serviceId === "tesla-window-tinting" && (
-            <InViewMount>
+            <InViewMount rootMargin="200px">
               <TeslaTintingSimulator />
             </InViewMount>
           )}
           {serviceId === "vehicle-window-tinting" && (
-            <InViewMount>
+            <InViewMount rootMargin="200px">
               <TintingSimulator />
             </InViewMount>
           )}
           {serviceId === "vehicle-paint-protection" && (
-            <InViewMount>
+            <InViewMount rootMargin="200px">
               <PPFSelector />
             </InViewMount>
           )}
@@ -836,7 +806,7 @@ const ServicePage = () => {
           {(serviceId === "commercial-window-tinting" ||
             serviceId === "tesla-window-tinting" ||
             serviceId === "residential-window-tinting") && (
-              <InViewMount>
+              <InViewMount rootMargin="200px">
                 <ImageCarousel />
               </InViewMount>
             )}

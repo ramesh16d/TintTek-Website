@@ -1,0 +1,104 @@
+[
+  {
+    "route": "/services/vehicle-window-tinting",
+    "status": 200,
+    "dom": {
+      "title": "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/services/vehicle-window-tinting",
+      "h1": "Vehicle Window Tinting",
+      "retainedH1": true,
+      "bodyChars": 10692,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 171,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/tesla/model-y",
+    "status": 200,
+    "dom": {
+      "title": "Tesla Model Y Window Tinting Dallas, TX | Tint Tek Plus | Ceramic Films",
+      "canonical": "https://tinttekplus.com/tesla/model-y",
+      "h1": "Tesla Model Y Window Tinting in Dallas, TX",
+      "retainedH1": true,
+      "bodyChars": 8091,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 236,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 0,
+      "y": 367.453125,
+      "width": 412,
+      "height": 47.1875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedi",
+      "innerWidth": 426
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/brands/llumar",
+    "status": 200,
+    "dom": {
+      "title": "LLumar Window Tint Dealer Dallas, TX | Tint Tek Plus | Certified Installer",
+      "canonical": "https://tinttekplus.com/brands/llumar",
+      "h1": "LLumar Window Film — Certified Dealer in Dallas, TX",
+      "retainedH1": true,
+      "bodyChars": 5302,
+      "h1Visible": true,
+      "overflow": false,
+      "hydrationSamples": {
+        "total": 192,
+        "hidden": 0,
+        "removed": 0
+      }
+    },
+    "quoteTarget": {
+      "x": 8.40618896484375,
+      "y": 342.12652587890625,
+      "width": 395.1876220703125,
+      "height": 47.0906982421875,
+      "hit": "<button class=\"MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedi",
+      "innerWidth": 412
+    },
+    "quoteDialog": {
+      "visible": true,
+      "tintwiz": true
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  }
+]

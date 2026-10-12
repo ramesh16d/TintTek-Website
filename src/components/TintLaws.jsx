@@ -1,6 +1,7 @@
+import InViewMount from "./InViewMount";
 // src/components/TintLaws.jsx
 // Texas Window Tint Laws 2026 — highest-volume informational page
-import React, { useRef, useState, useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import {
   Box,
   Typography,
@@ -37,24 +38,7 @@ const GRADIENT = `radial-gradient(circle at top left, rgba(39,148,210,0.15), tra
   radial-gradient(circle at bottom right, rgba(77,184,240,0.15), transparent 50%),
   linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%)`;
 
-function InViewMount({ children, rootMargin = "400px" }) {
-  const ref = useRef(null);
-  const [ready, setReady] = useState(typeof window === "undefined");
-  useEffect(() => {
-    if (ready) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { setReady(true); io.disconnect(); }
-      },
-      { rootMargin }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [rootMargin, ready]);
-  return <div ref={ref} suppressHydrationWarning>{ready ? children : null}</div>;
-}
+
 
 const VLT_RULES = [
   {

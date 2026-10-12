@@ -1,0 +1,18 @@
+[
+  { "path": "/", "kind": "indexable" },
+  { "path": "/services/vehicle-window-tinting", "kind": "indexable" },
+  { "path": "/services/tesla-window-tinting", "kind": "indexable" },
+  { "path": "/services/ceramic-coating", "kind": "indexable" },
+  { "path": "/services/vehicle-paint-protection", "kind": "indexable" },
+  { "path": "/services/windshield-protection-film", "kind": "indexable" },
+  { "path": "/tesla/model-y", "kind": "indexable" },
+  { "path": "/tesla/cybertruck", "kind": "indexable" },
+  { "path": "/locations/plano", "kind": "indexable" },
+  { "path": "/brands/llumar", "kind": "indexable" },
+  { "path": "/texas-window-tint-laws", "kind": "indexable" },
+  { "path": "/blog/llumar-vs-xpel-window-tint-dallas", "kind": "indexable" },
+  { "path": "/quote", "kind": "known-missing-route" },
+  { "path": "/thank-you", "kind": "client-only-noindex" },
+  { "path": "/mockup", "kind": "client-only-review" },
+  { "path": "/seo-audit-nonexistent-20261012", "kind": "invalid" }
+]

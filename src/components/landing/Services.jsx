@@ -151,7 +151,7 @@ const ServiceCard = React.memo(({ service, isMobile }) => (
     <CardMedia
       component="img"
       image={service.image}
-      srcSet={`${service.imageSm} 480w, ${service.image} 1200w`}
+      srcSet={`${encodeURI(service.imageSm)} 480w, ${encodeURI(service.image)} 1200w`}
       sizes="(max-width: 768px) 80vw, (max-width: 1200px) 33vw, 400px"
       alt={service.alt}
       loading="lazy"
