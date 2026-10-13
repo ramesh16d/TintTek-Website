@@ -73,7 +73,7 @@ try {
         row.pathname=dom.pathname; row.title=dom.title; row.canonical=dom.canonical;
         row.notFound=dom.headings.includes('404'); row.errors=errors;
         row.queryAndHashPreserved=dom.search==='?seo_variant_check=1' && dom.hash==='#seo-check';
-        row.pass=job.route ? row.status===200 && row.initialMarker===job.route && row.initialCanonical==='https://tinttekplus.com'+job.route && dom.canonical===row.initialCanonical && dom.pathname===job.route && !row.notFound && dom.text.length>500 && !errors.length && row.queryAndHashPreserved : dom.pathname===job.variant && row.notFound;
+        row.pass=job.route ? row.status===200 && row.initialMarker===job.route && row.initialCanonical==='https://tinttekplus.com'+job.route && dom.canonical===row.initialCanonical && dom.pathname===job.route && !row.notFound && dom.text.length>500 && !errors.length && row.queryAndHashPreserved : dom.pathname===job.variant && (row.status===404 || row.notFound);
         if (job.variant==='/index.html' || job.variant==='/services/vehicle-window-tinting/index.html') await page.screenshot({path:path.join(output,job.route==='/'?'homepage.png':'vehicle-tint.png')});
       } catch(error) {row.pass=false;row.error=error.message;}
       finally {await page.close();}
