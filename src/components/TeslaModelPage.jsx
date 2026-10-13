@@ -132,7 +132,7 @@ export default function TeslaModelPage() {
             position: "relative",
             width: "100%",
             pt: 10,
-            minHeight: { xs: "40vh", md: "40vh" },
+            minHeight: "clamp(280px, 40vh, 420px)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

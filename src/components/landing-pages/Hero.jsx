@@ -253,7 +253,7 @@ export default function Hero({
       >
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
         >
           <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center">

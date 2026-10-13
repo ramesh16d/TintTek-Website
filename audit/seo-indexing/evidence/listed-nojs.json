@@ -1,0 +1,74 @@
+[
+  {
+    "route": "/locations/plano",
+    "mode": {
+      "desktop": false,
+      "noJS": true,
+      "delayMs": 0,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Window Tinting Plano, TX | Tint Tek Plus | LLumar, STEK & Gtechniq",
+      "canonical": "https://tinttekplus.com/locations/plano",
+      "h1": "Block 89% Of Heat.Drive Cooler In3 Hours!",
+      "retainedH1": false,
+      "bodyChars": 5999,
+      "h1Visible": true,
+      "h1Top": 649.53125,
+      "overflow": false
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/privacy-policy",
+    "mode": {
+      "desktop": false,
+      "noJS": true,
+      "delayMs": 0,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Privacy Policy | Tint Tek Plus",
+      "canonical": "https://tinttekplus.com/privacy-policy",
+      "h1": "Privacy Policy",
+      "retainedH1": false,
+      "bodyChars": 9019,
+      "h1Visible": true,
+      "h1Top": 161.09375,
+      "overflow": false
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  },
+  {
+    "route": "/tesla/model-3",
+    "mode": {
+      "desktop": false,
+      "noJS": true,
+      "delayMs": 0,
+      "cpu": 1
+    },
+    "status": 200,
+    "dom": {
+      "title": "Tesla Model 3 Window Tinting Dallas, TX | Tint Tek Plus | LLumar Ceramic",
+      "canonical": "https://tinttekplus.com/tesla/model-3",
+      "h1": "Tesla Model 3 Window Tinting in Dallas, TX",
+      "retainedH1": false,
+      "bodyChars": 8559,
+      "h1Visible": true,
+      "h1Top": 87.890625,
+      "overflow": false
+    },
+    "errors": [],
+    "warnings": [],
+    "resources": [],
+    "pass": true
+  }
+]

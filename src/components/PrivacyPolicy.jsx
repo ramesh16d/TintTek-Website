@@ -151,11 +151,11 @@ const PrivacyPolicy = () => {
               sx={{
                position: "relative",
                width: "100%",
-               height: { xs: "50vh", md: "60vh" },
+               height: { xs: "clamp(280px, 50vh, 420px)", md: "clamp(320px, 60vh, 560px)" },
                overflow: "hidden",
                background: "transparent",
              }}
-             aria-label="Tint Tek Plus project gallery"
+             aria-label="Tint Tek Plus privacy policy"
            >
              {/* Background Pattern */}
              {/* <Box

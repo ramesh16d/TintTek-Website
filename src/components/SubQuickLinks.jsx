@@ -133,6 +133,50 @@ const quickLinksData = [
       },
     ],
   },
+  {
+    title: "Areas We Serve",
+    ariaLabel: "Areas served from our Garland shop",
+    links: [
+      ["addison", "Addison"], ["allen", "Allen"],
+      ["carrollton", "Carrollton"], ["frisco", "Frisco"],
+      ["mckinney", "McKinney"], ["mesquite", "Mesquite"],
+      ["murphy", "Murphy"], ["plano", "Plano"],
+      ["richardson", "Richardson"], ["rowlett", "Rowlett"],
+      ["sachse", "Sachse"], ["wylie", "Wylie"],
+    ].map(([slug, name]) => ({
+      text: `${name}, TX`,
+      to: `/locations/${slug}`,
+      title: `Window tinting and protection for ${name} drivers at our Garland shop`,
+      ariaLabel: `Services for ${name}, Texas`,
+    })),
+  },
+  {
+    title: "Our Brands",
+    ariaLabel: "Window film and vehicle protection brands",
+    links: [
+      ["llumar", "LLumar"], ["stek", "STEK"],
+      ["gtechniq", "Gtechniq"], ["exoshield", "ExoShield"],
+    ].map(([slug, name]) => ({
+      text: name,
+      to: `/brands/${slug}`,
+      title: `${name} products at Tint Tek Plus`,
+      ariaLabel: `Explore ${name} products`,
+    })),
+  },
+  {
+    title: "Tesla Models",
+    ariaLabel: "Tesla window tinting and protection by model",
+    links: [
+      ["model-3", "Model 3"], ["model-y", "Model Y"],
+      ["model-s", "Model S"], ["model-x", "Model X"],
+      ["cybertruck", "Cybertruck"],
+    ].map(([slug, name]) => ({
+      text: `Tesla ${name}`,
+      to: `/tesla/${slug}`,
+      title: `Window tinting and protection for Tesla ${name}`,
+      ariaLabel: `Tesla ${name} services`,
+    })),
+  },
 ];
 
 /* JSON-LD: SiteNavigationElement schema — tells Google these are nav links */
@@ -221,7 +265,7 @@ const QuickLinks = () => {
               <Grid key={index} item xs={12} md={6}>
                 <motion.div
                   variants={containerVariants}
-                  initial="hidden"
+                  initial={false}
                   whileInView="show"
                   viewport={{ once: true, amount: 0.3 }}
                   custom={index}

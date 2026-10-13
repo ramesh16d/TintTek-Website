@@ -74,11 +74,20 @@ try {
       result.dom = await page.evaluate(() => {
         clearInterval(window.__seoTimer);
         const h1 = document.querySelector('h1');
+        const isVisible = (element) => {
+          if (!element || !element.getBoundingClientRect().height) return false;
+          for (let node = element; node; node = node.parentElement) {
+            const style = getComputedStyle(node);
+            if (style.display === 'none' || style.visibility === 'hidden' || style.visibility === 'collapse' || Number(style.opacity) === 0) return false;
+          }
+          return true;
+        };
         return {
           title: document.title, canonical: document.querySelector('link[rel=canonical]')?.href,
           h1: h1?.textContent, retainedH1: !!h1 && window.__seoInitial?.h1 === h1,
           bodyChars: document.body.innerText.length,
-          h1Visible: !!h1 && h1.getBoundingClientRect().height > 0 && getComputedStyle(h1).visibility !== 'hidden',
+          h1Visible: isVisible(h1),
+          h1Top: h1?.getBoundingClientRect().top,
           overflow: document.documentElement.scrollWidth > innerWidth + 2,
           hydrationSamples: window.__seoSamples,
         };
