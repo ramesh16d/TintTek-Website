@@ -87,6 +87,46 @@ export const ServiceCallout = ({ title, description, linkTo, linkText }) => (
   </Box>
 );
 
+// -- Helper: In-article image with caption --
+// Pass width/height (intrinsic px) so the browser reserves space (no layout shift).
+export const BlogFigure = ({ src, alt, caption, width, height }) => (
+  <Box component="figure" sx={{ my: 6, mx: 0 }}>
+    {/* Plain <img> so width/height stay HTML attributes (MUI Box would turn them into CSS) */}
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      style={{
+        display: "block",
+        width: "100%",
+        maxWidth: width && height && height > width ? 560 : "100%",
+        height: "auto",
+        margin: "0 auto",
+        borderRadius: 12,
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
+      }}
+    />
+    {caption && (
+      <Typography
+        component="figcaption"
+        sx={{
+          mt: 1.5,
+          textAlign: "center",
+          color: "rgba(255,255,255,0.55)",
+          fontSize: "0.85rem",
+          lineHeight: 1.5,
+        }}
+      >
+        {caption}
+      </Typography>
+    )}
+  </Box>
+);
+
 export const blogPosts = [
   {
     id: 1,
@@ -697,6 +737,13 @@ export const blogPosts = [
           <strong>self-heal</strong> when exposed to heat — meaning light scratches can
           disappear over time in Texas sun.
         </Typography>
+        <BlogFigure
+          src="/blog/matte-black-color-change-ppf-bentley.webp"
+          alt="White Bentley Continental GT converted to matte black with full color-change paint protection film at Tint Tek Plus"
+          caption="A white-to-matte-black, full color-change PPF install on a Bentley Continental GT at our Garland shop — protection and a whole new look in one film."
+          width={1536}
+          height={1024}
+        />
 
         <Typography variant="h5" id="why-dallas-hard" className="blog-section-title">
           Why Dallas Is One of the HARDEST Places on Vehicle Paint
