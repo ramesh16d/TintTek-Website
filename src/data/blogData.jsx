@@ -87,6 +87,46 @@ export const ServiceCallout = ({ title, description, linkTo, linkText }) => (
   </Box>
 );
 
+// -- Helper: In-article image with caption --
+// Pass width/height (intrinsic px) so the browser reserves space (no layout shift).
+export const BlogFigure = ({ src, alt, caption, width, height }) => (
+  <Box component="figure" sx={{ my: 6, mx: 0 }}>
+    {/* Plain <img> so width/height stay HTML attributes (MUI Box would turn them into CSS) */}
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      style={{
+        display: "block",
+        width: "100%",
+        maxWidth: width && height && height > width ? 560 : "100%",
+        height: "auto",
+        margin: "0 auto",
+        borderRadius: 12,
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
+      }}
+    />
+    {caption && (
+      <Typography
+        component="figcaption"
+        sx={{
+          mt: 1.5,
+          textAlign: "center",
+          color: "rgba(255,255,255,0.55)",
+          fontSize: "0.85rem",
+          lineHeight: 1.5,
+        }}
+      >
+        {caption}
+      </Typography>
+    )}
+  </Box>
+);
+
 export const blogPosts = [
   {
     id: 1,
@@ -1434,6 +1474,14 @@ export const blogPosts = [
             <Typography>Adds a deep, high-gloss finish that makes paint appear richer and wetter</Typography>
           </Box>
         </Box>
+
+        <BlogFigure
+          src="/blog/ceramic-coating-white-ferrari-frisco.webp"
+          alt="White Ferrari with a fresh professional ceramic coating showing deep gloss under hexagon shop lights at Tint Tek Plus"
+          caption="Fresh ceramic coating on a white Ferrari — the deep, wet-look gloss and slick surface that keep paint easier to clean."
+          width={1024}
+          height={1536}
+        />
 
         <Typography variant="h5" id="what-it-protects" className="blog-section-title">
           2. What Ceramic Coating Protects Against (and What It Doesn't)
