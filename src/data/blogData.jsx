@@ -87,6 +87,46 @@ export const ServiceCallout = ({ title, description, linkTo, linkText }) => (
   </Box>
 );
 
+// -- Helper: In-article image with caption --
+// Pass width/height (intrinsic px) so the browser reserves space (no layout shift).
+export const BlogFigure = ({ src, alt, caption, width, height }) => (
+  <Box component="figure" sx={{ my: 6, mx: 0 }}>
+    {/* Plain <img> so width/height stay HTML attributes (MUI Box would turn them into CSS) */}
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      style={{
+        display: "block",
+        width: "100%",
+        maxWidth: width && height && height > width ? 560 : "100%",
+        height: "auto",
+        margin: "0 auto",
+        borderRadius: 12,
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
+      }}
+    />
+    {caption && (
+      <Typography
+        component="figcaption"
+        sx={{
+          mt: 1.5,
+          textAlign: "center",
+          color: "rgba(255,255,255,0.55)",
+          fontSize: "0.85rem",
+          lineHeight: 1.5,
+        }}
+      >
+        {caption}
+      </Typography>
+    )}
+  </Box>
+);
+
 export const blogPosts = [
   {
     id: 1,
@@ -1015,6 +1055,14 @@ export const blogPosts = [
           doesn't melt, break down, or wash away under Texas sun — it's there for the
           long haul.
         </Typography>
+
+        <BlogFigure
+          src="/blog/gtechniq-ceramic-coating-bentley-dallas.webp"
+          alt="Matte black Bentley Continental GT with Gtechniq ceramic coating under hexagon lights at Tint Tek Plus"
+          caption="Gtechniq ceramic coating on a matte black Bentley Continental GT — protection against UV, bird droppings, and road grime without changing the satin finish."
+          width={1536}
+          height={1024}
+        />
 
         <Typography variant="h5" id="gtechniq-crystal-serum-science" className="blog-section-title">
           Gtechniq Crystal Serum Ultra: The Science Behind the Protection
