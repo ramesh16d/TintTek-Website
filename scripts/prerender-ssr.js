@@ -41,6 +41,7 @@ const ROUTES = [
   '/blog/paint-protection-film-dallas-texas',
   '/blog/headlight-restoration-protection-film-garland-tx',
   '/blog/headlight-tinting-protection-plano-tx',
+  '/blog/ceramic-coating-garland-tx',
   '/privacy-policy',
   // City landing pages
   '/locations/plano',
