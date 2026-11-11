@@ -1359,4 +1359,412 @@ export const blogPosts = [
       },
     ],
   },
+  {
+    id: 7,
+    slug: "ceramic-coating-frisco-tx",
+    title: "Gtechniq Ceramic Coating in Frisco, TX: Is It Worth It?",
+    summary:
+      "Frisco's booming roads, intense UV, and luxury car culture demand more than wax. Learn why Gtechniq Crystal Serum Ultra is the coating of choice for Frisco, TX vehicle owners who want lasting protection.",
+    image: "/ceramic/application.webp",
+    date: "September 21, 2026",
+    dateIso: "2026-09-21",
+    readTime: "7 min read",
+    category: "Ceramic Coating",
+    categories: ["Ceramic Coating", "Car Care"],
+    featured: false,
+    keywords:
+      "ceramic coating Frisco TX, Gtechniq ceramic coating Frisco, car ceramic coating Frisco Texas, professional ceramic coating Dallas, Gtechniq Crystal Serum Frisco, ceramic coating near me Frisco",
+    toc: [
+      { id: "what-is-ceramic-coating", title: "What Is Ceramic Coating?" },
+      { id: "frisco-conditions", title: "Why Frisco Demands It" },
+      { id: "gtechniq-crystal-serum", title: "Gtechniq Crystal Serum Ultra" },
+      { id: "paint-correction-first", title: "Paint Correction First" },
+      { id: "full-ceramic-package", title: "What's Included" },
+      { id: "how-long-it-lasts", title: "How Long It Lasts" },
+      { id: "combine-with-ppf", title: "Pair with PPF" },
+      { id: "why-tint-tek-frisco", title: "Why Choose Tint Tek Plus" },
+    ],
+    relatedIds: [4, 2],
+    content: (
+      <>
+        <Typography className="blog-paragraph">
+          If you own a vehicle in <strong>Frisco, Texas</strong>, you already know the
+          challenges: miles of active construction along the{" "}
+          <strong>Dallas North Tollway</strong> and the{" "}
+          <strong>Sam Rayburn Tollway</strong>, punishing summer heat that regularly
+          exceeds 105°F, and the kind of UV exposure that degrades paint finishes faster
+          than almost anywhere else in the country. A standard car wash and wax routine
+          isn&apos;t enough to keep up. That&apos;s why more Frisco drivers are turning to
+          professional{" "}
+          <SvcLink to="/services/ceramic-coating">ceramic coating</SvcLink> — specifically{" "}
+          <strong>Gtechniq Crystal Serum Ultra</strong>, the most advanced coating
+          chemistry available for production vehicles.
+        </Typography>
+        <Typography className="blog-paragraph">
+          At <strong>Tint Tek Plus</strong>, we&apos;re a Gtechniq accredited installer
+          serving Frisco, The Star, Stonebriar, Phillips Creek Ranch, and all of North
+          Dallas from our shop in Garland, TX. Here&apos;s everything you need to know
+          about ceramic coating — and why it matters more in Frisco than almost anywhere
+          else.
+        </Typography>
+
+        <Typography variant="h5" id="what-is-ceramic-coating" className="blog-section-title">
+          What Is Ceramic Coating?
+        </Typography>
+        <Typography className="blog-paragraph">
+          Ceramic coating is a liquid polymer that chemically bonds to your vehicle&apos;s
+          clear coat, creating a permanent, hydrophobic protective layer that standard waxes
+          and sealants simply can&apos;t replicate. Unlike wax — which sits on top of the
+          paint and lasts only a few weeks — a professional ceramic coating bonds at the
+          molecular level and provides protection measured in{" "}
+          <strong>years, not months</strong>.
+        </Typography>
+        <Box className="benefit-list">
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>Chemically bonds to the clear coat — not just a surface layer</Typography>
+          </Box>
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>Extreme hydrophobic properties — water and contaminants bead off effortlessly</Typography>
+          </Box>
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>Resists UV fading, oxidation, and chemical contamination</Typography>
+          </Box>
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>Makes the vehicle significantly easier to clean and maintain</Typography>
+          </Box>
+        </Box>
+        <Typography className="blog-paragraph">
+          Think of it as a permanent, invisible shield that simultaneously protects your paint
+          and enhances its depth and gloss — without ever needing to be reapplied the way wax
+          does.
+        </Typography>
+
+        <Typography variant="h5" id="frisco-conditions" className="blog-section-title">
+          Why Frisco&apos;s Conditions Make Ceramic Coating Essential
+        </Typography>
+        <Typography className="blog-paragraph">
+          Frisco&apos;s explosive growth — and the construction that comes with it — creates one
+          of the most demanding environments for vehicle exteriors in North Texas.
+        </Typography>
+        <Typography variant="h6" className="blog-section-title" sx={{ mt: 3 }}>
+          1. Relentless Construction Debris
+        </Typography>
+        <Typography className="blog-paragraph">
+          The Dallas North Tollway through Frisco, Eldorado Parkway, and the Sam Rayburn
+          Tollway are in a near-constant state of construction. Loose concrete dust, gravel
+          overspray, and chemical runoff from construction sites etch into unprotected clear
+          coat within months. A properly applied ceramic coating creates a chemical-resistant
+          barrier that prevents this bonded contamination before it starts.
+        </Typography>
+        <Typography variant="h6" className="blog-section-title" sx={{ mt: 3 }}>
+          2. Extreme UV Exposure
+        </Typography>
+        <Typography className="blog-paragraph">
+          Frisco&apos;s west-facing neighborhoods — from Phillips Creek Ranch to the communities
+          along Eldorado and Lebanon Road — absorb intense afternoon sun year-round. UV
+          radiation is the primary driver of clear-coat oxidation, which causes paint to lose
+          its gloss, fade, and eventually develop a chalky, dull appearance. Gtechniq Crystal
+          Serum Ultra includes UV inhibitors that block this degradation and preserve the
+          paint in its current condition for years.
+        </Typography>
+        <Typography variant="h6" className="blog-section-title" sx={{ mt: 3 }}>
+          3. Frisco&apos;s Vehicle Culture and Resale Market
+        </Typography>
+        <Typography className="blog-paragraph">
+          The Frisco area around The Star, Stonebriar, and Legacy West is home to a
+          significant concentration of luxury, performance, and new-car owners. In this market,
+          maintaining resale value matters — and a vehicle with documented ceramic coating
+          history commands more at trade-in or private sale than an identical unprotected car.
+        </Typography>
+
+        <Typography variant="h5" id="gtechniq-crystal-serum" className="blog-section-title">
+          Gtechniq Crystal Serum Ultra: The Benchmark Coating
+        </Typography>
+        <Typography className="blog-paragraph">
+          Not all ceramic coatings are equal. Store-bought ceramic sprays and entry-level
+          coatings provide a fraction of the protection of a professionally applied{" "}
+          <SvcLink to="/brands/gtechniq">Gtechniq Crystal Serum Ultra</SvcLink>. Here&apos;s
+          what sets it apart from everything else on the market:
+        </Typography>
+        <Box className="benefit-list">
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>
+              <strong>Dual-layer chemistry</strong> — a flexible inner layer bonds to the
+              paint while a 9H hardness outer layer resists scratches and contamination
+            </Typography>
+          </Box>
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>
+              <strong>9-year manufacturer warranty</strong> when applied by an accredited
+              installer — the longest in the industry
+            </Typography>
+          </Box>
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>
+              <strong>EXO Ultra topcoat pairing</strong> for extreme water-beading, deep
+              gloss, and long-lasting slickness
+            </Typography>
+          </Box>
+          <Box className="benefit-item">
+            <Box className="benefit-icon">✓</Box>
+            <Typography>
+              Applied exclusively by Gtechniq accredited installers — not available over the
+              counter or at every detail shop
+            </Typography>
+          </Box>
+        </Box>
+        <Typography variant="body1" className="blog-highlight" sx={{ fontStyle: "italic" }}>
+          The dual-layer design is Gtechniq&apos;s engineering masterstroke: the inner layer
+          absorbs the flex stress that causes hard coatings to crack, while the outer 9H layer
+          delivers the scratch-resistance and chemical hardness that protect your paint every
+          single day.
+        </Typography>
+
+        <Typography variant="h5" id="paint-correction-first" className="blog-section-title">
+          Paint Correction First: The Step That Makes or Breaks a Coating
+        </Typography>
+        <Typography className="blog-paragraph">
+          This is the detail most shops either skip or rush — and it&apos;s the most important
+          step in the entire process. Ceramic coating doesn&apos;t just protect your paint. It{" "}
+          <em>locks in</em> whatever condition your paint is in at the moment of application.
+          If there are swirl marks, water spots, light scratches, or oxidation on the surface
+          when the coating goes down, those defects are sealed in permanently.
+        </Typography>
+        <Typography className="blog-paragraph">
+          That&apos;s why we always recommend a professional{" "}
+          <SvcLink to="/services/vehicle-paint-correction">paint correction</SvcLink> before
+          coating. Paint correction uses machine polishing to remove existing defects from the
+          clear coat, restoring it to a smooth, deeply reflective surface — so the coating
+          seals in perfection rather than problems.
+        </Typography>
+        <Box component="ul" className="blog-paragraph" sx={{ pl: 4 }}>
+          <li>Eliminates swirl marks and buffer trails from previous washes</li>
+          <li>Removes water spots and light oxidation</li>
+          <li>Restores depth and gloss to factory-level or beyond</li>
+          <li>Ensures the coating bonds to clean, uncontaminated paint</li>
+        </Box>
+        <Typography className="blog-paragraph">
+          For Frisco vehicles with even a few months of road use, paint correction almost
+          always reveals defects invisible to the naked eye under normal lighting. Under our
+          high-intensity detail lighting, those defects become obvious — and fixable before
+          the coating locks them in forever.
+        </Typography>
+
+        <ServiceCallout
+          title="Ceramic Coating & Paint Correction in Frisco, TX"
+          description="Tint Tek Plus is a Gtechniq accredited installer serving Frisco, The Star, Stonebriar, and all of North DFW. We combine expert paint correction with Crystal Serum Ultra for results that last up to 9 years."
+          linkTo="/services/ceramic-coating"
+          linkText="Explore Ceramic Coating"
+        />
+
+        <Typography variant="h5" id="full-ceramic-package" className="blog-section-title">
+          What&apos;s Included in a Full Ceramic Coating Package
+        </Typography>
+        <Typography className="blog-paragraph">
+          At Tint Tek Plus, every ceramic coating installation follows a meticulous multi-step
+          process designed to ensure the coating bonds correctly and lasts for years:
+        </Typography>
+        <Box component="ul" className="blog-paragraph" sx={{ pl: 4 }}>
+          <li>
+            <strong>Thorough decontamination wash</strong> — removes bonded surface
+            contaminants, iron fallout, and tar spots that would prevent proper coating
+            adhesion
+          </li>
+          <li>
+            <strong>Clay bar treatment</strong> — mechanically removes embedded contaminants
+            from the clear coat that washing alone can&apos;t reach
+          </li>
+          <li>
+            <strong>Paint correction (if selected)</strong> — machine polishing to remove
+            swirl marks, light scratches, and oxidation
+          </li>
+          <li>
+            <strong>Panel wipe / IPA prep</strong> — removes all polish residue and oils so
+            the coating bonds at the molecular level
+          </li>
+          <li>
+            <strong>Crystal Serum Ultra application</strong> — applied panel by panel with
+            precise leveling, flash times, and professional technique
+          </li>
+          <li>
+            <strong>EXO Ultra topcoat (optional upgrade)</strong> — applied over Crystal
+            Serum for maximum gloss, slickness, and hydrophobic performance
+          </li>
+        </Box>
+        <Typography className="blog-paragraph">
+          The full process takes 1–3 days depending on the vehicle&apos;s paint condition and
+          the scope of correction performed. We never rush a coating installation — proper
+          cure time requires the vehicle to remain protected from water for 24–48 hours after
+          application.
+        </Typography>
+
+        <Typography variant="h5" id="how-long-it-lasts" className="blog-section-title">
+          How Long Does Ceramic Coating Last in Texas?
+        </Typography>
+        <Typography className="blog-paragraph">
+          Gtechniq Crystal Serum Ultra is backed by a{" "}
+          <strong>9-year manufacturer warranty</strong> when applied by an accredited
+          installer. In real-world Frisco conditions — daily driving, Texas summers, and
+          occasional construction-corridor commutes — most properly maintained installations
+          deliver 5–7 years of meaningful protection before showing any degradation.
+        </Typography>
+        <Typography className="blog-paragraph">
+          To keep the coating performing at its best:
+        </Typography>
+        <Box component="ul" className="blog-paragraph" sx={{ pl: 4 }}>
+          <li>Wash with a pH-neutral automotive shampoo — no dish soap or harsh chemicals</li>
+          <li>
+            Use a touchless or two-bucket hand wash method to prevent swirl marks in the
+            coating&apos;s surface
+          </li>
+          <li>
+            Periodic application of a quick detailer or SiO2 spray booster extends
+            hydrophobic performance between details
+          </li>
+          <li>
+            An optional EXO topcoat refresh every 2–3 years keeps the outer layer at peak
+            hydrophobic levels throughout the warranty period
+          </li>
+        </Box>
+        <Typography className="blog-paragraph">
+          Compared to waxing every few months indefinitely, ceramic coating is a dramatically
+          lower total cost of ownership — and the level of protection it provides is
+          categorically superior at every stage of the vehicle&apos;s life.
+        </Typography>
+
+        <Typography variant="h5" id="combine-with-ppf" className="blog-section-title">
+          Pair Ceramic Coating with PPF for Complete Protection
+        </Typography>
+        <Typography className="blog-paragraph">
+          Ceramic coating protects your paint&apos;s finish, color depth, and clarity from
+          chemical and UV damage. But it doesn&apos;t stop rock chips or deep scratches from
+          construction debris on Frisco&apos;s active roads. For complete front-end protection,
+          many of our Frisco clients combine{" "}
+          <SvcLink to="/services/vehicle-paint-protection">
+            STEK paint protection film
+          </SvcLink>{" "}
+          on the high-impact zones — bumper, hood, fenders, and headlights — with Gtechniq
+          ceramic coating across the entire vehicle.
+        </Typography>
+        <Box component="ul" className="blog-paragraph" sx={{ pl: 4 }}>
+          <li>
+            <strong>PPF handles impact damage</strong> — rock chips, door dings, and debris
+            from the construction trucks you follow on the Tollway every morning
+          </li>
+          <li>
+            <strong>Ceramic coating handles chemical damage</strong> — UV fading, acid rain,
+            industrial fallout, bird droppings, and tree sap
+          </li>
+          <li>
+            Together, they provide a level of protection that neither product delivers alone
+          </li>
+        </Box>
+
+        <Typography variant="h5" id="why-tint-tek-frisco" className="blog-section-title">
+          Why Frisco Drivers Choose Tint Tek Plus
+        </Typography>
+        <Box component="ul" className="blog-paragraph" sx={{ pl: 4 }}>
+          <li>
+            <strong>Gtechniq accredited installer</strong> — the accreditation required to
+            apply Crystal Serum Ultra and honor the 9-year warranty
+          </li>
+          <li>
+            Owner-operated shop where every detail job receives personal oversight — no
+            rushed turnovers, no compromise on prep
+          </li>
+          <li>5.0-star rated service across 600+ reviews from DFW drivers</li>
+          <li>
+            Frisco is 25 miles north of our Garland shop — an easy drive down the Tollway,
+            with same-day or next-day scheduling available
+          </li>
+          <li>
+            Full-service protection in one place: ceramic coating,{" "}
+            <SvcLink to="/services/vehicle-paint-protection">PPF</SvcLink>,{" "}
+            <SvcLink to="/services/vehicle-window-tinting">window tint</SvcLink>, and{" "}
+            <SvcLink to="/services/vehicle-paint-correction">paint correction</SvcLink>
+          </li>
+        </Box>
+        <Typography className="blog-paragraph">
+          Located at 2518 W. Kingsley Rd, Garland, TX — serving{" "}
+          <SvcLink to="/locations/frisco">Frisco</SvcLink>, The Star, Stonebriar, Phillips
+          Creek Ranch, and all of North DFW. Call or text{" "}
+          <strong>972-362-8468</strong> to get a quote for your vehicle today.
+        </Typography>
+      </>
+    ),
+    faqs: [
+      {
+        question: "Is ceramic coating worth it in Frisco, TX?",
+        answerText:
+          "Yes — Frisco's construction debris, intense UV, and luxury vehicle market make ceramic coating one of the highest-ROI protection investments for North Texas vehicles.",
+        answer: (
+          <Typography className="blog-paragraph" sx={{ mb: 0 }}>
+            Yes — Frisco&apos;s construction debris, intense UV exposure, and strong resale market
+            make professional ceramic coating one of the highest-ROI protection investments for
+            North Texas vehicles. It protects your paint, maintains resale value, and virtually
+            eliminates the wax-and-polish maintenance cycle.
+          </Typography>
+        ),
+      },
+      {
+        question: "How long does Gtechniq ceramic coating last?",
+        answerText:
+          "Gtechniq Crystal Serum Ultra carries a 9-year manufacturer warranty when applied by an accredited installer. Most installations deliver 5–7 years of meaningful protection with proper maintenance.",
+        answer: (
+          <Typography className="blog-paragraph" sx={{ mb: 0 }}>
+            Gtechniq Crystal Serum Ultra is backed by a <strong>9-year manufacturer warranty</strong>{" "}
+            when applied by an accredited installer like Tint Tek Plus. Most properly maintained
+            installations in Frisco-area conditions deliver 5–7 years of meaningful protection
+            before any significant degradation.
+          </Typography>
+        ),
+      },
+      {
+        question: "Do I need paint correction before ceramic coating?",
+        answerText:
+          "Strongly recommended — ceramic coating seals in the current condition of your paint, including any swirl marks or scratches. Correcting first ensures you lock in a perfect surface.",
+        answer: (
+          <Typography className="blog-paragraph" sx={{ mb: 0 }}>
+            Strongly recommended. Ceramic coating <em>seals in</em> the current condition of your
+            paint — including any existing swirl marks, water spots, or light scratches.{" "}
+            <strong>Paint correction</strong> before coating ensures you&apos;re locking in a
+            flawless surface rather than preserving existing defects permanently.
+          </Typography>
+        ),
+      },
+      {
+        question: "Can ceramic coating prevent rock chips?",
+        answerText:
+          "No — ceramic coating protects against chemical and UV damage but not physical impacts. For rock chip prevention, paint protection film (PPF) is required. Many clients combine both.",
+        answer: (
+          <Typography className="blog-paragraph" sx={{ mb: 0 }}>
+            No — ceramic coating provides chemical and UV protection but does not absorb physical
+            impacts. For rock chip prevention on Frisco&apos;s construction-heavy roads,{" "}
+            <strong>paint protection film (PPF)</strong> is required. Many clients combine both
+            products for comprehensive coverage.
+          </Typography>
+        ),
+      },
+      {
+        question: "How much does ceramic coating cost near Frisco, TX?",
+        answerText:
+          "Gtechniq Crystal Serum Ultra ranges from $800–$1,800 depending on vehicle size and whether paint correction is included. Contact us at (972) 362-8468 for a precise quote.",
+        answer: (
+          <Typography className="blog-paragraph" sx={{ mb: 0 }}>
+            Gtechniq Crystal Serum Ultra application ranges from{" "}
+            <strong>$800–$1,800</strong> depending on vehicle size and whether paint correction
+            is performed first. Contact us at <strong>(972) 362-8468</strong> for a quote
+            specific to your vehicle and its current paint condition.
+          </Typography>
+        ),
+      },
+    ],
+  },
 ];
