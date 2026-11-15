@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -39,7 +39,6 @@ const rise = {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 const BlogCTA = () => {
-  const navigate = useNavigate();
 
   return (
     <Box
@@ -131,11 +130,12 @@ const BlogCTA = () => {
         {/* "See all" link */}
         <motion.div variants={rise}>
           <Box
-            component="button"
-            onClick={() => navigate("/blogs")}
+            component={RouterLink}
+            to="/blogs"
             sx={{
               all: "unset",
               cursor: "pointer",
+              "&:focus-visible": { outline: "2px solid #2794d2", outlineOffset: 3 },
               display: "inline-flex",
               alignItems: "center",
               gap: 0.75,
@@ -171,14 +171,19 @@ const BlogCTA = () => {
       >
         {TEASERS.map((post) => (
           <motion.div
-            key={post.id}
+            key={post.slug}
             variants={rise}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            style={{ cursor: "pointer", height: "100%" }}
-            onClick={() => navigate(`/blog/${post.slug}`)}
+            style={{ height: "100%" }}
           >
+            {/* Real <a href> so crawlers can follow the teaser (was an onClick div) */}
             <Box
+              component={RouterLink}
+              to={`/blog/${post.slug}`}
               sx={{
+                textDecoration: "none",
+                color: "inherit",
+                "&:focus-visible": { outline: "2px solid #2794d2", outlineOffset: 3 },
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
@@ -197,9 +202,9 @@ const BlogCTA = () => {
                 sx={{
                   width: "100%",
                   height: "180px",
-                  backgroundImage: `url(${post.image})`,
+                  backgroundImage: `url("${post.image}")`,
                   backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  backgroundPosition: post.imagePosition || "center",
                   position: "relative",
                 }}
               >

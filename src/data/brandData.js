@@ -7,12 +7,12 @@ export const brands = {
     name: "LLumar",
     fullName: "LLumar Window Films",
     type: "Window Film",
-    metaTitle: "LLumar Window Tint Dealer Dallas, TX | Tint Tek Plus | Certified Installer",
+    metaTitle: "LLumar Window Tint Dealer in Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "LLumar certified window tint dealer in Dallas-Fort Worth, TX. Tint Tek Plus installs LLumar CTX, IRX, and AIR 80 ceramic films for vehicles and homes. Third-party NFRC tested. Lifetime warranty. Book today!",
+      "Certified LLumar window tint dealer in Dallas–Fort Worth. CTX, IRX & AIR 80 nano-ceramic film for cars, Teslas and homes. NFRC tested, lifetime warranty.",
     keywords:
       "llumar dealer dallas tx, llumar window tint dallas, llumar certified installer garland, llumar ctx dallas, llumar irx dallas, llumar window film dfw, llumar tint near me",
-    h1: "LLumar Window Film — Certified Dealer in Dallas, TX",
+    h1: "LLumar Window Tint in Dallas, TX",
     heroSubtitle:
       "Tint Tek Plus is an authorized LLumar Certified Installer serving all of Dallas-Fort Worth with the industry's most rigorously tested nano-ceramic window films.",
     intro:
@@ -96,12 +96,12 @@ export const brands = {
     name: "STEK",
     fullName: "STEK Paint Protection Film",
     type: "Paint Protection Film",
-    metaTitle: "STEK PPF Installer Dallas, TX | Tint Tek Plus | DynoShield & DynoMatte",
+    metaTitle: "STEK PPF Installer Dallas, TX | DynoShield | Tint Tek Plus",
     metaDescription:
-      "Authorized STEK PPF installer in Dallas-Fort Worth, TX. Tint Tek Plus installs STEK DynoShield and DynoMatte paint protection film for all vehicles. Self-healing, 10-year warranty, computer-cut precision. Book today!",
+      "Authorized STEK PPF installer in Dallas–Fort Worth. Self-healing DynoShield and DynoMatte paint protection film with a 10-year warranty. Get a free quote.",
     keywords:
       "stek ppf dallas tx, stek dynoshield dallas, stek ppf installer dfw, stek paint protection film dallas, stek ppf garland tx, stek installer near me, stek dynomatte dallas",
-    h1: "STEK Paint Protection Film Installer in Dallas, TX",
+    h1: "STEK Paint Protection Film in Dallas, TX",
     heroSubtitle:
       "Tint Tek Plus is an authorized STEK PPF installer serving all of DFW with DynoShield self-healing paint protection film — the most advanced PPF on the market.",
     intro:
@@ -180,12 +180,12 @@ export const brands = {
     name: "Gtechniq",
     fullName: "Gtechniq Ceramic Coating",
     type: "Ceramic Coating",
-    metaTitle: "Gtechniq Ceramic Coating Dallas, TX | Tint Tek Plus | Accredited Installer",
+    metaTitle: "Gtechniq Ceramic Coating Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "Gtechniq ceramic coating in Dallas-Fort Worth, TX from Tint Tek Plus. Accredited Gtechniq installer applying Crystal Serum Ultra, EXO, and C5 coatings for vehicles. 9-year warranty. Book today!",
+      "Accredited Gtechniq installer in Dallas–Fort Worth. Crystal Serum Ultra and EXO ceramic coatings with up to a 9-year warranty. Paint correction available.",
     keywords:
       "gtechniq ceramic coating dallas tx, gtechniq crystal serum dallas, gtechniq accredited installer dallas, gtechniq coating dfw, gtechniq vs cquartz dallas, gtechniq c5 dallas",
-    h1: "Gtechniq Ceramic Coating Installer in Dallas, TX",
+    h1: "Gtechniq Ceramic Coating in Dallas, TX",
     heroSubtitle:
       "Tint Tek Plus is an accredited Gtechniq installer in DFW, applying the most advanced ceramic coating chemistry available — backed by a 9-year warranty.",
     intro:
@@ -264,12 +264,12 @@ export const brands = {
     name: "ExoShield",
     fullName: "ExoShield GT3 Windshield Protection Film",
     type: "Windshield Protection Film",
-    metaTitle: "ExoShield GT3 Windshield Protection Film Dallas, TX | Tint Tek Plus",
+    metaTitle: "ExoShield Windshield Film Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "ExoShield GT3 windshield protection film in Dallas, TX from Tint Tek Plus. Optically clear film that prevents rock chips and reduces replacement costs. Perfect for DFW highways. Lifetime warranty. Book today!",
+      "ExoShield GT3 windshield protection film in Dallas, TX. Optically clear, ADAS-safe film that helps prevent rock chips on DFW highways. Get a free quote.",
     keywords:
       "exoshield gt3 dallas tx, exoshield windshield film dallas, windshield protection film dallas, rock chip protection windshield dfw, exoshield installer dallas, clear windshield film texas",
-    h1: "ExoShield GT3 Windshield Protection Film in Dallas, TX",
+    h1: "ExoShield Windshield Film in Dallas, TX",
     heroSubtitle:
       "Tint Tek Plus installs ExoShield GT3 — the world's leading optically clear windshield protection film, engineered specifically for highway rock chip prevention.",
     intro:

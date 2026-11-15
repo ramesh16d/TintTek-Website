@@ -1,31 +1,29 @@
-import { useState, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
-import {
-  Box,
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Grid,
-  Container,
-  Select,
-  MenuItem,
-  useMediaQuery,
-  Fade,
-  Card,
-  IconButton,
-  Divider
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+// src/components/sub-pages/FAQ.jsx  (/support)
+// Apple Support-style page: big hero with a live search field, "Browse by
+// Service" topic tiles that jump to each topic, and every topic's questions on
+// the page in hairline lists with "+" disclosures (native <details>, so every
+// answer is in the HTML — required for the FAQPage schema — and works without
+// JS). No framer-motion, no JS media queries, no tab/dropdown switching.
+import { useDeferredValue, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import SEO from "../SEO";
+import { Box, Container, Typography } from "@mui/material";
+import DirectionsCarOutlinedIcon from "@mui/icons-material/DirectionsCarOutlined";
+import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
+import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
+import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
+import WaterDropOutlinedIcon from "@mui/icons-material/WaterDropOutlined";
+import GppMaybeOutlinedIcon from "@mui/icons-material/GppMaybeOutlined";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
+import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Footer from "../key-components/Footer";
 import CallToAction from "../SubCTA";
 import Contact from "../SubContact";
 import QuickLinks from "../SubQuickLinks";
-import { motion } from "framer-motion";
 
 /* --------------------------------- DATA --------------------------------- */
 const faqConfig = {
@@ -363,521 +361,477 @@ const faqConfig = {
   ],
 };
 
-const faqSections = Object.entries(faqConfig).map(([key, questions]) => ({
-  id: key,
-  title: key
-    .split("-")
-    .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(" "),
-  questions: questions.map((q, index) => ({
-    id: `${key}-q${index + 1}`,
-    question: q.question,
-    answer: q.answer,
-  })),
-}));
+// Display names + icons per topic. Titles used to be generated from the keys,
+// which showed the "warrany" typo to customers.
+const TOPIC_META = {
+  "window-tint": { title: "Window Tint", Icon: DirectionsCarOutlinedIcon },
+  "paint-correction": { title: "Paint Correction", Icon: AutoFixHighOutlinedIcon },
+  "paint-protection": { title: "Paint Protection", Icon: ShieldOutlinedIcon },
+  "windshield-protection": { title: "Windshield Protection", Icon: WindowOutlinedIcon },
+  "ceramic-coating": { title: "Ceramic Coating", Icon: WaterDropOutlinedIcon },
+  "paint-disclosure": { title: "Paint Disclosure", Icon: GppMaybeOutlinedIcon },
+  "warrany-for-services": { title: "Warranty for Services", Icon: VerifiedUserOutlinedIcon },
+  "videography/Photography": { title: "Videography/\u200BPhotography" /* allow a break after the slash */, Icon: PhotoCameraOutlinedIcon },
+  "customer-satisfaction": { title: "Customer Satisfaction", Icon: SentimentSatisfiedAltOutlinedIcon },
+};
 
-/* ---------------- Floating glow orbs (match Mockup) ---------------- */
-const FloatingElement = styled(motion.div)(({ theme }) => ({
-  position: "absolute",
-  borderRadius: "50%",
-  background:
-    "radial-gradient(circle, rgba(39, 148, 210, 0.10) 0%, transparent 70%)",
-  filter: "blur(1px)",
-  pointerEvents: "none",
-}));
+// The answers were hand-written with "</br>" (invalid HTML) and template-literal
+// line continuations. Normalise them once so both the page and the FAQPage
+// JSON-LD get clean, valid markup.
+const cleanHtml = (html = "") =>
+  html
+    .replace(/<\/br>|<br\s*\/?>/gi, "<br>")
+    .replace(/\\\s*$/gm, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
-/* --------------------------------- UI --------------------------------- */
+const stripHtml = (html = "") => html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+
+const faqSections = Object.entries(faqConfig).map(([key, questions]) => {
+  const anchor = `topic-${key.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  return {
+    id: key,
+    anchor,
+    ...(TOPIC_META[key] || { title: key, Icon: DirectionsCarOutlinedIcon }),
+    questions: questions.map((q, index) => ({
+      id: `${anchor}-q${index + 1}`,
+      question: q.question.trim(),
+      answer: cleanHtml(q.answer),
+      searchText: `${q.question} ${stripHtml(q.answer)}`.toLowerCase(),
+    })),
+  };
+});
+
 const SITE = "https://tinttekplus.com";
+const META = {
+  title: "Window Tinting FAQ – Garland & Dallas, TX | Tint Tek Plus",
+  description:
+    "Get answers to your window tinting, paint correction, ceramic coating, and PPF questions. Tint Tek Plus serves Garland, Dallas, and all of DFW.",
+  keywords:
+    "window tint faq, window tint warranty, llumar warranty, ppf warranty, ceramic coating faq, paint correction faq, windshield protection film, tint tek plus support, garland tx, dallas tx",
+  image: `${SITE}/v-window-tint/vehicle-window-tint.webp`,
+};
+const ACCENT = "#4db8f0";
+const EASE = "cubic-bezier(.25,.1,.25,1)";
+const BG = `
+  radial-gradient(circle at top left, rgba(39,148,210,0.15), transparent 50%),
+  radial-gradient(circle at bottom right, rgba(77,184,240,0.15), transparent 50%),
+  linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%)
+`;
 
+/* ------------------------------ Pieces ------------------------------ */
+function QuestionRow({ q, forceOpen }) {
+  return (
+    <Box
+      component="details"
+      // Remount when a search starts/ends so matches open and close cleanly
+      key={forceOpen ? "open" : "closed"}
+      open={forceOpen || undefined}
+      sx={{
+        borderBottom: "1px solid rgba(255,255,255,0.12)",
+        "&[open] .faq-plus": { transform: "rotate(45deg)", backgroundColor: "rgba(77,184,240,0.16)", color: ACCENT },
+        "&[open] summary": { color: "#fff" },
+      }}
+    >
+      <Box
+        component="summary"
+        sx={{
+          listStyle: "none",
+          "&::-webkit-details-marker": { display: "none" },
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 3,
+          py: { xs: 2.25, md: 2.75 },
+          color: "rgba(245,245,247,0.92)",
+          fontWeight: 600,
+          fontSize: { xs: "1.05rem", md: "1.2rem" },
+          lineHeight: 1.35,
+          letterSpacing: "-0.01em",
+          transition: `color .2s ${EASE}`,
+          "&:hover": { color: "#fff" },
+          "&:focus-visible": { outline: "2px solid #2794d2", outlineOffset: 4, borderRadius: 1 },
+        }}
+      >
+        <Box component="span" id={q.id}>
+          {q.question}
+        </Box>
+        <Box
+          className="faq-plus"
+          aria-hidden="true"
+          sx={{
+            flexShrink: 0,
+            width: 34,
+            height: 34,
+            borderRadius: "50%",
+            display: "grid",
+            placeItems: "center",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            color: "#f5f5f7",
+            transition: `transform .3s ${EASE}, background-color .3s ${EASE}, color .3s ${EASE}`,
+          }}
+        >
+          <AddRoundedIcon sx={{ fontSize: 22 }} />
+        </Box>
+      </Box>
+      <Typography
+        component="div"
+        sx={{
+          pb: { xs: 3, md: 3.5 },
+          pr: { md: 8 },
+          color: "rgba(245,245,247,0.7)",
+          fontSize: { xs: "1rem", md: "1.05rem" },
+          lineHeight: 1.7,
+          "& ul": { pl: 2.5, my: 1.5 },
+          "& li": { mb: 1.25 },
+          "& strong": { color: "#f5f5f7", fontWeight: 600 },
+        }}
+        dangerouslySetInnerHTML={{ __html: q.answer }}
+      />
+    </Box>
+  );
+}
+
+QuestionRow.propTypes = {
+  q: PropTypes.shape({ id: PropTypes.string, question: PropTypes.string, answer: PropTypes.string }).isRequired,
+  forceOpen: PropTypes.bool,
+};
+
+/* --------------------------------- Page --------------------------------- */
 const FAQ = () => {
-  const [expanded, setExpanded] = useState(false);
-  const [selectedServiceIndex, setSelectedServiceIndex] = useState(0);
-  const [animateIn, setAnimateIn] = useState(true);
+  const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
+  const q = deferredQuery.trim().toLowerCase();
 
-  const currentSection = faqSections[selectedServiceIndex];
-
-  const faqPageLd = useMemo(() => {
-    const allQA = faqSections.flatMap((section) =>
-      section.questions.map(({ question, answer }) => ({
-        "@type": "Question",
-        name: question,
-        acceptedAnswer: { "@type": "Answer", text: answer },
-      }))
-    );
-    return {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: allQA,
-    };
+  // Structured data: FAQPage (every Q&A — all of which are rendered on the
+  // page, as Google requires), BreadcrumbList and WebPage.
+  const jsonLd = useMemo(() => {
+    const url = `${SITE}/support`;
+    return [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        url,
+        mainEntity: faqSections.flatMap((section) =>
+          section.questions.map(({ question, answer }) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          }))
+        ),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+          { "@type": "ListItem", position: 2, name: "Support", item: url },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: META.title,
+        description: META.description,
+        inLanguage: "en-US",
+        primaryImageOfPage: META.image,
+        isPartOf: { "@type": "WebSite", name: "Tint Tek Plus", url: SITE },
+        about: { "@type": "LocalBusiness", "@id": `${SITE}/#business`, name: "Tint Tek Plus" },
+      },
+    ];
   }, []);
-  const isMobile = useMediaQuery("(max-width:768px)");
 
-  const handleServiceSelect = (index) => {
-    setAnimateIn(false);
-    setTimeout(() => {
-      setSelectedServiceIndex(index);
-      setExpanded(false);
-      setAnimateIn(true);
-    }, 300);
-  };
-
-  const navigateSection = (direction) => {
-    const newIndex =
-      direction === "next"
-        ? (selectedServiceIndex + 1) % faqSections.length
-        : (selectedServiceIndex - 1 + faqSections.length) % faqSections.length;
-
-    handleServiceSelect(newIndex);
-  };
+  // Live search across every topic
+  const visibleSections = useMemo(() => {
+    if (!q) return faqSections;
+    const words = q.split(/\s+/).filter(Boolean);
+    return faqSections
+      .map((s) => ({
+        ...s,
+        questions: s.questions.filter((item) => words.every((w) => item.searchText.includes(w))),
+      }))
+      .filter((s) => s.questions.length > 0);
+  }, [q]);
+  const resultCount = visibleSections.reduce((n, s) => n + s.questions.length, 0);
 
   return (
     <>
-      <Helmet>
-        <title>Window Tinting FAQ – Garland &amp; Dallas, TX | Tint Tek Plus</title>
-        <meta
-          name="description"
-          content="Get answers to your window tinting, paint correction, ceramic coating, and PPF questions. Tint Tek Plus serves Garland, Dallas, and all of DFW."
-        />
-        <link rel="canonical" href={`${SITE}/support`} />
-        <meta property="og:title" content="Window Tinting FAQ – Garland &amp; Dallas, TX | Tint Tek Plus" />
-        <meta property="og:description" content="Get answers to your window tinting, paint correction, ceramic coating, and PPF questions. Tint Tek Plus serves Garland, Dallas, and all of DFW." />
-        <meta property="og:url" content={`${SITE}/support`} />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Window Tinting FAQ | Tint Tek Plus" />
-        <meta name="twitter:description" content="Answers to common questions about window tinting, PPF, ceramic coating, and more." />
-        <script type="application/ld+json">{JSON.stringify(faqPageLd)}</script>
-      </Helmet>
-    <Box
-      sx={{
-        /* === MATCHES Mockup background === */
-        background: `
-          radial-gradient(circle at top left, rgba(39,148,210,0.15), transparent 50%),
-          radial-gradient(circle at bottom right, rgba(77,184,240,0.15), transparent 50%),
-          linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%)
-        `,
-        color: "#fff",
-        minHeight: "100vh",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Floating background accents (same feel as Mockup) */}
-      {/* <FloatingElement
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        style={{ top: "12%", right: "8%", width: 220, height: 220 }}
+      <SEO
+        title={META.title}
+        description={META.description}
+        keywords={META.keywords}
+        canonical={`${SITE}/support`}
+        image={META.image}
+        jsonLd={jsonLd}
       />
-      <FloatingElement
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        style={{ bottom: "18%", left: "6%", width: 160, height: 160 }}
-      /> */}
-
-      {/* Hero Section (background set to transparent so global bg shows) */}
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          height: { xs: "50vh", md: "60vh" },
-          overflow: "hidden",
-          background: "transparent",
-        }}
-      >
-        {/* Subtle pattern */}
-        {/* <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.1,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        /> */}
-
-        {/* Animated soft overlay (kept from your original hero) */}
-        {/* <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(135deg, rgba(39, 148, 210, 0.2) 0%, rgba(35, 10, 89, 0.2) 100%)",
-            animation: "gradientShift 10s ease infinite",
-            "@keyframes gradientShift": {
-              "0%": { opacity: 0.4 },
-              "50%": { opacity: 0.7 },
-              "100%": { opacity: 0.4 },
-            },
-          }}
-        /> */}
-
-        <Container
-          maxWidth="lg"
-          sx={{
-            position: "relative",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            zIndex: 2,
-          }}
-        >
-          <Box
-            sx={{
-              maxWidth: { xs: "100%", md: "70%" },
-              animation: "fadeInUp 1s ease-out",
-              "@keyframes fadeInUp": {
-                "0%": { opacity: 0, transform: "translateY(20px)" },
-                "100%": { opacity: 1, transform: "translateY(0)" },
-              },
-            }}
-          >
+      <Box sx={{ background: BG, color: "#fff", minHeight: "100vh" }}>
+        {/* Hero + search */}
+        <Box component="header" sx={{ pt: { xs: 14, md: 20 }, pb: { xs: 6, md: 9 }, textAlign: "center" }}>
+          <Container maxWidth="md">
             <Typography
-              variant="overline"
               sx={{
-                color: "#2794d2",
+                color: ACCENT,
                 fontWeight: 600,
-                letterSpacing: 2,
-                mb: 1,
-                display: "block",
+                fontSize: { xs: "0.85rem", md: "0.95rem" },
+                letterSpacing: "0.08em",
+                mb: 1.5,
               }}
             >
               TINT TEK + INSIGHTS
             </Typography>
-
             <Typography
-              variant="h2"
+              component="h1"
               sx={{
-                fontWeight: 800,
-                color: "#fff",
-                mb: 2,
-                fontSize: { xs: "2.2rem", sm: "2.5rem", md: "3.5rem" },
-                lineHeight: 1.1,
+                color: "#f5f5f7",
+                fontWeight: 700,
+                fontSize: { xs: "2.8rem", sm: "3.8rem", md: "4.75rem" },
+                lineHeight: 1.03,
+                letterSpacing: "-0.035em",
+                mb: { xs: 2, md: 2.5 },
               }}
             >
-              USER ESSENTIALS
+              User Essentials
             </Typography>
-
             <Typography
-              variant="h6"
               sx={{
-                color: "rgba(255,255,255,0.8)",
-                maxWidth: "600px",
-                mb: 4,
-                fontSize: { xs: "1rem", md: "1.1rem" },
-                fontWeight: 400,
-                lineHeight: 1.5,
+                color: "rgba(245,245,247,0.62)",
+                fontWeight: 500,
+                fontSize: { xs: "1.15rem", md: "1.45rem" },
+                lineHeight: 1.4,
+                letterSpacing: "-0.01em",
+                maxWidth: 620,
+                mx: "auto",
+                mb: { xs: 4, md: 5 },
               }}
             >
               Everything you need to know about our services & warranties
             </Typography>
-                 <Box
+
+            {/* Search field */}
+            <Box
+              component="form"
+              role="search"
+              onSubmit={(e) => e.preventDefault()}
+              sx={{
+                position: "relative",
+                maxWidth: 640,
+                mx: "auto",
+              }}
+            >
+              <SearchRoundedIcon
+                aria-hidden="true"
                 sx={{
-                  mt: 5,
-                  width: { xs: 120, sm: 120 },
-                  height: 5,
-                  borderRadius: 999,
-                  background:
-                    "linear-gradient(90deg, #1e90ff 0%, #2794d2 50%, #1e90ff 100%)",
-                  boxShadow: "0 0 16px rgba(39,148,210,0.35)",
+                  position: "absolute",
+                  left: 20,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "rgba(245,245,247,0.55)",
+                  fontSize: 24,
+                  pointerEvents: "none",
                 }}
               />
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Service Selector */}
-      <Container
-        sx={{
-          py: { xs: 5, md: 8 },
-          maxWidth: "1400px",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 6,
-          }}
-        >
-          <Typography
-            variant="h4"
-            fontWeight="700"
-            sx={{
-              color: "#fff",
-              fontSize: { xs: "1.75rem", md: "2.25rem" },
-              position: "relative",
-              "&::after": {
-                content: '""',
-                position: "absolute",
-                bottom: "-12px",
-                left: 0,
-                width: { xs: 120, sm: 120 },
-                height: "4px",
-                background: "#2794d2",
-                borderRadius: "2px",
-              },
-            }}
-          >
-            Browse by Service
-          </Typography>
-
-          {!isMobile && (
-            <Box>
-              <IconButton
-                onClick={() => navigateSection("prev")}
+              <Box
+                component="input"
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search support"
+                aria-label="Search support questions"
                 sx={{
-                  color: "#fff",
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  mr: 1,
-                  "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
+                  width: "100%",
+                  height: { xs: 54, md: 60 },
+                  pl: 7,
+                  pr: query ? 7 : 3,
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  borderRadius: 999,
+                  outline: "none",
+                  fontFamily: "inherit",
+                  fontSize: { xs: "1.05rem", md: "1.15rem" },
+                  color: "#f5f5f7",
+                  backgroundColor: "rgba(255,255,255,0.07)",
+                  transition: `border-color .25s ${EASE}, background-color .25s ${EASE}`,
+                  "&::placeholder": { color: "rgba(245,245,247,0.45)" },
+                  "&::-webkit-search-cancel-button": { display: "none" },
+                  "&:focus": { borderColor: "#2794d2", backgroundColor: "rgba(255,255,255,0.1)" },
                 }}
-              >
-                <ArrowBackIosNewIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                onClick={() => navigateSection("next")}
-                sx={{
-                  color: "#fff",
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
-                }}
-              >
-                <ArrowForwardIosIcon fontSize="small" />
-              </IconButton>
-            </Box>
-          )}
-        </Box>
-
-        {isMobile ? (
-          <Select
-            fullWidth
-            value={selectedServiceIndex}
-            onChange={(e) => handleServiceSelect(Number(e.target.value))}
-            sx={{
-              mb: 4,
-              backgroundColor: "rgba(255,255,255,0.06)",
-              color: "#fff",
-              borderRadius: 2,
-              fontWeight: 600,
-              border: "1px solid rgba(255,255,255,0.1)",
-              boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
-              "& .MuiSelect-select": { p: 2 },
-              "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-              "& .MuiSelect-icon": { color: "rgba(255,255,255,0.7)" },
-              "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
-            }}
-          >
-            {faqSections.map((section, index) => (
-              <MenuItem key={section.id} value={index}>
-                {section.title}
-              </MenuItem>
-            ))}
-          </Select>
-        ) : (
-          <Grid container spacing={2} mb={6}>
-            {faqSections.map((section, index) => (
-              <Grid item key={section.id}>
+              />
+              {query && (
                 <Box
-                  onClick={() => handleServiceSelect(index)}
+                  component="button"
+                  type="button"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
                   sx={{
-                    py: 1.5,
-                    px: 3,
+                    position: "absolute",
+                    right: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: 32,
+                    height: 32,
+                    border: 0,
+                    borderRadius: "50%",
                     cursor: "pointer",
-                    borderRadius: "8px",
-                    fontWeight: 600,
-                    color: "#fff",
-                    border:
-                      selectedServiceIndex === index
-                        ? "1px solid #2794d2"
-                        : "1px solid rgba(255,255,255,0.1)",
-                    backgroundColor:
-                      selectedServiceIndex === index
-                        ? "rgba(58, 98, 242, 0.15)"
-                        : "rgba(255,255,255,0.03)",
-                    "&:hover": {
-                      backgroundColor:
-                        selectedServiceIndex === index
-                          ? "rgba(58, 98, 242, 0.2)"
-                          : "rgba(255,255,255,0.06)",
-                      transform: "translateY(-2px)",
-                    },
-                    transition: "all 0.2s ease",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "#f5f5f7",
+                    backgroundColor: "rgba(255,255,255,0.14)",
+                    "&:hover": { backgroundColor: "rgba(255,255,255,0.24)" },
                   }}
                 >
-                  {section.title}
+                  <CloseRoundedIcon sx={{ fontSize: 18 }} />
                 </Box>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Container>
+              )}
+            </Box>
+            {q && (
+              <Typography aria-live="polite" sx={{ mt: 2, color: "rgba(245,245,247,0.55)", fontSize: "0.95rem" }}>
+                {resultCount === 0
+                  ? "No results"
+                  : `${resultCount} result${resultCount === 1 ? "" : "s"}`}
+              </Typography>
+            )}
+          </Container>
+        </Box>
 
-      {/* FAQ Accordion Section */}
-      <Box sx={{ backgroundColor: "transparent", py: 8, position: "relative", zIndex: 1 }}>
-        <Container sx={{ maxWidth: "1000px" }}>
-          <Box sx={{ textAlign: "center", mb: 5 }}>
-            <Typography
-              variant="h4"
-              fontWeight="700"
-              mb={2}
-              color="#fff"
-              sx={{ position: "relative", display: "inline-block" }}
-            >
-              Frequently Asked Questions
-            </Typography>
-            <Typography
-              variant="body1"
-              color="rgba(255,255,255,0.7)"
-              sx={{ maxWidth: "700px", mx: "auto", fontSize: "1.1rem" }}
-            >
-              Find answers to common questions about {currentSection.title.toLowerCase()}.{" "}
-              Can't find what you're looking for? Contact our support team.
-            </Typography>
+        {/* Browse by Service (hidden while searching) */}
+        {!q && (
+          <Box component="section" aria-labelledby="browse-heading" sx={{ pb: { xs: 8, md: 12 } }}>
+            <Container maxWidth="lg">
+              <Typography
+                id="browse-heading"
+                component="h2"
+                sx={{
+                  color: "#f5f5f7",
+                  fontWeight: 700,
+                  fontSize: { xs: "1.8rem", md: "2.4rem" },
+                  letterSpacing: "-0.025em",
+                  textAlign: "center",
+                  mb: { xs: 3, md: 5 },
+                }}
+              >
+                Browse by Service
+              </Typography>
+              <Box
+                component="nav"
+                aria-label="Support topics"
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, minmax(0, 1fr))", // 9 topics → exact 3×3 at every size
+                  gap: { xs: 1.25, md: 2 },
+                }}
+              >
+                {faqSections.map(({ anchor, title, Icon, questions }) => (
+                  <Box
+                    key={anchor}
+                    component="a"
+                    href={`#${anchor}`}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      gap: 1.25,
+                      minHeight: { xs: 118, md: 150 },
+                      px: { xs: 1, md: 2 },
+                      py: { xs: 2, md: 2.5 },
+                      borderRadius: { xs: "20px", md: "24px" },
+                      textDecoration: "none",
+                      color: "#f5f5f7",
+                      backgroundColor: "rgba(255,255,255,0.045)",
+                      transition: `background-color .3s ${EASE}`,
+                      "&:hover": { backgroundColor: "rgba(255,255,255,0.08)" },
+                      "&:focus-visible": { outline: "2px solid #2794d2", outlineOffset: 3 },
+                    }}
+                  >
+                    <Icon aria-hidden="true" sx={{ fontSize: { xs: 28, md: 36 }, color: ACCENT }} />
+                    <Box component="span" sx={{ fontWeight: 600, fontSize: { xs: "0.82rem", sm: "0.95rem", md: "1.05rem" }, lineHeight: 1.25, overflowWrap: "anywhere" }}>
+                      {title}
+                    </Box>
+                    <Box component="span" sx={{ color: "rgba(245,245,247,0.5)", fontSize: { xs: "0.72rem", md: "0.82rem" } }}>
+                      {questions.length} {questions.length === 1 ? "article" : "articles"}
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+            </Container>
           </Box>
+        )}
 
-          <Fade in={animateIn} timeout={500}>
-            <Grid container spacing={3}>
-              {currentSection.questions.map(({ id, question, answer }, index) => (
-                <Grid item xs={12} key={id}>
-                  <Fade in style={{ transitionDelay: `${index * 100}ms` }}>
-                    <Card
-                      elevation={expanded === id ? 4 : 0}
-                      sx={{
-                        borderRadius: "16px",
-                        overflow: "hidden",
-                        transition: "all 0.3s ease",
-                        backgroundColor:
-                          expanded === id
-                            ? "rgba(255,255,255,0.02)"
-                            : "rgba(255,255,255,0.015)",
-                        backdropFilter: "blur(10px)",
-                        border:
-                          expanded === id
-                            ? "1px solid #2794d2"
-                            : "1px solid rgba(255,255,255,0.06)",
-                        "&:hover": {
-                          backgroundColor:
-                            expanded === id
-                              ? "rgba(255,255,255,0.04)"
-                              : "rgba(255,255,255,0.025)",
-                          transform: expanded === id ? "translateY(-2px)" : "none",
-                          boxShadow:
-                            expanded === id
-                              ? "0 8px 25px rgba(0,0,0,0.15)"
-                              : "0 4px 15px rgba(0,0,0,0.05)",
-                        },
-                      }}
-                    >
-                      <Accordion
-                        expanded={expanded === id}
-                        onChange={() => setExpanded(expanded === id ? false : id)}
-                        disableGutters
-                        elevation={0}
-                        sx={{
-                          backgroundColor: "transparent",
-                          "&:before": { display: "none" },
-                        }}
-                      >
-                        <AccordionSummary
-                          expandIcon={
-                            <ExpandMoreIcon
-                              sx={{
-                                color:
-                                  expanded === id ? "#3a62f2" : "rgba(255,255,255,0.7)",
-                                transition: "transform 0.3s ease",
-                                transform: expanded === id ? "rotate(180deg)" : "rotate(0deg)",
-                              }}
-                            />
-                          }
-                          sx={{
-                            "& .MuiAccordionSummary-content": {
-                              display: "flex",
-                              alignItems: "center",
-                            },
-                            p: 2.5,
-                          }}
-                        >
-                          <QuestionAnswerOutlinedIcon
-                            sx={{
-                              mr: 2,
-                              color: expanded === id ? "#2794d2" : "rgba(255,255,255,0.6)",
-                              fontSize: "1.25rem",
-                            }}
-                          />
-                          <Typography
-                            variant="h6"
-                            fontWeight="600"
-                            sx={{
-                              color: expanded === id ? "#fff" : "rgba(255,255,255,0.9)",
-                              fontSize: { xs: "1rem", md: "1.125rem" },
-                              lineHeight: 1.4,
-                              letterSpacing: "-0.01em",
-                            }}
-                          >
-                            {question}
-                          </Typography>
-                        </AccordionSummary>
+        {/* Frequently Asked Questions — every topic on the page */}
+        <Box component="section" aria-labelledby="faq-heading" sx={{ pb: { xs: 10, md: 14 } }}>
+          <Container maxWidth="md">
+            {!q && (
+              <Box sx={{ textAlign: "center", mb: { xs: 5, md: 7 } }}>
+                <Typography
+                  id="faq-heading"
+                  component="h2"
+                  sx={{
+                    color: "#f5f5f7",
+                    fontWeight: 700,
+                    fontSize: { xs: "1.8rem", md: "2.4rem" },
+                    letterSpacing: "-0.025em",
+                    mb: 1.5,
+                  }}
+                >
+                  Frequently Asked Questions
+                </Typography>
+                <Typography sx={{ color: "rgba(245,245,247,0.62)", fontSize: { xs: "1rem", md: "1.1rem" }, lineHeight: 1.6 }}>
+                  Find answers to common questions about our services. Can&apos;t find what you&apos;re looking
+                  for? Contact our support team.
+                </Typography>
+              </Box>
+            )}
+            {q && <Box component="h2" id="faq-heading" sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>Search results</Box>}
 
-                        <AccordionDetails sx={{ p: 3, pt: 0, pb: 4 }}>
-                          <Divider
-                            sx={{
-                              mb: 3,
-                              backgroundColor: "rgba(255,255,255,0.1)",
-                              opacity: 0.6,
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              borderLeft: "3px solid #2794d2",
-                              pl: 3,
-                              ml: { xs: 0, sm: 6 },
-                              position: "relative",
-                              "&::before": {
-                                content: '""',
-                                position: "absolute",
-                                top: 0,
-                                left: -3,
-                                width: 3,
-                                height: "100%",
-                                background: "#2794d2",
-                                borderRadius: "3px",
-                              },
-                            }}
-                          >
-                            <Typography
-                              component="div"
-                              sx={{
-                                color: "rgba(255,255,255,0.8)",
-                                lineHeight: 1.8,
-                                fontSize: "1rem",
-                                "& ul": {
-                                  pl: 2,
-                                  "& li": { mb: 1.5 },
-                                },
-                                "& strong": { color: "#fff", fontWeight: 600 },
-                              }}
-                              dangerouslySetInnerHTML={{ __html: answer }}
-                            />
-                          </Box>
-                        </AccordionDetails>
-                      </Accordion>
-                    </Card>
-                  </Fade>
-                </Grid>
-              ))}
-            </Grid>
-          </Fade>
-        </Container>
+            {visibleSections.length === 0 && (
+              <Box sx={{ textAlign: "center", py: 6 }}>
+                <Typography sx={{ color: "#f5f5f7", fontWeight: 600, fontSize: "1.3rem", mb: 1 }}>
+                  No matching questions
+                </Typography>
+                <Typography sx={{ color: "rgba(245,245,247,0.62)" }}>
+                  Try different words, or contact our support team — we&apos;re happy to help.
+                </Typography>
+              </Box>
+            )}
+
+            {visibleSections.map((section) => (
+              <Box
+                key={section.anchor}
+                component="section"
+                id={section.anchor}
+                aria-labelledby={`${section.anchor}-title`}
+                // Leave room for the fixed top bar when jumping from a topic tile
+                sx={{ scrollMarginTop: { xs: 88, md: 104 }, mb: { xs: 6, md: 8 } }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
+                  <section.Icon aria-hidden="true" sx={{ color: ACCENT, fontSize: 28 }} />
+                  <Typography
+                    id={`${section.anchor}-title`}
+                    component="h3"
+                    sx={{ color: "#f5f5f7", fontWeight: 700, fontSize: { xs: "1.4rem", md: "1.6rem" }, letterSpacing: "-0.02em" }}
+                  >
+                    {section.title}
+                  </Typography>
+                </Box>
+                <Box sx={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+                  {section.questions.map((item) => (
+                    <QuestionRow key={item.id} q={item} forceOpen={Boolean(q)} />
+                  ))}
+                </Box>
+              </Box>
+            ))}
+          </Container>
+        </Box>
+
+        <CallToAction />
+        <Contact />
+        <QuickLinks />
+        <Footer />
       </Box>
-
-      <CallToAction />
-      <Contact />
-      <QuickLinks />
-      <Footer />
-    </Box>
     </>
   );
 };

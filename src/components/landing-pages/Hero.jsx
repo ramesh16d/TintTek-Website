@@ -106,6 +106,7 @@ const StatLabel = styled(Typography)({
 
 const ImageContainer = styled(Box)(({ theme }) => ({
   position: "relative",
+  [theme.breakpoints.up("lg")]: { height: "100%" },
   "&::before": {
     content: '""',
     position: "absolute",
@@ -131,6 +132,8 @@ const StyledFrame = styled("iframe")(({ theme }) => ({
   overflow: "auto",
   loading: "lazy",
   [theme.breakpoints.up("md")]: { height: 600 },
+  // Side-by-side layout: match the left column's height, never shorter than 600
+  [theme.breakpoints.up("lg")]: { height: "100%", minHeight: 600, display: "block" },
 }));
 
 /* ---- CTA Button (desktop unchanged, mobile matches LocalVideoCTA) ---- */
@@ -217,7 +220,9 @@ const itemVariants = {
 /* ---------- Component ---------- */
 export default function Hero({
   iframeSrc = "https://app.tintwiz.com/web/ce/mm78aa3rvkulrmu65oesvsa63ywubpq3",
-  cityName,
+  headline,
+  subtitle,
+  showBadge = true,
   whyUsItems = [
     {
       title: "Superior Heat Rejection",
@@ -248,7 +253,6 @@ export default function Hero({
         sx={{
           py: { xs: 10, md: 12 },
           mb: { xs: -10 },
-          maxHeight: { md: "100vh" },
         }}
       >
         <motion.div
@@ -256,13 +260,14 @@ export default function Hero({
           initial={false}
           animate="visible"
         >
-          <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center">
+          <Grid container spacing={{ xs: 4, md: 6 }} alignItems="stretch">
             {/* Iframe FIRST on mobile, SECOND on desktop */}
             <Grid item xs={12} lg={6} order={{ xs: 1, lg: 2 }}>
               <motion.div
                 variants={itemVariants}
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.35 }}
+                style={{ height: "100%" }}
               >
                 <ImageContainer>
                   <StyledFrame
@@ -278,46 +283,15 @@ export default function Hero({
 
             {/* Text SECOND on mobile, FIRST on desktop */}
             <Grid item xs={12} lg={6} order={{ xs: 2, lg: 1 }}>
-              <motion.div variants={itemVariants}>
-                <Box sx={{ mb: { xs: 2, md: 3 } }}>
-                  {/* Location pill (city pages only) */}
-                  {cityName && (
-                    <Box
-                      sx={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 1,
-                        px: 2,
-                        py: 0.65,
-                        borderRadius: "100px",
-                        border: "1px solid rgba(39,148,210,0.4)",
-                        background: "rgba(39,148,210,0.08)",
-                        backdropFilter: "blur(10px)",
-                        mb: 1.5,
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: "50%",
-                          background: "#2794d2",
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          color: "#2794d2",
-                          fontSize: "0.75rem",
-                          fontWeight: 700,
-                          letterSpacing: "0.08em",
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Serving {cityName}, TX
-                      </Typography>
-                    </Box>
-                  )}
-
+              <motion.div variants={itemVariants} style={{ height: "100%" }}>
+                <Box
+                  sx={{
+                    mb: { xs: 2, md: 3, lg: 0 },
+                    display: "flex",
+                    flexDirection: "column",
+                    height: { lg: "100%" },
+                  }}
+                >
                   {/* Stars + review count */}
                   <Box
                     sx={{
@@ -353,8 +327,8 @@ export default function Hero({
                       display: "flex",
                       alignItems: "center",
                       gap: 2,
-                      mb: { xs: 2.5, md: 3 },
-                      flexWrap: "wrap",
+                      mb: { xs: 2.5, md: 2.5 },
+                      flexWrap: { xs: "wrap", sm: "nowrap" },
                     }}
                   >
                     <Typography
@@ -363,34 +337,56 @@ export default function Hero({
                       sx={{
                         color: "#fff",
                         fontWeight: 800,
-                        fontSize: { xs: "1.8rem", md: "2.6rem", lg: "2.6rem" },
+                        fontSize: { xs: "1.8rem", md: "2.6rem", lg: "2.4rem" },
                         lineHeight: 1.12,
+                        flex: "1 1 auto",
+                        minWidth: 0,
                       }}
                     >
-                      Block 89% Of Heat.
-                      <br />
-                      <Box component="span" sx={{ color: "#fff" }}>
-                        Drive Cooler In
-                      </Box>
-                      <br />
-                      <Box component="span" sx={{ color: "#fff" }}>
-                        3 Hours!
-                      </Box>
+                      {headline || (
+                        <>
+                          Block 89% Of Heat.
+                          <br />
+                          <Box component="span" sx={{ color: "#fff" }}>
+                            Drive Cooler In
+                          </Box>
+                          <br />
+                          <Box component="span" sx={{ color: "#fff" }}>
+                            3 Hours!
+                          </Box>
+                        </>
+                      )}
                     </Typography>
 
-                    {/* LLumar badge to the right */}
-                    <Box
-                      component="img"
-                      src={llumarBadge}
-                      alt="LLumar Certified – 3rd Party Tested"
-                      sx={{
-                        height: 145,
-                        width: "auto",
-                        flexShrink: 0,
-                        filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.35))",
-                      }}
-                    />
+                    {/* LLumar badge to the right (showBadge={false} hides it, e.g. non-LLumar brand pages) */}
+                    {showBadge && (
+                      <Box
+                        component="img"
+                        src={llumarBadge}
+                        alt="LLumar Certified – 3rd Party Tested"
+                        sx={{
+                          height: { xs: 120, lg: 112 },
+                          width: "auto",
+                          flexShrink: 0,
+                          filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.35))",
+                        }}
+                      />
+                    )}
                   </Box>
+
+                  {/* Optional subtitle (city pages) */}
+                  {subtitle && (
+                    <Typography
+                      sx={{
+                        color: "rgba(255,255,255,0.82)",
+                        fontSize: { xs: "1rem", md: "1.1rem" },
+                        lineHeight: 1.6,
+                        mb: { xs: 2.5, md: 3 },
+                      }}
+                    >
+                      {subtitle}
+                    </Typography>
+                  )}
 
                   {/* Feature list */}
                   <FeatureList
@@ -481,6 +477,7 @@ export default function Hero({
                     container
                     spacing={{ xs: 0, sm: 2.25 }}
                     justifyContent={{ xs: "center", sm: "space-between" }}
+                    sx={{ mt: { lg: "auto" } }}
                   >
                     {[heatIconUrl, uvIconUrl, warrantyIconUrl].map(
                       (iconUrl, i) => (
@@ -502,8 +499,8 @@ export default function Hero({
                             src={iconUrl}
                             alt={`Stat Icon ${i + 1}`}
                             sx={{
-                              width: 100,
-                              height: 100,
+                              width: { xs: 100, lg: 88 },
+                              height: { xs: 100, lg: 88 },
                               display: "block",
                               filter:
                                 "drop-shadow(0 0 14px rgba(77,184,240,0.55))",

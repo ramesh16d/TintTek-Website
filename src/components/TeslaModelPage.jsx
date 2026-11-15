@@ -7,24 +7,18 @@ import {
   Typography,
   Container,
   Grid,
-  Button,
   GlobalStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
   useMediaQuery,
 } from "@mui/material";
-import { FaCarSide, FaSun, FaShieldAlt } from "react-icons/fa";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { motion } from "framer-motion";
 import SEO from "./SEO";
 import BusinessInfo from "./hero/BusinessInfo";
 import TeslaCTA from "./TeslaCTA";
-import FAQSection from "./FAQSection";
+import CityFAQ from "./CityFAQ";
+import { TeslaModelPricing } from "./Pricing";
+import TeslaFilmLineup from "./TeslaFilmLineup";
+import TeslaGlassZones from "./TeslaGlassZones";
+import LinkGridPanel from "./LinkGridPanel";
 import { teslaModels } from "../data/teslaModelData";
 
 const SubContact = lazy(() => import("./SubContact"));
@@ -48,7 +42,7 @@ export default function TeslaModelPage() {
   if (!model) {
     return (
       <Box sx={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: GRADIENT }}>
-        <SEO title="Model Not Found | Tint Tek Plus" description="This Tesla model page does not exist." robots="noindex, nofollow" />
+        <SEO title="Model Not Found | Tint Tek Plus" description="This Tesla model page does not exist." robots="noindex, nofollow" canonical={false} />
         <Typography sx={{ color: "#fff" }}>
           Model not found.{" "}
           <RouterLink to="/services/tesla-window-tinting" style={{ color: "#2794d2" }}>
@@ -101,6 +95,15 @@ export default function TeslaModelPage() {
     ],
   };
 
+  // Intro: split off the first sentence so it can be styled as a lead-in.
+  const leadEnd = model.intro.search(/\.\s/);
+  const introLead = leadEnd === -1 ? model.intro : model.intro.slice(0, leadEnd + 1);
+  const introRest = leadEnd === -1 ? "" : model.intro.slice(leadEnd + 2).trim();
+  const introImage = model.image || {
+    src: "/tesla/Tint Tek-195.webp",
+    alt: `Window tint installation on a Tesla at Tint Tek Plus in Garland, TX`,
+  };
+
   return (
     <>
       <SEO
@@ -108,7 +111,8 @@ export default function TeslaModelPage() {
         description={model.metaDescription}
         keywords={model.keywords}
         canonical={url}
-        image="https://tinttekplus.com/tesla-tint-model/tesla-20.webp"
+        // Share image = this page's own intro photo (encoded: some paths have spaces)
+        image={encodeURI(`https://tinttekplus.com${introImage.src}`)}
         type="website"
         jsonLd={[serviceSchema, breadcrumbSchema, faqSchema]}
       />
@@ -131,7 +135,7 @@ export default function TeslaModelPage() {
           sx={{
             position: "relative",
             width: "100%",
-            pt: 10,
+            pt: { xs: 14, md: 18 },
             minHeight: "clamp(280px, 40vh, 420px)",
             display: "flex",
             flexDirection: "column",
@@ -207,230 +211,230 @@ export default function TeslaModelPage() {
         <TeslaCTA />
 
         {/* ── Intro ── */}
-        <Container maxWidth="md" sx={{ pb: { xs: 6, md: 8 } }}>
-          <Box
-            sx={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: 4,
-              p: { xs: 3, md: 5 },
-            }}
-          >
-            <Typography sx={{ color: "rgba(255,255,255,0.85)", fontSize: { xs: "1rem", md: "1.15rem" }, lineHeight: 1.8 }}>
-              {model.intro}
-            </Typography>
-          </Box>
-        </Container>
-
-        {/* ── Glass Details ── */}
-        <InViewMount>
-          <Container maxWidth="lg" sx={{ pb: { xs: 8, md: 10 } }}>
-            <Typography
-              component="h2"
-              sx={{ color: "#fff", fontWeight: 800, fontSize: { xs: "1.8rem", md: "2.4rem" }, mb: 2 }}
-            >
-              {model.displayName} Glass Configuration
-            </Typography>
-            <Typography sx={{ color: "rgba(255,255,255,0.6)", mb: 4, lineHeight: 1.6 }}>
-              Understanding the {model.name}'s glass layout is essential to a proper tint installation.
-            </Typography>
-            <Grid container spacing={2}>
-              {model.glassDetails.map((detail, i) => (
-                <Grid item xs={12} sm={6} key={i}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 1.5,
-                      p: 2.5,
-                      borderRadius: 3,
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                    }}
-                  >
-                    <CheckCircleIcon sx={{ color: "#2794d2", fontSize: "1rem", mt: 0.2, flexShrink: 0 }} />
-                    <Typography sx={{ color: "rgba(255,255,255,0.85)", fontSize: "0.92rem", lineHeight: 1.5 }}>
-                      {detail}
-                    </Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
-        </InViewMount>
-
-        {/* ── Film Recommendations ── */}
-        <InViewMount>
-          <Box sx={{ background: "rgba(255,255,255,0.02)", py: { xs: 8, md: 10 } }}>
-            <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ pt: { xs: 2, md: 4 }, pb: { xs: 8, md: 10 } }}>
+          <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center">
+            <Grid item xs={12} md={6}>
               <Typography
-                component="h2"
-                sx={{ color: "#fff", fontWeight: 800, fontSize: { xs: "1.8rem", md: "2.4rem" }, mb: 2 }}
-              >
-                Recommended Films for the {model.displayName}
-              </Typography>
-              <Typography sx={{ color: "rgba(255,255,255,0.6)", mb: 5, lineHeight: 1.6 }}>
-                We tailor the film recommendation to your specific {model.name} configuration, usage patterns, and privacy preferences.
-              </Typography>
-              <TableContainer
                 sx={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: 3,
-                  overflow: "hidden",
+                  color: "#2794d2",
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  mb: 2,
                 }}
               >
-                <Table>
-                  <TableHead>
-                    <TableRow sx={{ background: "rgba(39,148,210,0.12)" }}>
-                      {["Film", "VLT", "Heat Rejection", "Best For"].map((h) => (
-                        <TableCell key={h} sx={{ color: "#2794d2", fontWeight: 700, borderColor: "rgba(255,255,255,0.08)", py: 2 }}>
-                          {h}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {model.filmRecommendations.map((film, i) => (
-                      <TableRow key={i} sx={{ "&:hover": { background: "rgba(255,255,255,0.03)" } }}>
-                        <TableCell sx={{ color: "#fff", fontWeight: 600, borderColor: "rgba(255,255,255,0.06)", py: 2 }}>
-                          {film.name}
-                        </TableCell>
-                        <TableCell sx={{ color: "rgba(255,255,255,0.8)", borderColor: "rgba(255,255,255,0.06)", py: 2, fontSize: "0.9rem" }}>
-                          {film.vlt}
-                        </TableCell>
-                        <TableCell sx={{ borderColor: "rgba(255,255,255,0.06)", py: 2 }}>
-                          <Box
-                            sx={{
-                              display: "inline-block",
-                              px: 2,
-                              py: 0.5,
-                              borderRadius: "100px",
-                              background: "rgba(39,148,210,0.15)",
-                              border: "1px solid rgba(39,148,210,0.3)",
-                            }}
-                          >
-                            <Typography sx={{ color: "#2794d2", fontWeight: 700, fontSize: "0.82rem" }}>
-                              {film.heatRejection}
-                            </Typography>
-                          </Box>
-                        </TableCell>
-                        <TableCell sx={{ color: "rgba(255,255,255,0.7)", borderColor: "rgba(255,255,255,0.06)", py: 2, fontSize: "0.9rem" }}>
-                          {film.highlight}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-          </Box>
-        </InViewMount>
+                Why tint your {model.name}
+              </Typography>
+              <Typography
+                component="h2"
+                sx={{
+                  color: "#fff",
+                  fontWeight: 800,
+                  fontSize: { xs: "1.8rem", md: "2.4rem" },
+                  lineHeight: 1.15,
+                  mb: 3,
+                }}
+              >
+                Built around the {model.name}&apos;s glass
+              </Typography>
+              {/* First sentence as a lead-in, the rest as body text */}
+              <Box sx={{ borderLeft: "3px solid #2794d2", pl: { xs: 2, md: 3 } }}>
+                <Typography
+                  sx={{
+                    color: "#fff",
+                    fontWeight: 600,
+                    fontSize: { xs: "1.1rem", md: "1.3rem" },
+                    lineHeight: 1.55,
+                    mb: introRest ? 2 : 0,
+                  }}
+                >
+                  {introLead}
+                </Typography>
+                {introRest && (
+                  <Typography
+                    sx={{
+                      color: "rgba(255,255,255,0.72)",
+                      fontSize: { xs: "1rem", md: "1.08rem" },
+                      lineHeight: 1.8,
+                    }}
+                  >
+                    {introRest}
+                  </Typography>
+                )}
+              </Box>
+            </Grid>
 
-        {/* ── Pricing ── */}
-        {model.pricing && (
+            <Grid item xs={12} md={6}>
+              <Box
+                component="img"
+                src={introImage.src}
+                alt={introImage.alt}
+                width={790}
+                height={527}
+                loading="lazy"
+                decoding="async"
+                sx={{
+                  display: "block",
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: "3 / 2",
+                  objectFit: "cover",
+                  borderRadius: 4,
+                  border: "1px solid rgba(39,148,210,0.3)",
+                  boxShadow: "0 20px 50px rgba(0,0,0,0.45)",
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Container>
+
+        {/* ── SEO Body Content ── */}
+        {model.bodyParagraphs && model.bodyParagraphs.length > 0 && (
           <InViewMount>
             <Box
-              id="pricing"
-              sx={{
-                py: { xs: 6, md: 12 },
-                textAlign: "center",
-                color: "#fff",
-              }}
+              component="section"
+              sx={{ width: "100%", pt: { xs: 2, md: 4 }, pb: { xs: 8, md: 12 } }}
             >
               <Container maxWidth="lg">
-                <Typography
-                  component="h2"
-                  sx={{ mb: 1, fontWeight: "bold", color: "#fff", fontSize: { xs: "1.8rem", md: "2.4rem" } }}
-                >
-                  {model.displayName} Window Tinting Pricing
-                </Typography>
-                <Typography
-                  sx={{ color: "#ccc", mb: 5, fontWeight: "bold", fontSize: "0.95rem" }}
-                >
-                  **All Side Windows and Back Glass are Included in Standard Package**
-                </Typography>
-
+                {/* Header row: title left, intro right */}
                 <Box
                   sx={{
                     display: "flex",
-                    flexDirection: { xs: "column", sm: "row" },
-                    gap: 3,
-                    justifyContent: "center",
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: { md: "flex-end" },
+                    justifyContent: "space-between",
+                    gap: { xs: 2, md: 6 },
+                    mb: { xs: 4, md: 5 },
                   }}
                 >
-                  {[
-                    {
-                      tier: "CTX",
-                      price: model.pricing.CTX,
-                      features: [
-                        "Mid-range ceramic tint",
-                        "Superior heat rejection",
-                        "99% UV ray protection",
-                      ],
-                    },
-                    {
-                      tier: "PINNACLE",
-                      price: model.pricing.PINNACLE,
-                      features: [
-                        "Premium nano-ceramic tint",
-                        "Best clarity & heat reduction",
-                        "Advanced infrared blocking",
-                      ],
-                    },
-                  ].map(({ tier, price, features }) => (
+                  <Typography
+                    component="h3"
+                    sx={{
+                      color: "#fff",
+                      fontWeight: 800,
+                      fontSize: { xs: "2rem", md: "2.6rem" },
+                      lineHeight: 1.15,
+                      letterSpacing: "-0.5px",
+                    }}
+                  >
+                    About{" "}
+                    <Box component="span" sx={{ color: "#2794d2" }}>
+                      {model.displayName}
+                    </Box>
+                  </Typography>
+                  <Box sx={{ maxWidth: 420 }}>
+                    <Typography sx={{ color: "rgba(255,255,255,0.6)", fontSize: "1rem", lineHeight: 1.6 }}>
+                      Everything you need to know about {model.name} window tinting before booking your
+                      appointment.
+                    </Typography>
                     <Box
-                      key={tier}
                       sx={{
-                        flex: 1,
-                        textAlign: "center",
-                        p: 4,
-                        border: "2px solid #444",
-                        borderRadius: 4,
-                        background: "rgba(255,255,255,0.04)",
-                        transition: "border-color 0.3s ease",
-                        "&:hover": { borderColor: "#2794d2" },
+                        width: 80,
+                        height: 4,
+                        mt: 2,
+                        background: "linear-gradient(90deg, #2794d2, transparent)",
+                        borderRadius: "2px",
+                      }}
+                    />
+                  </Box>
+                </Box>
+
+                {/* Cards: swipe row on phones, 2 columns on tablets, 3 on desktop */}
+                <Box
+                  sx={{
+                    display: { xs: "flex", sm: "grid" },
+                    gridTemplateColumns: { sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
+                    gap: { xs: 2, md: 3 },
+                    overflowX: { xs: "auto", sm: "visible" },
+                    scrollSnapType: { xs: "x mandatory", sm: "none" },
+                    // Snap to the padded edge, not the container edge, so cards keep the page gutter
+                    scrollPaddingInline: { xs: "16px", sm: 0 },
+                    mx: { xs: -2, sm: 0 },
+                    px: { xs: 2, sm: 0 },
+                    pb: { xs: 1, sm: 0 },
+                    scrollbarWidth: "none",
+                    "&::-webkit-scrollbar": { display: "none" },
+                  }}
+                >
+                  {model.bodyParagraphs.map((text, index) => (
+                    <Box
+                      key={index}
+                      component={motion.div}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-60px 0px" }}
+                      transition={{ duration: 0.5, ease: "easeOut", delay: (index % 3) * 0.1 }}
+                      sx={{
+                        flex: { xs: "0 0 85%", sm: "initial" },
+                        scrollSnapAlign: { xs: "start", sm: "none" },
+                        position: "relative",
+                        background: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderRadius: "20px",
+                        p: { xs: 2.75, md: 3 },
+                        transition: "border-color 0.3s ease, background 0.3s ease",
+                        "&:hover": {
+                          background: "rgba(255, 255, 255, 0.05)",
+                          borderColor: "rgba(39, 148, 210, 0.3)",
+                        },
                       }}
                     >
                       <Typography
-                        sx={{ fontWeight: "bold", color: "#2794d2", fontSize: "1.5rem", mb: 1 }}
+                        sx={{
+                          fontWeight: 900,
+                          fontSize: "1.4rem",
+                          lineHeight: 1,
+                          color: "rgba(39, 148, 210, 0.45)",
+                          fontFamily: "monospace",
+                          mb: 1.5,
+                        }}
                       >
-                        {tier}
+                        {(index + 1).toString().padStart(2, "0")}
                       </Typography>
                       <Typography
-                        sx={{ fontWeight: "bold", color: "#00FF99", fontSize: "2.2rem", mb: 2 }}
+                        sx={{
+                          color: "rgba(255,255,255,0.82)",
+                          fontSize: { xs: "0.96rem", md: "0.98rem" },
+                          lineHeight: 1.65,
+                          fontWeight: 300,
+                        }}
                       >
-                        {price}
+                        {text}
                       </Typography>
-                      <Box>
-                        {features.map((feature, i) => (
-                          <Tooltip key={i} title="More info" arrow>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                mb: 1,
-                                color: "#ccc",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: "6px",
-                              }}
-                            >
-                              {i === 0 && <FaCarSide />}
-                              {i === 1 && <FaSun />}
-                              {i === 2 && <FaShieldAlt />}
-                              {feature}
-                            </Typography>
-                          </Tooltip>
-                        ))}
-                      </Box>
                     </Box>
                   ))}
                 </Box>
+                <Typography
+                  sx={{
+                    display: { xs: "block", sm: "none" },
+                    color: "rgba(255,255,255,0.45)",
+                    fontSize: "0.8rem",
+                    mt: 1.5,
+                    textAlign: "center",
+                  }}
+                >
+                  Swipe for more →
+                </Typography>
               </Container>
             </Box>
           </InViewMount>
         )}
+
+        {/* ── Glass Details ── */}
+        <InViewMount>
+          <TeslaGlassZones model={model} />
+        </InViewMount>
+
+        {/* ── Film Recommendations ── */}
+        <InViewMount>
+          <TeslaFilmLineup model={model} />
+        </InViewMount>
+
+        {/* ── Pricing (same component as the services pages) ── */}
+        <InViewMount>
+          <TeslaModelPricing model={model} />
+        </InViewMount>
 
         {/* ── Additional Packages ── */}
         <InViewMount>
@@ -439,161 +443,38 @@ export default function TeslaModelPage() {
           </Suspense>
         </InViewMount>
 
-        {/* ── SEO Body Content ── */}
-        {model.bodyParagraphs && model.bodyParagraphs.length > 0 && (
-          <InViewMount>
-            <Box sx={{ width: "100%", py: { xs: 8, md: 12 }, px: { xs: 2, md: 4 } }}>
-              <Box
-                sx={{
-                  maxWidth: "1100px",
-                  mx: "auto",
-                  display: "flex",
-                  flexDirection: { xs: "column", md: "row" },
-                  gap: { xs: 6, md: 8 },
-                }}
-              >
-                <Box sx={{ flex: { md: "0 0 35%" }, position: "relative" }}>
-                  <Box sx={{ position: "sticky", top: "140px" }}>
-                    <Typography
-                      component={motion.h3}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      sx={{
-                        color: "#fff",
-                        fontWeight: 800,
-                        fontSize: { xs: "2rem", md: "3rem" },
-                        lineHeight: 1.2,
-                        letterSpacing: "-0.5px",
-                        mb: 2,
-                      }}
-                    >
-                      About <br sx={{ display: { xs: "none", md: "block" } }} />
-                      <Box component="span" sx={{ color: "#2794d2" }}>{model.displayName}</Box>
-                    </Typography>
-                    <Typography sx={{ color: "rgba(255,255,255,0.6)", fontSize: "1.1rem", mb: 4 }}>
-                      Everything you need to know about {model.name} window tinting before booking your appointment.
-                    </Typography>
-                    <Box
-                      component={motion.div}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "80px" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                      sx={{
-                        height: "4px",
-                        background: "linear-gradient(90deg, #2794d2, transparent)",
-                        borderRadius: "2px",
-                        mb: { xs: 4, md: 0 },
-                      }}
-                    />
-                  </Box>
-                </Box>
-
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
-                  {model.bodyParagraphs.map((text, index) => {
-                    const num = (index + 1).toString().padStart(2, "0");
-                    return (
-                      <Box
-                        key={index}
-                        component={motion.div}
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
-                        sx={{
-                          position: "relative",
-                          display: "flex",
-                          flexDirection: { xs: "column", sm: "row" },
-                          gap: { xs: 2, sm: 4 },
-                          background: "rgba(255, 255, 255, 0.03)",
-                          backdropFilter: "saturate(180%) blur(12px)",
-                          border: "1px solid rgba(255, 255, 255, 0.08)",
-                          borderRadius: "20px",
-                          p: { xs: 3, md: 4 },
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-                          transition: "transform 0.3s ease, background 0.3s ease",
-                          "&:hover": {
-                            transform: "translateY(-4px)",
-                            background: "rgba(255, 255, 255, 0.05)",
-                            border: "1px solid rgba(39, 148, 210, 0.3)",
-                          },
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontWeight: 900,
-                            fontSize: { xs: "2.5rem", md: "3.5rem" },
-                            lineHeight: { xs: 1, md: 0.8 },
-                            color: "rgba(39, 148, 210, 0.25)",
-                            fontFamily: "monospace",
-                            flexShrink: 0,
-                          }}
-                        >
-                          {num}
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          sx={{
-                            color: "rgba(255,255,255,0.85)",
-                            fontSize: { xs: "1.05rem", md: "1.15rem" },
-                            lineHeight: 1.7,
-                            fontWeight: 300,
-                          }}
-                        >
-                          {text}
-                        </Typography>
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Box>
-            </Box>
-          </InViewMount>
-        )}
-
-        {/* ── Sensor note ── */}
+        {/* ── FAQ (same design as the city landing pages) ── */}
         <InViewMount>
-          <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
-            <Box
-              sx={{
-                p: { xs: 3, md: 5 },
-                borderRadius: 4,
-                background: "rgba(39,148,210,0.06)",
-                border: "1px solid rgba(39,148,210,0.25)",
-                display: "flex",
-                gap: 3,
-                alignItems: "flex-start",
-              }}
-            >
-              <Typography sx={{ fontSize: "2.5rem", flexShrink: 0 }}>⚡</Typography>
-              <Box>
-                <Typography sx={{ color: "#2794d2", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", mb: 1.5 }}>
-                  {model.displayName} Sensor Compatibility — Guaranteed
-                </Typography>
-                <Typography sx={{ color: "rgba(255,255,255,0.85)", fontSize: "1rem", lineHeight: 1.7 }}>
-                  {model.sensorNote}
-                </Typography>
-              </Box>
-            </Box>
+          <Container maxWidth="lg">
+            <CityFAQ
+              faqs={model.faqs}
+              eyebrow={`${model.displayName} FAQ`}
+              title={
+                <>
+                  Questions from{" "}
+                  <Box component="span" sx={{ color: "#4db8f0" }}>
+                    {model.name}
+                  </Box>{" "}
+                  owners
+                </>
+              }
+              description={`Straight answers about window tint for the ${model.displayName}.`}
+              onQuoteClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            />
           </Container>
-        </InViewMount>
-
-        {/* ── FAQ (shared FAQSection component — matches ServicesPage FAQ formatting) ── */}
-        <InViewMount>
-          <FAQSection
-            faqsOverride={model.faqs}
-            titleOverride={`${model.displayName} Tinting — Frequently Asked Questions`}
-          />
         </InViewMount>
 
         {/* ── Related Tesla Models ── */}
         <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
-          <Typography sx={{ color: "rgba(255,255,255,0.5)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", mb: 3, textAlign: "center" }}>
-            Other Tesla Models We Service
-          </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 1.5 }}>
-            {[
+          <LinkGridPanel
+            eyebrow="Other Tesla Models We Service"
+            title="Every Tesla."
+            highlight="The same expert install."
+            headingId="other-tesla-models-heading"
+            headingComponent="h2"
+            navLabel="Other Tesla models we service"
+            columns={{ xs: 2, md: 4 }}
+            links={[
               { slug: "model-3", name: "Model 3" },
               { slug: "model-y", name: "Model Y" },
               { slug: "model-s", name: "Model S" },
@@ -601,32 +482,19 @@ export default function TeslaModelPage() {
               { slug: "cybertruck", name: "Cybertruck" },
             ]
               .filter((m) => m.slug !== model.slug)
-              .map((m) => (
-                <Button
-                  key={m.slug}
-                  component={RouterLink}
-                  to={`/tesla/${m.slug}`}
-                  variant="outlined"
-                  sx={{
-                    borderColor: "rgba(255,255,255,0.15)",
-                    color: "rgba(255,255,255,0.7)",
-                    borderRadius: "100px",
-                    px: 3,
-                    py: 0.75,
-                    fontSize: "0.85rem",
-                    "&:hover": { borderColor: "#2794d2", color: "#2794d2" },
-                  }}
-                >
-                  Tesla {m.name}
-                </Button>
-              ))}
-          </Box>
+              .map((m) => ({
+                name: m.name,
+                to: `/tesla/${m.slug}`,
+                title: `Tesla ${m.name} window tinting — Tint Tek Plus`,
+                ariaLabel: `Tesla ${m.name} window tinting`,
+              }))}
+          />
         </Container>
 
         {/* Final CTA + footer stack — matches ServicesPage's BlogCTA → CallToAction → Contact → QuickLinks → Footer order */}
         <Suspense fallback={null}>
           <BlogCTA />
-          <SubCTA />
+          <SubCTA transparent />
           <Box><SubContact /></Box>
           <SubQuickLinks />
           <Footer />

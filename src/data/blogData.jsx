@@ -132,6 +132,8 @@ export const blogPosts = [
     id: 1,
     slug: "llumar-vs-xpel-window-tint-dallas",
     title: "LLumar vs. XPEL Window Tint: Why LLumar Comes Out Ahead",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "LLumar vs. XPEL Window Tint in Dallas",
     summary:
       "Comparing LLumar and XPEL window tint? Discover why LLumar's third-party tested performance, long-term durability, and value make it the smart choice in Dallas, TX.",
     image: "/llumar-logo.webp",
@@ -338,6 +340,8 @@ export const blogPosts = [
     id: 2,
     slug: "5-reasons-tint-car-windows-dallas-tx",
     title: "5 Reasons to Tint Your Car Windows in Dallas, TX",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "5 Reasons to Tint Your Car in Dallas, TX",
     summary:
       "Living in Dallas means heat, sun, and traffic. Here are 5 powerful reasons why window tinting at Tint Tek Plus is a smart upgrade for any vehicle.",
     image: "/blog2-min.webp",
@@ -503,6 +507,8 @@ export const blogPosts = [
     id: 3,
     slug: "residential-window-tinting-benefits-dfw",
     title: "Top 7 Benefits of Residential Window Tinting in Dallas–Fort Worth",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "Residential Window Tinting Benefits in DFW",
     summary:
       "Lower energy bills, block 99% of UV rays, reduce glare, add privacy, and boost curb appeal—LLumar Vista™ residential window films keep DFW homes cooler and more comfortable year-round.",
     image: "/residential-blog.webp",
@@ -675,6 +681,8 @@ export const blogPosts = [
     id: 4,
     slug: "paint-protection-film-dallas-texas",
     title: "Why Paint Protection Film (PPF) Is a MUST in Dallas, Texas",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "Paint Protection Film (PPF) in Dallas, TX",
     summary:
       "Dallas roads, construction zones, and brutal Texas UV can destroy your paint fast. PPF stops rock chips, scratches, and fading with premium self-healing protection.",
     image: "/ppf-installation.webp",
@@ -962,6 +970,8 @@ export const blogPosts = [
     id: 5,
     slug: "headlight-restoration-protection-film-garland-tx",
     title: "Headlight Restoration vs. Headlight Protection Film: What Garland, TX Drivers Need to Know",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "Headlight Restoration vs. Protection Film in Garland, TX",
     summary:
       "Foggy, yellowed headlights aren't just ugly — they're a safety issue. Learn why Texas UV destroys headlight lenses, how restoration brings back clarity, and how Stek protection film keeps them clear for good.",
     image: "/headlight/headlight2.webp",
@@ -1174,6 +1184,8 @@ export const blogPosts = [
     id: 6,
     slug: "headlight-tinting-protection-plano-tx",
     title: "Headlight Tinting in Plano, TX: STEK Protection Film vs. Smoked Vinyl Tint",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "Headlight Tinting in Plano, TX: STEK vs. Vinyl",
     summary:
       "Smoked headlight tint, STEK Light Protection Film, or both? Here’s how Plano, TX drivers can protect expensive LED headlight assemblies while staying Texas-legal.",
     image: "/headlight/taillight3.webp",
@@ -1410,9 +1422,13 @@ export const blogPosts = [
     id: 8,
     slug: "ceramic-coating-dallas-tx-gtechniq",
     title: "Ceramic Coating in Dallas, TX: Why Gtechniq Beats Wax and DIY Kits",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "Gtechniq Ceramic Coating in Dallas, TX",
     summary:
       "Dallas heat, hard water, and UV are destroying your paint faster than wax can protect it. Discover why Gtechniq Crystal Serum Ultra ceramic coating is the only long-term answer for DFW drivers.",
-    image: "/ceramic/application.webp",
+    image: "/ceramic/Tint Tek-111.webp",
+    // Vertical photo: "center X%" picks what stays in frame (0% = top, 100% = bottom)
+    imagePosition: "center 65%",
     date: "July 13, 2026",
     dateIso: "2026-07-13",
     readTime: "6 min read",
@@ -1784,9 +1800,13 @@ export const blogPosts = [
     id: 7,
     slug: "ceramic-coating-frisco-tx",
     title: "Ceramic Coating in Frisco, TX: 5 Things Every Car Owner Should Know Before Booking",
+    // Search/social title (≤60 chars); the on-page headline stays `title`
+    metaTitle: "Ceramic Coating in Frisco, TX: 5 Things to Know",
     summary:
       "Thinking about ceramic coating in Frisco, TX? From what it actually does to how long it lasts and when you need paint correction first, here's what every DFW car owner should know before booking.",
-    image: "/ceramic/Tint Tek-165.webp",
+    image: "/v-window-tint/vehicle-window-tint.jpg",
+    // Vertical photo: "center X%" picks what stays in frame (0% = top, 100% = bottom)
+    imagePosition: "center 75%",
     date: "September 28, 2026",
     dateIso: "2026-09-28",
     readTime: "6 min read",

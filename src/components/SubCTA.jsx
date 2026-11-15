@@ -12,7 +12,8 @@ import {
 import { motion } from "framer-motion";
 import CloseIcon from "@mui/icons-material/Close";
 
-const CallToAction = () => {
+// `transparent` drops the blue fill so the page background shows through
+const CallToAction = ({ transparent = false } = {}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { serviceId } = useParams(); // 👈 Get serviceId
@@ -89,7 +90,7 @@ const CallToAction = () => {
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          backgroundColor: "#2794d2 !important",
+          backgroundColor: transparent ? "transparent !important" : "#2794d2 !important",
           borderRadius: isMobile ? 10 : 20 ,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -157,7 +158,8 @@ const CallToAction = () => {
             transition={{ type: "spring", stiffness: 300 }}
             sx={{
               mt: 3,
-              backgroundColor: "#000 !important",
+              // Black reads well on the blue fill; use brand blue when transparent
+              backgroundColor: transparent ? "#2794d2 !important" : "#000 !important",
               color: "#fff",
               fontWeight: "bold",
               px: isMobile ? 3 : 4,

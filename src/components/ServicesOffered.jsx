@@ -1,17 +1,11 @@
-import {
-  Box,
-  Typography,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Card,
-  CardContent,
-  useMediaQuery,
-} from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import LayersIcon from "@mui/icons-material/Layers";
+// src/components/ServicesOffered.jsx
+// Apple-style "types / options" section for the services pages: brand-marked
+// film tiles (all the same height), pill list of coverage areas, and a
+// simulator call-to-action tile. Layout is pure CSS — no JS media queries.
+import PropTypes from "prop-types";
+import { Box, Container, Typography } from "@mui/material";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import { Link } from "react-router-dom";
 
 // Define service-specific content
@@ -240,457 +234,348 @@ const serviceOptions = {
   },
 };
 
-// Helper to chunk arrays
-const chunkArray = (arr, chunkSize) => {
-  const chunks = [];
-  for (let i = 0; i < arr.length; i += chunkSize)
-    chunks.push(arr.slice(i, i + chunkSize));
-  return chunks;
-};
+const ACCENT = "#4db8f0";
+const EASE = "cubic-bezier(.25,.1,.25,1)";
 
+// Brand marks, sized per logo shape so they look optically balanced
 const LOGOS = {
-  llumar: "/llumar-logo.webp",
-  formulaOne: "/f1-3.webp",
-  stek: "/stek-logo.webp",
-  exo: "/windshield/exo.webp",
+  llumar: { src: "/llumar-logo.webp", alt: "LLumar", w: 656, h: 380, height: 40 },
+  formulaOne: { src: "/f1-3.webp", alt: "FormulaOne", w: 410, h: 130, height: 30 },
+  stek: { src: "/stek-logo.webp", alt: "STEK", w: 485, h: 163, height: 26, invert: true },
+  exo: { src: "/windshield/exo.webp", alt: "ExoShield", w: 1200, h: 141, height: 18 },
 };
 
 const getFilmLogo = (serviceId, filmName) => {
   if (serviceId === "windshield-protection-film") {
-    if (/dynotop/i.test(filmName)) return LOGOS.stek; // ✅ DYNOtop → STEK
-    if (/gt3|exo/i.test(filmName)) return LOGOS.exo; // ✅ GT3 Exo Shield → Exo
-    return LOGOS.exo;
+    if (/dynotop/i.test(filmName)) return LOGOS.stek; // DYNOtop → STEK
+    return LOGOS.exo; // GT3 Exo Shield → ExoShield
   }
-  if (
-    serviceId === "vehicle-paint-protection" ||
-    serviceId === "headlight-services"
-  )
-    return LOGOS.stek;
+  if (serviceId === "vehicle-paint-protection" || serviceId === "headlight-services") return LOGOS.stek;
   if (/formulaone/i.test(filmName)) return LOGOS.formulaOne;
   return LOGOS.llumar;
 };
 
-const ServicesOffered = ({ serviceId }) => {
-  const service = serviceOptions[serviceId];
-  const isMobile = useMediaQuery("(max-width: 768px)");
+const HEADINGS = {
+  "commercial-window-tinting": "Commercial Window Tinting Options",
+  "residential-window-tinting": "Residential Window Tinting Options",
+  "vehicle-paint-protection": "Stek PPF Options",
+  "headlight-services": "Available Headlight Tint Tones",
+  "vehicle-paint-correction": "Paint Correction Options",
+  "windshield-protection-film": "Windshield Protection Film Options",
+  "tesla-window-tinting": "Types of Tesla Window Tinting Film",
+};
 
-  if (!service) {
-    return (
-      <Typography variant="h4" textAlign="center" sx={{ color: "#fff" }}>
-        Services not found
-      </Typography>
-    );
-  }
+const COLOR_CHANGE_URL = "https://www.stek-usa.com/fashion-film/";
 
-  const renderFilmCard = (film, index) => {
-    const isColorChangePPF =
-      serviceId === "vehicle-paint-protection" &&
-      film.name === "Color Change PPF";
+// Desktop uses a 6-column grid so every count fills complete rows:
+// 1 → full, 2 → halves, 3/6 → thirds, 4 → 2×2, 5 → 3 thirds + 2 halves
+const desktopSpan = (count, i) => {
+  if (count === 1) return 6;
+  if (count === 2 || count === 4) return 3;
+  if (count === 5) return i < 3 ? 2 : 3;
+  return 2;
+};
 
-    return (
-      <Card
-        key={index}
-        sx={{
-          position: "relative",
-          backgroundColor: "transparent", // transparent card
-          backgroundImage: "none",
-          color: "#fff",
-          borderRadius: 5,
-          height: "100%",
-          transition:
-            "transform .25s ease, box-shadow .25s ease, border-color .25s ease",
-          border: "1px solid rgba(255,255,255,0.18)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
-          "&:hover": {
-            transform: "translateY(-2px)",
-            boxShadow: "0 12px 30px rgba(0,0,0,0.45)",
-            borderColor: "rgba(39,148,210,0.45)",
-          },
-        }}
-      >
-        {/* Film Logo */}
-        <Box
-          component="img"
-          src={getFilmLogo(serviceId, film.name)}
-          alt={`${film.name} film logo`}
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            width:
-              getFilmLogo(serviceId, film.name) === LOGOS.formulaOne ? 130 : 80,
-            height:
-              getFilmLogo(serviceId, film.name) === LOGOS.formulaOne
-                ? 40
-                : "auto",
-            objectFit: "contain",
-            filter: [LOGOS.stek].includes(getFilmLogo(serviceId, film.name))
-              ? "invert(1)"
-              : "none",
-          }}
-        />
+const TextLink = ({ href, children }) => (
+  <Box
+    component="a"
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 0.25,
+      color: ACCENT,
+      fontWeight: 500,
+      fontSize: "1.02rem",
+      textDecoration: "none",
+      "&:hover": { textDecoration: "underline" },
+      "&:focus-visible": { outline: "2px solid #2794d2", outlineOffset: 3, borderRadius: 1 },
+    }}
+  >
+    {children}
+    <ChevronRightRoundedIcon aria-hidden="true" sx={{ fontSize: 20 }} />
+  </Box>
+);
 
-        <CardContent
-          sx={{
-            background: "transparent",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            justifyContent: "space-between",
-            height: "100%",
-            p: 3,
-          }}
-        >
-          <LayersIcon sx={{ fontSize: 40, color: "#2794d2", mb: 1 }} />
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            sx={{ fontSize: { xs: "1.5rem", md: "1.5rem" } }}
-          >
-            {film.name}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ mt: 1, color: "rgba(255,255,255,0.9)" }}
-          >
-            {film.description}
-          </Typography>
+TextLink.propTypes = { href: PropTypes.string.isRequired, children: PropTypes.node };
 
-          {/* Special Button for Color Change PPF */}
-          {isColorChangePPF && (
-            <Link
-              to="https://www.stek-usa.com/fashion-film/?gad_source=1&gbraid=0AAAAApzm59nXMARmXUREslvQbkY3LkfAm&gclid=CjwKCAjwzMi_BhACEiwAX4YZUIGLt8C3CHDIZ12TlPt6DFznknS7D-da5PcSAv0J1-0yZK2qd-dw-BoCoPEQAvD_BwE"
-              style={{ textDecoration: "none" }}
-            >
-              <Box
-                sx={{
-                  mt: 3,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 1.5,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                  color: "#fff",
-                  background:
-                    "linear-gradient(90deg, #2794d2 0%, #1b6fa5 100%)",
-                  borderRadius: 50,
-                  transition: "all 0.3s ease-in-out",
-                  boxShadow: "0 4px 15px rgba(39,148,210,0.3)",
-                  "&:hover": {
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 6px 20px rgba(39,148,210,0.4)",
-                  },
-                  "&:active": {
-                    transform: "translateY(1px)",
-                  },
-                }}
-              >
-                <span>Explore Color Options</span>
-                <span>→</span>
-              </Box>
-            </Link>
-          )}
-
-          {/* Film-specific warranty button (if provided) */}
-          {film.warrantyUrl && (
-            <Link
-              to={film.warrantyUrl}
-              target="_blank" rel="noopener noreferrer"
-              style={{ textDecoration: "none" }}
-            >
-              <Box
-                sx={{
-                  mt: 2,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 1.5,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                  color: "#fff",
-                  background:
-                    "linear-gradient(90deg, #2794d2 0%, #1b6fa5 100%)",
-                  borderRadius: 50,
-                  transition: "all 0.3s ease-in-out",
-                  boxShadow: "0 4px 15px rgba(39,148,210,0.3)",
-                  "&:hover": {
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 6px 20px rgba(39,148,210,0.4)",
-                  },
-                  "&:active": { transform: "translateY(1px)" },
-                }}
-              >
-                <span>See Warranty Coverage</span>
-                <span>→</span>
-              </Box>
-            </Link>
-          )}
-        </CardContent>
-      </Card>
-    );
-  };
+const FilmTile = ({ film, serviceId, count, index }) => {
+  const logo = getFilmLogo(serviceId, film.name);
+  const isColorChangePPF = serviceId === "vehicle-paint-protection" && film.name === "Color Change PPF";
+  const span = desktopSpan(count, index);
+  // Tablet: two per row; an odd last tile spans the full row
+  const tabletFull = count === 1 || (count % 2 === 1 && index === count - 1);
 
   return (
     <Box
+      component="article"
       sx={{
-        py: 6,
-        px: isMobile ? 1.2 : 4,
-        backgroundColor: "transparent", // transparent root
-        backgroundImage: "none",
-        color: "#fff",
-        width: "100vw",
+        flex: { xs: "0 0 82%", sm: "initial" },
+        scrollSnapAlign: { xs: "start", sm: "none" },
+        gridColumn: { sm: tabletFull ? "span 6" : "span 3", md: `span ${span}` },
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        p: { xs: 3.5, md: 4 },
+        borderRadius: { xs: "24px", md: "28px" },
+        backgroundColor: "rgba(255,255,255,0.045)",
+        transition: `background-color .3s ${EASE}`,
+        "@media (hover: hover)": {
+          "&:hover": { backgroundColor: "rgba(255,255,255,0.07)" },
+        },
       }}
     >
-      <Box sx={{ maxWidth: "1200px", mx: "auto" }}>
-        <Typography
-          variant={isMobile ? "h4" : "h2"}
-          sx={{ mb: 2, fontWeight: "bold", color: "#fff", textAlign: "center" }}
-        >
-          {serviceId === "commercial-window-tinting"
-            ? "Commercial Window Tinting Options"
-            : serviceId === "residential-window-tinting"
-              ? "Residential Window Tinting Options"
-              : serviceId === "vehicle-paint-protection"
-                ? "Stek PPF Options"
-                : serviceId === "headlight-services"
-                  ? "Available Headlight Tint Tones"
-                  : serviceId === "vehicle-paint-correction"
-                    ? "Paint Correction Options"
-                    : serviceId === "windshield-protection-film"
-                      ? "Windshield Protection Film Options"
-                      : serviceId === "tesla-window-tinting"
-                        ? "Types of Tesla Window Tinting Film"
-                        : "Types of Vehicle Window Tinting Film"}
-        </Typography>
-
-        {(serviceId === "commercial-window-tinting" ||
-          serviceId === "residential-window-tinting") && (
-            <List
-              sx={{
-                backgroundColor: "transparent",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 2,
-                justifyContent: { xs: "flex-start", sm: "center" },
-              }}
-            >
-              {service.list.map((item, index) => (
-                <ListItem
-                  key={index}
-                  sx={{
-                    width: "auto",
-                    display: "flex",
-                    alignItems: "center",
-                    m: 0,
-                    p: 0,
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  <ListItemIcon sx={{ minWidth: "auto", mr: 0.5 }}>
-                    <CheckCircleIcon sx={{ color: "#2794d2" }} />
-                  </ListItemIcon>
-                  <ListItemText primary={item} sx={{ m: 0 }} />
-                </ListItem>
-              ))}
-            </List>
-          )}
-
-        <Typography
-          variant="h3"
-          fontWeight="bold"
+      <Box sx={{ height: 40, display: "flex", alignItems: "center" }}>
+        <Box
+          component="img"
+          src={logo.src}
+          alt={logo.alt}
+          width={logo.w}
+          height={logo.h}
+          loading="lazy"
+          decoding="async"
           sx={{
-            mt: 4,
-            mb: 2,
-            textAlign: serviceId === "tesla-window-tinting" ? "center" : "left",
-            fontSize: "1.5rem",
+            height: logo.height,
+            width: "auto",
+            maxWidth: 160,
+            objectFit: "contain",
+            filter: logo.invert ? "invert(1)" : "none",
+            opacity: 0.92,
           }}
-        >
-          The <strong>main types of film</strong> we use:
-        </Typography>
-
-        {/* Mobile carousel */}
-        {isMobile ? (
-          <Box
-            sx={{
-              display: "flex",
-              overflowX: "auto",
-              gap: 2,
-              py: 2,
-              scrollSnapType: "x mandatory",
-              "&::-webkit-scrollbar": { display: "none" },
-              backgroundColor: "transparent",
-            }}
-          >
-            {service.filmTypes.map((film, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flex: "0 0 85%",
-                  minWidth: "85%",
-                  scrollSnapAlign: "center",
-                  backgroundColor: "transparent",
-                }}
-              >
-                {renderFilmCard(film, index)}
-              </Box>
-            ))}
-          </Box>
-        ) : (
-          /* Desktop grid (fills full width to match CTA) */
-          (() => {
-            const count = service.filmTypes.length;
-            // choose column span that fills the 12-col grid completely
-            const mdSpan = count <= 1 ? 12 : count === 2 ? 6 : 4; // 1 => 12, 2 => 6, 3+ => 4
-            return (
-              <Grid
-                container
-                spacing={3}
-                justifyContent="center"
-                sx={{ mb: 0 }}
-              >
-                {service.filmTypes.map((film, index) => {
-                  const isColorChangePPF =
-                    serviceId === "vehicle-paint-protection" &&
-                    film.name === "Color Change PPF";
-                  // If you still want Color Change PPF to take full width,
-                  // you can override mdSpan here; otherwise remove this override.
-                  const span = isColorChangePPF ? 12 : mdSpan;
-
-                  return (
-                    <Grid
-                      item
-                      key={index}
-                      xs={12}
-                      sm={span === 12 ? 12 : 6}
-                      md={span}
-                      sx={{ display: "flex" }}
-                    >
-                      <Box sx={{ position: "relative", width: "100%" }}>
-                        {renderFilmCard(film, index)}
-                      </Box>
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            );
-          })()
-        )}
-
-        {/* CTA block (transparent wrapper; keeps gradient button) */}
-        {serviceId !== "headlight-services" &&
-          serviceId !== "windshield-protection-film" && (
-            <Box
-              sx={{
-                mt: 3,
-                textAlign: "center",
-                py: 5,
-                px: 3,
-                borderRadius: 4,
-                position: "relative",
-                overflow: "hidden",
-                backgroundColor: "transparent",
-                backgroundImage: "none",
-                border: "1px solid rgba(255,255,255,0.08)",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-              }}
-            >
-              <Box
-                sx={{
-                  position: "relative",
-                  zIndex: 1,
-                  backgroundColor: "transparent",
-                }}
-              >
-                <Typography
-                  variant="h3"
-                  fontWeight="bold"
-                  sx={{
-                    mb: 1,
-                    background: "linear-gradient(90deg, #fff 0%, #bfdfff 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  {serviceId === "vehicle-paint-protection"
-                    ? "See how each paint protection film package covers your vehicle!"
-                    : "Experience Your Tints Before Installation"}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    mb: 4,
-                    color: "rgba(255,255,255,0.7)",
-                    maxWidth: 600,
-                    mx: "auto",
-                    fontSize: "1.1rem",
-                  }}
-                >
-                  {serviceId === "vehicle-paint-protection"
-                    ? "From bumpers to full body, our simulator shows what’s protected."
-                    : "Our interactive simulator shows you exactly how each shade will transform your view."}
-                </Typography>
-                <Link
-                  to={`/simulators/${serviceId}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <Box
-                    sx={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: 1.5,
-                      px: 4,
-                      py: 1.5,
-                      fontSize: "1rem",
-                      fontWeight: "600",
-                      color: "#fff",
-                      background:
-                        "linear-gradient(90deg, #2794d2 0%, #1b6fa5 100%)",
-                      borderRadius: 50,
-                      transition: "all 0.3s ease-in-out",
-                      boxShadow: "0 4px 15px rgba(39,148,210,0.3)",
-                      "&:hover": {
-                        transform: "translateY(-3px)",
-                        boxShadow: "0 6px 20px rgba(39,148,210,0.4)",
-                      },
-                      "&:active": {
-                        transform: "translateY(1px)",
-                      },
-                    }}
-                  >
-                    <Box component="span">
-                      {serviceId === "vehicle-paint-protection"
-                        ? "Launch PPF Viewer"
-                        : "Launch Tint Viewer"}
-                    </Box>
-                    <Box
-                      component="span"
-                      sx={{
-                        display: "inline-block",
-                        transform: "translateX(0)",
-                        transition: "transform 0.2s ease-in-out",
-                        ".MuiBox-root:hover &": {
-                          transform: "translateX(3px)",
-                        },
-                      }}
-                    >
-                      →
-                    </Box>
-                  </Box>
-                </Link>
-              </Box>
-            </Box>
-          )}
+        />
       </Box>
+
+      <Typography
+        component="h4"
+        sx={{
+          color: "#f5f5f7",
+          fontWeight: 700,
+          fontSize: { xs: "1.35rem", md: "1.5rem" },
+          lineHeight: 1.15,
+          letterSpacing: "-0.015em",
+        }}
+      >
+        {film.name}
+      </Typography>
+
+      <Typography sx={{ color: "rgba(245,245,247,0.62)", fontSize: "1rem", lineHeight: 1.6 }}>
+        {film.description}
+      </Typography>
+
+      {/* Links pinned to the bottom so tiles line up */}
+      {(isColorChangePPF || film.warrantyUrl) && (
+        <Box sx={{ mt: "auto", pt: 1, display: "flex", flexWrap: "wrap", gap: 2.5 }}>
+          {isColorChangePPF && <TextLink href={COLOR_CHANGE_URL}>Explore Color Options</TextLink>}
+          {film.warrantyUrl && <TextLink href={film.warrantyUrl}>See Warranty Coverage</TextLink>}
+        </Box>
+      )}
     </Box>
   );
 };
+
+FilmTile.propTypes = {
+  film: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    warrantyUrl: PropTypes.string,
+  }).isRequired,
+  serviceId: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+};
+
+const ServicesOffered = ({ serviceId }) => {
+  const service = serviceOptions[serviceId];
+  if (!service) return null;
+
+  const films = service.filmTypes || [];
+  const heading = HEADINGS[serviceId] || "Types of Vehicle Window Tinting Film";
+  const showList =
+    serviceId === "commercial-window-tinting" || serviceId === "residential-window-tinting";
+  const showSimulator = serviceId !== "headlight-services" && serviceId !== "windshield-protection-film";
+  const isPPF = serviceId === "vehicle-paint-protection";
+
+  return (
+    <Box component="section" aria-labelledby="types-heading" sx={{ py: { xs: 8, md: 14 } }}>
+      <Container maxWidth="lg">
+        {/* Heading */}
+        <Box sx={{ textAlign: "center", maxWidth: 860, mx: "auto", mb: { xs: 4, md: 6 } }}>
+          <Typography
+            id="types-heading"
+            component="h2"
+            sx={{
+              color: "#f5f5f7",
+              fontWeight: 700,
+              fontSize: { xs: "2.1rem", sm: "2.8rem", md: "3.5rem" },
+              lineHeight: 1.07,
+              letterSpacing: "-0.025em",
+            }}
+          >
+            {heading}
+          </Typography>
+
+          {showList && service.list?.length > 0 && (
+            <Box
+              component="ul"
+              sx={{
+                listStyle: "none",
+                p: 0,
+                m: 0,
+                mt: { xs: 3, md: 4 },
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: 1.25,
+              }}
+            >
+              {service.list.map((item) => (
+                <Box
+                  component="li"
+                  key={item}
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 0.75,
+                    px: 2,
+                    py: 1,
+                    borderRadius: 999,
+                    backgroundColor: "rgba(255,255,255,0.08)",
+                    color: "rgba(245,245,247,0.88)",
+                    fontSize: "0.95rem",
+                    fontWeight: 500,
+                  }}
+                >
+                  <CheckRoundedIcon aria-hidden="true" sx={{ fontSize: 18, color: ACCENT }} />
+                  {item}
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
+
+        {films.length > 0 && (
+          <>
+            <Typography
+              component="h3"
+              sx={{
+                color: "rgba(245,245,247,0.62)",
+                fontSize: { xs: "1.15rem", md: "1.35rem" },
+                fontWeight: 600,
+                letterSpacing: "-0.01em",
+                textAlign: "center",
+                mb: { xs: 3, md: 4 },
+                "& strong": { color: "#f5f5f7", fontWeight: 700 },
+              }}
+            >
+              The <strong>main types of film</strong> we use:
+            </Typography>
+
+            {/* Tiles: swipe row on phones; equal-height 6-col grid on tablet+ */}
+            <Box
+              sx={{
+                display: { xs: "flex", sm: "grid" },
+                gridTemplateColumns: { sm: "repeat(6, 1fr)" },
+                gridAutoRows: { sm: "1fr" },
+                alignItems: "stretch",
+                gap: { xs: 1.5, md: 2.5 },
+                overflowX: { xs: "auto", sm: "visible" },
+                scrollSnapType: { xs: "x mandatory", sm: "none" },
+                scrollPaddingInline: { xs: "16px", sm: 0 },
+                mx: { xs: -2, sm: 0 },
+                px: { xs: 2, sm: 0 },
+                scrollbarWidth: "none",
+                "&::-webkit-scrollbar": { display: "none" },
+              }}
+            >
+              {films.map((film, i) => (
+                <FilmTile
+                  key={film.name}
+                  film={film}
+                  serviceId={serviceId}
+                  count={films.length}
+                  index={i}
+                />
+              ))}
+            </Box>
+          </>
+        )}
+
+        {/* Simulator call-to-action */}
+        {showSimulator && (
+          <Box
+            sx={{
+              mt: { xs: 3, md: 5 },
+              px: { xs: 3, md: 6 },
+              py: { xs: 6, md: 8 },
+              borderRadius: { xs: "24px", md: "28px" },
+              textAlign: "center",
+              background:
+                "radial-gradient(120% 140% at 50% 0%, rgba(39,148,210,0.22) 0%, rgba(255,255,255,0.045) 60%)",
+            }}
+          >
+            <Typography
+              component="h3"
+              sx={{
+                color: "#f5f5f7",
+                fontWeight: 700,
+                fontSize: { xs: "1.7rem", md: "2.4rem" },
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                maxWidth: 720,
+                mx: "auto",
+                mb: 1.5,
+              }}
+            >
+              {isPPF
+                ? "See how each paint protection film package covers your vehicle!"
+                : "Experience Your Tints Before Installation"}
+            </Typography>
+            <Typography
+              sx={{
+                color: "rgba(245,245,247,0.62)",
+                fontSize: { xs: "1.02rem", md: "1.15rem" },
+                lineHeight: 1.5,
+                maxWidth: 560,
+                mx: "auto",
+                mb: 4,
+              }}
+            >
+              {isPPF
+                ? "From bumpers to full body, our simulator shows what’s protected."
+                : "Our interactive simulator shows you exactly how each shade will transform your view."}
+            </Typography>
+            <Box
+              component={Link}
+              to={`/simulators/${serviceId}`}
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 0.5,
+                px: 3.5,
+                py: 1.5,
+                borderRadius: 999,
+                fontSize: "1.05rem",
+                fontWeight: 500,
+                color: "#fff",
+                backgroundColor: "#2794d2",
+                textDecoration: "none",
+                transition: `background-color .25s ${EASE}`,
+                "&:hover": { backgroundColor: "#1f86c1" },
+                "&:focus-visible": { outline: "2px solid #fff", outlineOffset: 3 },
+              }}
+            >
+              {isPPF ? "Launch PPF Viewer" : "Launch Tint Viewer"}
+              <ChevronRightRoundedIcon aria-hidden="true" sx={{ fontSize: 22 }} />
+            </Box>
+          </Box>
+        )}
+      </Container>
+    </Box>
+  );
+};
+
+ServicesOffered.propTypes = { serviceId: PropTypes.string };
 
 export default ServicesOffered;

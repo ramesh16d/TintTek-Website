@@ -121,9 +121,7 @@ async function prerender() {
   let succeeded = 0;
   let failed = 0;
 
-  for (const route of ROUTES) {
-    try {
-      console.log(`  Rendering ${route} ...`);
+  const buildPage = async (route, { prerenderedPath }) => {
       const { html, emotionStyles, helmet } = await render(route);
 
       // Collect per-route head tags from react-helmet-async
@@ -146,11 +144,23 @@ async function prerender() {
 
       // Inject CSS preload immediately after <head> so the browser starts
       // fetching the stylesheet before parsing the rest of the document.
-      const pageHtml = template
-        .replace('<div id="root">', `<div id="root" data-prerendered-path="${route}">`)
-        .replace('<head>', `<head>\n    ${cssPreloadTag}`)
-        .replace('<!--app-head-->', injectedHead)
-        .replace('<!--app-html-->', html);
+      // Replacement *functions*, not strings: String.replace treats "$&", "$'",
+      // "$`" and "$$" in a replacement string as special patterns, so page text
+      // such as prices ("$$", "$'…") could otherwise silently corrupt the HTML.
+      return template
+        .replace(
+          '<div id="root">',
+          () => (prerenderedPath ? `<div id="root" data-prerendered-path="${prerenderedPath}">` : '<div id="root">'),
+        )
+        .replace('<head>', () => `<head>\n    ${cssPreloadTag}`)
+        .replace('<!--app-head-->', () => injectedHead)
+        .replace('<!--app-html-->', () => html);
+  };
+
+  for (const route of ROUTES) {
+    try {
+      console.log(`  Rendering ${route} ...`);
+      const pageHtml = await buildPage(route, { prerenderedPath: route });
 
       // Determine output path:  / → dist/index.html, /gallery → dist/gallery/index.html
       const outPath =
@@ -168,6 +178,27 @@ async function prerender() {
       console.error(`    ✗ Failed ${route}: ${err.message}`);
       failed++;
     }
+  }
+
+  // 404 page: the host serves dist/404.html (with HTTP 404) for URLs that match
+  // no file or rewrite rule. Render an unmatched path so React Router falls
+  // through to <NotFound />. No data-prerendered-path: the browser keeps the
+  // requested URL and hydrates the same NotFound screen. The template's
+  // site-wide "index, follow" tag is dropped so only NotFound's noindex remains.
+  try {
+    console.log('  Rendering 404 page ...');
+    const notFoundHtml = (await buildPage('/__prerender-not-found__', { prerenderedPath: null }))
+      .replace(/\s*<meta name="robots" content="index, follow" \/>/, '');
+    if (!/<meta[^>]*name="robots"[^>]*noindex/.test(notFoundHtml)) {
+      throw new Error('404 page is missing its noindex robots tag');
+    }
+    const notFoundPath = path.join(clientDist, '404.html');
+    fs.writeFileSync(notFoundPath, notFoundHtml, 'utf-8');
+    console.log(`    ✓ Saved ${path.relative(rootDir, notFoundPath)}`);
+    succeeded++;
+  } catch (err) {
+    console.error(`    ✗ Failed 404 page: ${err.message}`);
+    failed++;
   }
 
   console.log(`\nPrerendering complete: ${succeeded} succeeded, ${failed} failed.`);

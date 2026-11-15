@@ -13,6 +13,7 @@ import {
   Box,
   Typography,
   Button,
+  Container,
   GlobalStyles,
 } from "@mui/material";
 import Link from "@mui/material/Link";
@@ -110,55 +111,55 @@ const serviceDetails = {
 // Meta overrides
 const metaByService = {
   "vehicle-window-tinting": {
-    title: "Vehicle Window Tinting Garland & Dallas, TX | Tint Tek Plus",
+    title: "Vehicle Window Tinting in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Professional vehicle window tinting in Garland & Dallas, TX. Tint Tek Plus installs LLumar nano-ceramic films for superior heat rejection, UV protection, and privacy. Book today!",
     keywords: "vehicle window tinting garland, window tinting garland, window tint garland tx, car window tinting garland, auto tinting dallas, car window tint near me, ceramic window tint garland"
   },
   "tesla-window-tinting": {
-    title: "Tesla Window Tinting Garland, TX | Tint Tek Plus",
+    title: "Tesla Window Tinting in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Searching for Tesla window tinting Garland? Get professional heat reduction, UV protection, and sleek EV tint services at Tint Tek Plus. Book your Tesla tint today!",
     keywords: "tesla window tinting garland, window tinting garland, Model 3 window tint Garland, Model Y window tint Garland, Tesla heat rejection tint TX, EV window tinting Garland"
   },
   "commercial-window-tinting": {
-    title: "Commercial Window Tinting Garland, TX | Tint Tek Plus",
+    title: "Commercial Window Tinting in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Professional commercial window tinting in Garland, Texas to improve energy efficiency, privacy & comfort for offices and storefronts. Trusted service at Tint Tek Plus.",
     keywords: "commercial window tinting garland, window tinting garland, office window tint garland, storefront window tinting TX, commercial building tinting Garland, privacy window film Garland"
   },
   "residential-window-tinting": {
-    title: "Residential Window Tinting Garland, TX | Tint Tek Plus",
+    title: "Residential Window Tinting in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Top residential window tinting in Garland, Texas to reduce heat, glare & UV while enhancing privacy and comfort. Trusted home tint experts at Tint Tek Plus.",
     keywords: "residential window tinting garland, window tinting garland, home window tint garland, house window tinting TX, privacy tint for homes Garland, residential UV window film"
   },
   "vehicle-paint-correction": {
-    title: "Vehicle Paint Correction Services in Dallas, TX | Tint Tek Plus",
+    title: "Paint Correction in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Professional vehicle paint correction services in Dallas, Texas. Restore shine, remove swirls & protect your car’s paint. Book Tint Tek Plus experts today!",
     keywords: "vehicle paint correction Dallas, car paint correction TX, auto paint restoration, swirl mark removal, scratch removal auto paint, professional paint correction DFW, car polish and buff Dallas"
   },
   "vehicle-paint-protection": {
-    title: "Vehicle Paint Protection Services in Dallas, TX | Tint Tek Plus",
+    title: "Paint Protection Film (PPF) in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Protect your vehicle's paint with professional services from Tint Tek Plus. Keep your car looking brand new with our high-quality paint protection solutions.",
     keywords: "vehicle paint protection Dallas, PPF installation TX, paint protection film DFW, clear bra Dallas, auto paint protection, protect car paint, car wrap protection Dallas"
   },
   "headlight-services": {
-    title: "Tinted Headlights & Taillights Services in Dallas, TX | Tint Tek Plus",
+    title: "Headlight & Taillight Tinting in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Get premium tinted headlights in Dallas, Texas for style and protection. Quality headlight & taillight tint services at Tint Tek Plus. Book your appointment today!",
     keywords: "tinted headlights Dallas, taillight tinting TX, custom headlight tint, auto light tinting DFW, smoked headlights Dallas, smoked taillights, light tint shop near me"
   },
   "windshield-protection-film": {
-    title: "Windshield Protection Film Services in Dallas, TX | Tint Tek Plus",
+    title: "Windshield Protection Film in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Protect your car with windshield protection film in Dallas, Texas. Tint Tek Plus offers premium film to prevent cracks, chips & UV damage. Book today!",
     keywords: "windshield protection film Dallas, windshield rock chip protection, clear windshield film TX, auto windshield tint, safety windshield film DFW, exact fit windshield protection"
   },
   "ceramic-coating": {
-    title: "Ceramic Coating Services in Dallas, TX | Tint Tek Plus",
+    title: "Ceramic Coating in Garland & Dallas, TX | Tint Tek Plus",
     description:
       "Get professional ceramic coating in Dallas, Texas for long-lasting paint protection and deep shine. Trusted experts at Tint Tek Plus.",
     keywords: "ceramic coating Dallas, ceramic car coating TX, auto ceramic coating DFW, best ceramic coating near me, ceramic paint protection, long lasting ceramic coat Dallas, permanent car shine"
@@ -265,119 +266,140 @@ const parseParagraphs = (htmlStr) => {
     .filter((p) => p.length > 0);
 };
 
+// Same layout as the Tesla model pages' "About" section (TeslaModelPage.jsx):
+// title left / intro right, then numbered cards — swipe row on phones,
+// 2 columns on tablets, 3 on desktop.
 const SEOContentSection = ({ paragraphs, service }) => {
   if (!paragraphs || paragraphs.length === 0 || !service) return null;
 
   return (
-    <Box sx={{ width: "100%", py: { xs: 8, md: 12 }, px: { xs: 2, md: 4 } }}>
-      <Box
-        sx={{
-          maxWidth: "1100px",
-          mx: "auto",
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          gap: { xs: 6, md: 8 }
-        }}
-      >
-        {/* Left Column: Sticky Header */}
-        <Box sx={{ flex: { md: "0 0 35%" }, position: "relative" }}>
-          <Box sx={{ position: "sticky", top: "140px" }}>
-            <Typography
-              component={motion.h3}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              sx={{
-                color: "#fff",
-                fontWeight: 800,
-                fontSize: { xs: "2rem", md: "3rem" },
-                lineHeight: 1.2,
-                letterSpacing: "-0.5px",
-                mb: 2
-              }}
-            >
-              About <br sx={{ display: { xs: "none", md: "block" } }} />
-              <Box component="span" sx={{ color: "#2794d2" }}>{service.title}</Box>
-            </Typography>
-            <Typography sx={{ color: "rgba(255,255,255,0.6)", fontSize: "1.1rem", mb: 4 }}>
+    <Box
+      component="section"
+      sx={{ width: "100%", pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 12 } }}
+    >
+      <Container maxWidth="lg">
+        {/* Header row: title left, intro right */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { md: "flex-end" },
+            justifyContent: "space-between",
+            gap: { xs: 2, md: 6 },
+            mb: { xs: 4, md: 5 },
+          }}
+        >
+          <Typography
+            component="h3"
+            sx={{
+              color: "#fff",
+              fontWeight: 800,
+              fontSize: { xs: "2rem", md: "2.6rem" },
+              lineHeight: 1.15,
+              letterSpacing: "-0.5px",
+            }}
+          >
+            About{" "}
+            <Box component="span" sx={{ color: "#2794d2" }}>
+              {service.title}
+            </Box>
+          </Typography>
+          <Box sx={{ maxWidth: 420 }}>
+            <Typography sx={{ color: "rgba(255,255,255,0.6)", fontSize: "1rem", lineHeight: 1.6 }}>
               Everything you need to know about this service before booking your appointment.
             </Typography>
-
             <Box
-              component={motion.div}
-              initial={{ width: 0 }}
-              whileInView={{ width: "80px" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
               sx={{
-                height: "4px",
+                width: 80,
+                height: 4,
+                mt: 2,
                 background: "linear-gradient(90deg, #2794d2, transparent)",
                 borderRadius: "2px",
-                mb: { xs: 4, md: 0 }
               }}
             />
           </Box>
         </Box>
 
-        {/* Right Column: Numbered Glass Cards */}
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
-          {paragraphs.map((text, index) => {
-            const num = (index + 1).toString().padStart(2, '0');
-            return (
-              <Box
-                key={index}
-                component={motion.div}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
+        {/* Cards: swipe row on phones, 2 columns on tablets, 3 on desktop */}
+        <Box
+          sx={{
+            display: { xs: "flex", sm: "grid" },
+            gridTemplateColumns: { sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
+            // Every card the same height, across all rows
+            gridAutoRows: { sm: "1fr" },
+            alignItems: "stretch",
+            gap: { xs: 2, md: 3 },
+            overflowX: { xs: "auto", sm: "visible" },
+            scrollSnapType: { xs: "x mandatory", sm: "none" },
+            // Snap to the padded edge, not the container edge, so cards keep the page gutter
+            scrollPaddingInline: { xs: "16px", sm: 0 },
+            mx: { xs: -2, sm: 0 },
+            px: { xs: 2, sm: 0 },
+            pb: { xs: 1, sm: 0 },
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": { display: "none" },
+          }}
+        >
+          {paragraphs.map((text, index) => (
+            <Box
+              key={index}
+              component={motion.div}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px 0px" }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: (index % 3) * 0.1 }}
+              sx={{
+                flex: { xs: "0 0 85%", sm: "initial" },
+                scrollSnapAlign: { xs: "start", sm: "none" },
+                position: "relative",
+                background: "rgba(255, 255, 255, 0.03)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                borderRadius: "20px",
+                p: { xs: 2.75, md: 3 },
+                transition: "border-color 0.3s ease, background 0.3s ease",
+                "&:hover": {
+                  background: "rgba(255, 255, 255, 0.05)",
+                  borderColor: "rgba(39, 148, 210, 0.3)",
+                },
+              }}
+            >
+              <Typography
                 sx={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: { xs: "column", sm: "row" },
-                  gap: { xs: 2, sm: 4 },
-                  background: "rgba(255, 255, 255, 0.03)",
-                  backdropFilter: "saturate(180%) blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "20px",
-                  p: { xs: 3, md: 4 },
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-                  transition: "transform 0.3s ease, background 0.3s ease",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    border: "1px solid rgba(39, 148, 210, 0.3)",
-                  }
+                  fontWeight: 900,
+                  fontSize: "1.4rem",
+                  lineHeight: 1,
+                  color: "rgba(39, 148, 210, 0.45)",
+                  fontFamily: "monospace",
+                  mb: 1.5,
                 }}
               >
-                <Typography
-                  sx={{
-                    fontWeight: 900,
-                    fontSize: { xs: "2.5rem", md: "3.5rem" },
-                    lineHeight: { xs: 1, md: 0.8 },
-                    color: "rgba(39, 148, 210, 0.25)",
-                    fontFamily: "monospace",
-                    flexShrink: 0
-                  }}
-                >
-                  {num}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: "rgba(255,255,255,0.85)",
-                    fontSize: { xs: "1.05rem", md: "1.15rem" },
-                    lineHeight: 1.7,
-                    fontWeight: 300,
-                  }}
-                >
-                  {text}
-                </Typography>
-              </Box>
-            )
-          })}
+                {(index + 1).toString().padStart(2, "0")}
+              </Typography>
+              <Typography
+                sx={{
+                  color: "rgba(255,255,255,0.82)",
+                  fontSize: { xs: "0.96rem", md: "0.98rem" },
+                  lineHeight: 1.65,
+                  fontWeight: 300,
+                }}
+              >
+                {text}
+              </Typography>
+            </Box>
+          ))}
         </Box>
-      </Box>
+        <Typography
+          sx={{
+            display: { xs: "block", sm: "none" },
+            color: "rgba(255,255,255,0.45)",
+            fontSize: "0.8rem",
+            mt: 1.5,
+            textAlign: "center",
+          }}
+        >
+          Swipe for more →
+        </Typography>
+      </Container>
     </Box>
   );
 };
@@ -466,12 +488,6 @@ const ServicePage = () => {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Services",
-            item: `${SITE}/services`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
             name: service.title,
             item: url,
           },
@@ -804,7 +820,6 @@ const ServicePage = () => {
 
         <Suspense fallback={Fallback}>
           {(serviceId === "commercial-window-tinting" ||
-            serviceId === "tesla-window-tinting" ||
             serviceId === "residential-window-tinting") && (
               <InViewMount rootMargin="200px">
                 <ImageCarousel />

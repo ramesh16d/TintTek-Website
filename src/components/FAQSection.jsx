@@ -1,33 +1,7 @@
-import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Container } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
-/* ------------------------------ Accent Map ------------------------------ */
-const ACCENT_PRIMARY = "#2794d2";
-const ACCENT_SECONDARY = "#134d6b";
-
-const colorSchemes = {
-  "vehicle-window-tinting": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "tesla-window-tinting": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "commercial-window-tinting": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "residential-window-tinting": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "vehicle-paint-protection": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "vehicle-paint-correction": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "windshield-protection-film": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "headlight-services": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-  "ceramic-coating": { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY },
-};
+import CityFAQ from "./CityFAQ";
 
 const serviceTitles = {
   "vehicle-window-tinting": "Vehicle Window Tinting",
@@ -330,17 +304,16 @@ const faqConfig = {
   ],
 };
 
-const FAQSection = ({ faqsOverride, titleOverride, colorsOverride } = {}) => {
+// Uses the same design as the Tesla model / city landing pages (CityFAQ).
+// FAQ copy and FAQPage JSON-LD stay here, keyed by the service slug in the URL.
+const FAQSection = ({ faqsOverride, titleOverride } = {}) => {
   const location = useLocation();
   const path = location.pathname.split("/").pop();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const faqs = faqsOverride || faqConfig[path] || [];
-  const colors =
-    colorsOverride || colorSchemes[path] || { primary: ACCENT_PRIMARY, secondary: ACCENT_SECONDARY };
-  const heading =
-    titleOverride || `Frequently Asked Questions ${serviceTitles[path] ? `About ${serviceTitles[path]}` : ""}`;
+  const serviceTitle = serviceTitles[path];
+
+  if (faqs.length === 0) return null;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -355,116 +328,35 @@ const FAQSection = ({ faqsOverride, titleOverride, colorsOverride } = {}) => {
     })),
   };
 
+  const title =
+    titleOverride ||
+    (serviceTitle ? (
+      <>
+        Frequently Asked Questions About{" "}
+        <Box component="span" sx={{ color: "#4db8f0" }}>
+          {serviceTitle}
+        </Box>
+      </>
+    ) : (
+      "Frequently Asked Questions"
+    ));
+
   return (
-    <Box sx={{ py: { xs: 6, md: 10 } }}>
+    <>
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
-      <Container maxWidth="xl">
-        <Typography
-          variant={isMobile ? "h4" : "h2"}
-          fontWeight={900}
-          textAlign="center"
-          gutterBottom
-          sx={{
-            color: "#fff",
-            letterSpacing: 1.2,
-          }}
-        >
-          {heading}
-        </Typography>
-
-        {faqs.length > 0 ? (
-          faqs.map((faq, index) => (
-            <Accordion
-              key={index}
-              disableGutters
-              square={false}
-              sx={{
-                my: 2.25,
-                position: "relative",
-                borderRadius: "14px",
-                overflow: "hidden",
-                // ===== Glassmorphism =====
-                background: "rgba(255,255,255,0.06)",
-                backdropFilter: "saturate(180%) blur(12px)",
-                WebkitBackdropFilter: "saturate(180%) blur(12px)",
-                border: "1px solid rgba(255,255,255,0.18)",
-                boxShadow: "0 10px 26px rgba(0,0,0,0.28)",
-                transition: "border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease",
-                "&:hover": {
-                  borderColor: "rgba(255,255,255,0.36)",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 14px 36px rgba(0,0,0,0.36)",
-                },
-                "&::before": { display: "none" }, // remove default MUI divider line
-                // Top accent bar (to match benefits cards)
-                "&::after": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "4px",
-                  background: `linear-gradient(90deg, ${colors.primary}, ${colors.secondary})`,
-                },
-              }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon sx={{ color: "#fff", fontSize: "1.75rem" }} />}
-                sx={{
-                  px: { xs: 2, sm: 2.5, md: 3 },
-                  py: { xs: 1.5, md: 2 },
-                  "& .MuiAccordionSummary-content": {
-                    alignItems: "center",
-                    gap: 1,
-                    my: 0,
-                  },
-                  "& .MuiAccordionSummary-content.Mui-expanded": {
-                    my: 0,
-                  },
-                }}
-              >
-                <Typography
-                  variant={isMobile ? "h4" : "h4"}
-                  fontWeight={800}
-                  sx={{
-                    color: "#fff",
-                    fontSize: { xs: "1.05rem", sm: "1.2rem", md: "1.35rem" },
-                    letterSpacing: 0.2,
-                  }}
-                >
-                  {faq.question}
-                </Typography>
-              </AccordionSummary>
-
-              <AccordionDetails
-                sx={{
-                  px: { xs: 2, sm: 2.5, md: 3 },
-                  pb: { xs: 2, md: 2.5 },
-                  pt: { xs: 0, md: 0.25 },
-                }}
-              >
-                <Typography
-                  variant="body1"
-                  component="div"
-                  sx={{
-                    color: "rgba(255,255,255,0.92)",
-                    fontSize: { xs: "0.97rem", sm: "1.05rem" },
-                    lineHeight: 1.7,
-                  }}
-                  dangerouslySetInnerHTML={{ __html: faq.answer }}
-                />
-              </AccordionDetails>
-            </Accordion>
-          ))
-        ) : (
-          <Typography sx={{ color: "rgba(255,255,255,0.8)", textAlign: "center", mt: 4 }}>
-            No FAQs available for this service.
-          </Typography>
-        )}
+      <Container maxWidth="lg">
+        <CityFAQ
+          faqs={faqs}
+          htmlAnswers
+          eyebrow={serviceTitle ? `${serviceTitle} FAQ` : "FAQ"}
+          title={title}
+          description={`Straight answers about ${serviceTitle || "our services"} from our Garland, TX shop.`}
+          onQuoteClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        />
       </Container>
-    </Box>
+    </>
   );
 };
 

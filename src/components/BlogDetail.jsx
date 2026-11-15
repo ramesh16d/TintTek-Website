@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useCallback, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SEO from "./SEO";
+import { Helmet } from "react-helmet-async";
 import {
   Typography,
   Container,
@@ -120,6 +121,7 @@ const RelatedPosts = ({ currentPost }) => {
                   flexShrink: 0,
                   borderRadius: 1,
                   objectFit: "cover",
+                  objectPosition: post.imagePosition || "center",
                   opacity: 0.82,
                 }}
               />
@@ -181,7 +183,9 @@ const BlogDetail = () => {
       };
     }
     const url = `${SITE}/blog/${post.slug}`;
-    const imageAbs = `${SITE}${post.image.startsWith("/") ? post.image : `/${post.image}`}`;
+    // encodeURI: some image paths contain spaces ("/ceramic/Tint Tek-111.webp"),
+    // which social scrapers and crawlers reject as invalid URLs.
+    const imageAbs = encodeURI(`${SITE}${post.image.startsWith("/") ? post.image : `/${post.image}`}`);
     const schemas = [
       {
         "@context": "https://schema.org",
@@ -221,7 +225,14 @@ const BlogDetail = () => {
       });
     }
     return {
-      title: `${post.title} | Tint Tek Plus Blog`,
+      // Keep titles within ~60 chars so Google doesn't truncate them; long post
+      // titles drop the brand suffix (Google shows the site name anyway).
+      // A post can override with `metaTitle`.
+      title: (() => {
+        const base = post.metaTitle || post.title;
+        const branded = `${base} | Tint Tek Plus`;
+        return branded.length <= 60 ? branded : base;
+      })(),
       description: post.summary,
       canonical: url,
       robots: "index, follow",
@@ -310,6 +321,13 @@ const BlogDetail = () => {
         keywords={seo.keywords}
         jsonLd={seo.schemas}
       />
+      <Helmet>
+        <meta property="og:site_name" content="Tint Tek Plus" />
+        <meta property="article:published_time" content={post.dateIso} />
+        <meta property="article:modified_time" content={post.dateIso} />
+        <meta property="article:section" content={post.category} />
+        <meta property="article:author" content="Tint Tek Plus" />
+      </Helmet>
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <Box
@@ -331,6 +349,7 @@ const BlogDetail = () => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            objectPosition: post.imagePosition || "center",
             filter: "brightness(0.28)",
           }}
         />

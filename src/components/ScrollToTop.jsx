@@ -6,16 +6,22 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     if (state?.scrollTo) {
-      // Wait for lazy components and images to settle the layout before
-      // scrolling — 400 ms is enough for hydration + initial paint.
-      // scroll-margin-top on the target element handles the fixed topbar offset.
-      const timer = setTimeout(() => {
+      // The target may live in a below-fold InViewMount that only mounts once
+      // scrolled near, so retry for a few seconds, jumping toward the bottom of
+      // the page to trigger it. scroll-margin-top handles the fixed topbar offset.
+      let tries = 0;
+      const timer = setInterval(() => {
         const el = document.getElementById(state.scrollTo);
         if (el) {
+          clearInterval(timer);
           el.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (++tries > 25) {
+          clearInterval(timer);
+        } else {
+          window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" });
         }
-      }, 400);
-      return () => clearTimeout(timer);
+      }, 150);
+      return () => clearInterval(timer);
     }
 
     window.scrollTo(0, 0);

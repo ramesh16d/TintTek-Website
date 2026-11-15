@@ -6,10 +6,15 @@ export const teslaModels = {
     slug: "model-3",
     name: "Model 3",
     displayName: "Tesla Model 3",
+    // Optional intro image; models without one use the generic install photo
+    image: {
+      src: "/tesla/Tint Tek-190.webp",
+      alt: "Gray Tesla Model 3 inside the Tint Tek Plus shop in Garland, TX",
+    },
     years: "2017–2024",
-    metaTitle: "Tesla Model 3 Window Tinting Dallas, TX | Tint Tek Plus | LLumar Ceramic",
+    metaTitle: "Tesla Model 3 Window Tinting in Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "Tesla Model 3 window tinting in Dallas, TX from Tint Tek Plus. Ceramic films that won't block Autopilot cameras or GPS. Serving all Model 3 variants — Standard, Long Range, and Performance. Book today!",
+      "Tesla Model 3 window tinting in Dallas, TX. LLumar ceramic film that won't block Autopilot cameras or GPS — Standard, Long Range & Performance. Book today!",
     keywords:
       "tesla model 3 window tinting dallas, model 3 tint dallas tx, tesla model 3 tint cost, model 3 ceramic tint, tesla model 3 tint near me, model 3 window film dallas",
     h1: "Tesla Model 3 Window Tinting in Dallas, TX",
@@ -93,9 +98,9 @@ export const teslaModels = {
     name: "Model Y",
     displayName: "Tesla Model Y",
     years: "2020–2024",
-    metaTitle: "Tesla Model Y Window Tinting Dallas, TX | Tint Tek Plus | Ceramic Films",
+    metaTitle: "Tesla Model Y Window Tinting in Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "Tesla Model Y window tinting in Dallas, TX. LLumar ceramic films for Model Y's panoramic glass roof, large rear liftgate window, and rear side glass. Non-metallic — safe for Autopilot. Book today!",
+      "Tesla Model Y window tinting in Dallas, TX. LLumar ceramic film for the panoramic glass roof, rear liftgate and side glass. Autopilot-safe. Book today!",
     keywords:
       "tesla model y window tinting dallas, model y tint dallas tx, tesla model y tint cost, model y ceramic tint, tesla model y tint near me, model y window film garland tx",
     h1: "Tesla Model Y Window Tinting in Dallas, TX",
@@ -179,9 +184,9 @@ export const teslaModels = {
     name: "Model S",
     displayName: "Tesla Model S",
     years: "2012–2024",
-    metaTitle: "Tesla Model S Window Tinting Dallas, TX | Tint Tek Plus | Premium Ceramic",
+    metaTitle: "Tesla Model S Window Tinting in Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "Premium Tesla Model S window tinting in Dallas, TX. LLumar ceramic tint for the Model S glass roof, panoramic sunroof, and all windows. Non-metallic — Autopilot safe. Lifetime warranty. Book today!",
+      "Tesla Model S window tinting in Dallas, TX. LLumar ceramic tint for the glass roof and every window. Autopilot-safe with a lifetime warranty. Book today!",
     keywords:
       "tesla model s window tinting dallas, model s tint dallas, tesla model s tint, model s ceramic tint dallas, tesla model s tint near me, model s window film dallas tx",
     h1: "Tesla Model S Window Tinting in Dallas, TX",
@@ -256,9 +261,9 @@ export const teslaModels = {
     name: "Model X",
     displayName: "Tesla Model X",
     years: "2015–2024",
-    metaTitle: "Tesla Model X Window Tinting Dallas, TX | Tint Tek Plus | Complex Glass Expert",
+    metaTitle: "Tesla Model X Window Tinting in Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "Tesla Model X window tinting in Dallas, TX. Tint Tek Plus handles the Model X's complex falcon wing doors, panoramic windshield, and large rear glass. LLumar ceramic — Autopilot safe. Book today!",
+      "Tesla Model X window tinting in Dallas, TX. Falcon wing doors, panoramic windshield and large rear glass, done in Autopilot-safe LLumar ceramic. Book today!",
     keywords:
       "tesla model x window tinting dallas, model x tint dallas tx, tesla model x tint, model x ceramic tint, model x falcon wing door tint, tesla model x tint near me dallas",
     h1: "Tesla Model X Window Tinting in Dallas, TX",
@@ -332,9 +337,9 @@ export const teslaModels = {
     name: "Cybertruck",
     displayName: "Tesla Cybertruck",
     years: "2024–present",
-    metaTitle: "Tesla Cybertruck Window Tinting Dallas, TX | Tint Tek Plus | Tint & PPF",
+    metaTitle: "Tesla Cybertruck Tint & PPF in Dallas, TX | Tint Tek Plus",
     metaDescription:
-      "Tesla Cybertruck window tinting in Dallas, TX. Tint Tek Plus handles the Cybertruck's unique rake windshield, massive rear glass, and stainless body. LLumar tint + STEK PPF. Nobody owns this SERP — we do. Book today!",
+      "Tesla Cybertruck window tinting & PPF in Dallas, TX. LLumar tint for the raked windshield and huge rear glass, plus STEK PPF for the stainless body. Book today!",
     keywords:
       "cybertruck window tinting dallas, tesla cybertruck tint dallas tx, cybertruck ceramic tint, cybertruck ppf dallas, cybertruck tint near me, cybertruck window film texas",
     h1: "Tesla Cybertruck Window Tinting & PPF in Dallas, TX",

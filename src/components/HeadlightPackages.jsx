@@ -1,203 +1,38 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Button,
-  useMediaQuery,
-  useTheme,
-  Dialog,
-  IconButton,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import CloseIcon from "@mui/icons-material/Close";
+// src/components/HeadlightPackages.jsx
+// Package data only — layout lives in the shared AdditionalServices component.
+import AdditionalServices from "./AdditionalServices";
 
-const tintPackages = [
+const headlightPackages = [
   {
     title: "Headlight Tint (2 Pair)",
     price: "$175",
-    image: "/headlight/headlight.webp",
-    // description:
-    //   "A narrow strip across the top of the windshield to block excessive glare.",
+    // Resized from the 4105×5340 (3.2 MB) original, which is still used as the OG image
+    image: "/headlight/headlight-900.webp",
+    imageSize: { w: 900, h: 1171 },
+    imagePosition: "center 30%", // keep the headlight + grille in frame
   },
   {
     title: "Taillight Tint (2 Pair)",
     price: "$175",
     image: "/headlight/taillight.webp",
-    // description:
-    //   "Match the front windows to the factory tint of the rear windows.",
+    imageSize: { w: 735, h: 519 },
+    imagePosition: "58% center", // centre on the tinted taillight
   },
   {
     title: "Reflectors (2 Pair)",
     price: "$75",
     image: "/headlight/reflector.webp",
-    // description:
-    //   "A full-tint windshield package for optimal UV and heat rejection.",
+    imageSize: { w: 1200, h: 1200 },
   },
 ];
 
-const HeadlightPackages = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-
-  return (
-    <Box sx={{ py: 6, px: 2 }}>
-      {/* Section Title */}
-      <Typography
-        variant={isMobile ? "h4" : "h2"}
-        align="center"
-        sx={{
-          color: "#fff",
-          mb: 5,
-          fontWeight: "bold",
-          textTransform: "uppercase",
-        }}
-      >
-        Headlight Services & Pricing
-      </Typography>
-
-      {/* Card Grid */}
-      <Box sx={{ maxWidth: "1200px", mx: "auto", px: 2 }}>
-        <Grid container spacing={3} justifyContent="center">
-          {tintPackages.map((pkg, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card
-                sx={{
-                  color: "#fff",
-                  background: "rgba(255,255,255,0.01)", // very light tint so text stays legible
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
-                  borderRadius: 2,
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-                  transition: "transform 0.3s ease",
-                  "&:hover": {
-                    transform: "translateY(-5px)",
-                  },
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  image={pkg.image}
-                  alt={pkg.title}
-                  sx={{
-                    height: 250,
-                    objectFit: "cover",
-                  }}
-                />
-
-                <CardContent
-                  sx={{
-                    flexGrow: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box>
-                    <Typography
-                      variant="h3"
-                      sx={{
-                        fontWeight: "bold",
-                        mb: 1,
-                        textTransform: "uppercase",
-                        fontSize: "1.5rem",
-                      }}
-                    >
-                      {pkg.title}
-                    </Typography>
-                    <Typography variant="h3" sx={{ color: "#00FF99", mb: 1, fontSize: "1.5rem" }}>
-                      {pkg.price}
-                    </Typography>
-                    {/* <Typography
-                      variant="body2"
-                      sx={{ color: "#ccc", lineHeight: 1.5 }}
-                    >
-                      {pkg.description}
-                    </Typography> */}
-                  </Box>
-
-                  {/* Get an Estimate Button */}
-                  <Button
-                    component={motion.a}
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    sx={{
-                      mt: 3,
-                      backgroundColor: "#2794d2 !important",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      px: isMobile ? 3 : 4,
-                      py: isMobile ? 1.2 : 1.5,
-                      borderRadius: "30px",
-                      textTransform: "uppercase",
-                      fontSize: isMobile ? "1rem" : "1.1rem",
-                      width: isMobile ? "100%" : "auto",
-                    }}
-                    onClick={handleOpenModal}
-                  >
-                    Get an Estimate
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-
-      {/* Modal Dialog with the Iframe */}
-      <Dialog
-        open={openModal}
-        onClose={handleCloseModal}
-        fullWidth
-        maxWidth="lg"
-      >
-        <Box sx={{ position: "relative" }}>
-          {/* Close Button */}
-          <IconButton
-            onClick={handleCloseModal}
-            sx={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-              color: "#fff",
-              backgroundColor: "rgba(0,0,0,0.5)",
-              zIndex: 1,
-              "&:hover": {
-                backgroundColor: "rgba(0,0,0,0.7)",
-              },
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-          <iframe
-            src="https://app.tintwiz.com/web/cs/gwnvrcfde7mplcffmgqi7sfqo8pcyt1t"
-            width="100%"
-            height="800px"
-            style={{ border: "none" }}
-            title="Fast Quote"
-          ></iframe>
-        </Box>
-      </Dialog>
-    </Box>
-  );
-};
+const HeadlightPackages = () => (
+  <AdditionalServices
+    heading="Headlight Services & Pricing"
+    packages={headlightPackages}
+    imageFit="cover"
+    altSuffix=""
+  />
+);
 
 export default HeadlightPackages;

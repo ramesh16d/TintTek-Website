@@ -14,7 +14,9 @@ const SEO = ({
     const location = useLocation();
     const siteUrl = 'https://tinttekplus.com';
 
-    // Construct dynamic canonical URL if not provided
+    // Construct dynamic canonical URL if not provided.
+    // Pass canonical={false} to omit it (e.g. the 404 page, which has no URL of its own).
+    const omitCanonical = canonical === false;
     const currentUrl = canonical || `${siteUrl}${location.pathname}`.replace(/\/+$/, "");
 
     return (
@@ -23,14 +25,14 @@ const SEO = ({
             <title>{title}</title>
             <meta name="description" content={description} />
             {keywords && <meta name="keywords" content={keywords} />}
-            <link rel="canonical" href={currentUrl} />
+            {!omitCanonical && <link rel="canonical" href={currentUrl} />}
             <meta name="robots" content={robots || "index, follow"} />
 
             {/* Open Graph */}
             <meta property="og:type" content={type} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:url" content={currentUrl} />
+            {!omitCanonical && <meta property="og:url" content={currentUrl} />}
             {image && <meta property="og:image" content={image} />}
 
             {/* Twitter */}

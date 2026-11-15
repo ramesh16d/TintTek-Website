@@ -10,6 +10,7 @@ import {
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { motion } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
+import LinkGridPanel from "./LinkGridPanel";
 
 /* ------------------------------ Data ------------------------------ */
 const quickLinksData = [
@@ -134,23 +135,6 @@ const quickLinksData = [
     ],
   },
   {
-    title: "Areas We Serve",
-    ariaLabel: "Areas served from our Garland shop",
-    links: [
-      ["addison", "Addison"], ["allen", "Allen"],
-      ["carrollton", "Carrollton"], ["frisco", "Frisco"],
-      ["mckinney", "McKinney"], ["mesquite", "Mesquite"],
-      ["murphy", "Murphy"], ["plano", "Plano"],
-      ["richardson", "Richardson"], ["rowlett", "Rowlett"],
-      ["sachse", "Sachse"], ["wylie", "Wylie"],
-    ].map(([slug, name]) => ({
-      text: `${name}, TX`,
-      to: `/locations/${slug}`,
-      title: `Window tinting and protection for ${name} drivers at our Garland shop`,
-      ariaLabel: `Services for ${name}, Texas`,
-    })),
-  },
-  {
     title: "Our Brands",
     ariaLabel: "Window film and vehicle protection brands",
     links: [
@@ -179,16 +163,32 @@ const quickLinksData = [
   },
 ];
 
+/* City landing pages — rendered as a compact strip below the columns */
+const serviceAreas = [
+  ["addison", "Addison"], ["allen", "Allen"],
+  ["carrollton", "Carrollton"], ["frisco", "Frisco"],
+  ["mckinney", "McKinney"], ["mesquite", "Mesquite"],
+  ["murphy", "Murphy"], ["plano", "Plano"],
+  ["richardson", "Richardson"], ["rowlett", "Rowlett"],
+  ["sachse", "Sachse"], ["wylie", "Wylie"],
+].map(([slug, name]) => ({
+  name,
+  text: `${name}, TX`,
+  to: `/locations/${slug}`,
+  title: `Window tinting in ${name}, TX — Tint Tek Plus`,
+  ariaLabel: `Window tinting in ${name}, Texas`,
+}));
+
 /* JSON-LD: SiteNavigationElement schema — tells Google these are nav links */
 const navJsonLd = {
   "@context": "https://schema.org",
-  "@graph": quickLinksData.flatMap((col) =>
-    col.links.map((link) => ({
+  "@graph": [...quickLinksData.flatMap((col) => col.links), ...serviceAreas].map(
+    (link) => ({
       "@type": "SiteNavigationElement",
       name: link.text,
       description: link.title,
       url: `https://tinttekplus.com${link.to}`,
-    }))
+    })
   ),
 };
 
@@ -201,6 +201,21 @@ const containerVariants = {
     transition: { duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
   }),
 };
+
+/* ------------------------- Areas We Serve ------------------------- */
+const ServiceAreas = () => (
+  <LinkGridPanel
+    eyebrow="Areas We Serve"
+    title="Twelve cities."
+    highlight="One shop in Garland."
+    headingId="service-areas-heading"
+    headingComponent="h3"
+    navLabel="Areas served from our Garland shop"
+    links={serviceAreas}
+    columns={{ xs: 2, sm: 3, md: 6 }}
+    sx={{ mt: { xs: 4, md: 6 } }}
+  />
+);
 
 /* --------------------------- Component ---------------------------- */
 const QuickLinks = () => {
@@ -431,6 +446,8 @@ const QuickLinks = () => {
               </Grid>
             ))}
           </Grid>
+
+          <ServiceAreas />
         </Box>
       </Box>
     </>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -8,12 +8,11 @@ import {
   Drawer,
   List,
   ListItem,
+  ListItemButton,
   ListItemText,
   Button,
   Dialog,
   DialogContent,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import {
   FaBars,
@@ -39,12 +38,34 @@ const NavbarContainer = styled(Box)({
   margin: "0 auto",
 });
 
+// Real hrefs (not click handlers) so crawlers can follow the navigation.
+const SERVICE_LINKS = [
+  { label: "Vehicle Window Tinting", path: "vehicle-window-tinting" },
+  { label: "Tesla Window Tinting", path: "tesla-window-tinting" },
+  { label: "Commercial Window Tinting", path: "commercial-window-tinting" },
+  { label: "Residential Window Tinting", path: "residential-window-tinting" },
+  { label: "Vehicle Paint Correction", path: "vehicle-paint-correction" },
+  { label: "Vehicle Paint Protection", path: "vehicle-paint-protection" },
+  { label: "Headlight & Taillight Services", path: "headlight-services" },
+  { label: "Ceramic Coating", path: "ceramic-coating" },
+  { label: "Windshield Protection Film", path: "windshield-protection-film" },
+];
+
+// Homepage sections (Reviews, Contact) link to "/#id" and scroll in-page on click.
+const NAV_LINKS = [
+  { label: "Gallery", to: "/gallery" },
+  { label: "Support", to: "/support" },
+  { label: "Blogs", to: "/blogs" },
+  { label: "Contact", to: "/#contact", section: "contact" },
+];
+const MOBILE_NAV_LINKS = [{ label: "Reviews", to: "/#reviews", section: "reviews" }, ...NAV_LINKS];
+
 const Topbar = ({ notFound, handleOpenChatbot }) => {
   // Accepting `notFound` prop
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 1300px)");
   const navigate = useNavigate();
@@ -93,22 +114,14 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, []);
 
-  // Handlers for hover-only dropdown (desktop)
-  const handleServicesMouseEnter = (e) => {
-    if (!isMobile) {
-      setAnchorEl(e.currentTarget);
+  // Section links ("/#contact") scroll in-page instead of navigating
+  const handleNavLinkClick = (e, link) => {
+    if (link.section) {
+      e.preventDefault();
+      scrollToSection(link.section);
+    } else {
+      setDrawerOpen(false);
     }
-  };
-
-  const handleServicesMouseLeave = () => {
-    if (!isMobile) {
-      setAnchorEl(null);
-    }
-  };
-
-  const handleServiceSelect = (servicePath) => {
-    navigate(`/services/${servicePath}`);
-    setAnchorEl(null);
   };
 
   // 🏆 Handlers for Modal
@@ -145,6 +158,9 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
         <Toolbar sx={{ justifyContent: "center", padding: "0 20px" }}>
           <NavbarContainer>
             <Box
+              component={RouterLink}
+              to="/"
+              aria-label="Tint Tek Plus home"
               display="flex"
               alignItems="center"
               sx={{
@@ -152,11 +168,10 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.05)" },
               }}
-              onClick={() => {
+              onClick={(e) => {
                 if (location.pathname === "/") {
+                  e.preventDefault();
                   window.scrollTo({ top: 0, behavior: "smooth" }); // ✅ Scroll to top
-                } else {
-                  navigate("/"); // ✅ Navigate to homepage if on another page
                 }
               }}
             >
@@ -178,12 +193,21 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
               <Box display="flex" gap={2} alignItems="center">
                 {/* Wrap the Services button and Menu in a container */}
                 <Box
-                  onMouseEnter={handleServicesMouseEnter}
-                  onMouseLeave={handleServicesMouseLeave}
+                  onMouseEnter={() => setServicesMenuOpen(true)}
+                  onMouseLeave={() => setServicesMenuOpen(false)}
+                  onFocus={() => setServicesMenuOpen(true)}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget)) setServicesMenuOpen(false);
+                  }}
+                  onKeyDown={(e) => e.key === "Escape" && setServicesMenuOpen(false)}
                   sx={{ position: "relative" }}
                 >
                   <Button
                     color="inherit"
+                    aria-haspopup="true"
+                    aria-expanded={servicesMenuOpen}
+                    aria-controls="services-menu"
+                    onClick={() => setServicesMenuOpen((open) => !open)}
                     sx={{
                       display: "flex",
                       alignItems: "center",
@@ -196,7 +220,7 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
                       paddingLeft: "20px",
                       color: scrolling ? "#fff" : "#fff",
                       transition: "all 0.3s ease-in-out",
-                      ...(anchorEl && {
+                      ...(servicesMenuOpen && {
                         color: "#2794d2",
                         textShadow: "0 0 8px rgba(0, 198, 255, 0.8)",
                       }),
@@ -222,53 +246,42 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
                     Services <span style={{ fontSize: "14px" }}>▾</span>
                   </Button>
 
-                  {/* Dropdown Menu for Services */}
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={() => setAnchorEl(null)}
-                    MenuListProps={{
-                      onMouseLeave: () => setAnchorEl(null),
-                      sx: { py: 1 },
-                    }}
-                    transitionDuration={150}
+                  {/* Services dropdown: always rendered (hidden until hover/focus) so the
+                      service links are in the page HTML for search engines */}
+                  <Box
+                    id="services-menu"
+                    component="nav"
+                    aria-label="Services"
                     sx={{
-                      "& .MuiPaper-root": {
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      pt: "10px", // hover bridge between the button and the panel
+                      zIndex: 1300,
+                      visibility: servicesMenuOpen ? "visible" : "hidden",
+                      opacity: servicesMenuOpen ? 1 : 0,
+                      transform: servicesMenuOpen ? "none" : "translateY(-4px)",
+                      transition: "opacity 150ms ease, transform 150ms ease, visibility 150ms",
+                    }}
+                  >
+                    <Box
+                      sx={{
                         background:
                           "linear-gradient(180deg, rgba(20,20,22,0.98) 0%, rgba(10,10,11,0.98) 100%)",
                         backdropFilter: "blur(16px)",
                         border: "1px solid rgba(255,255,255,0.1)",
                         borderRadius: "16px",
                         minWidth: "260px",
-                        mt: "10px",
+                        py: 1,
                         boxShadow:
                           "0 20px 50px rgba(0,0,0,0.55), 0 0 0 1px rgba(39,148,210,0.08)",
-                      },
-                      "& .MuiMenuItem-root": {
-                        fontWeight: 500,
-                        fontSize: "14.5px",
-                        letterSpacing: "0.2px",
-                        padding: "11px 18px",
-                        margin: "1px 8px",
-                        borderRadius: "10px",
-                        color: "rgba(255,255,255,0.85)",
-                        transition: "background-color 0.18s ease, color 0.18s ease",
-                        "&:hover": {
-                          background: "rgba(39,148,210,0.14)",
-                          color: "#5fb8ec",
-                        },
-                      },
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        px: "22px",
-                        pt: "10px",
-                        pb: "8px",
                       }}
                     >
                       <Box
                         sx={{
+                          px: "22px",
+                          pt: "10px",
+                          pb: "8px",
                           fontSize: "11px",
                           fontWeight: 700,
                           letterSpacing: "0.15em",
@@ -278,75 +291,46 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
                       >
                         Our Services
                       </Box>
+                      {SERVICE_LINKS.map(({ label, path }) => (
+                        <Box
+                          key={path}
+                          component={RouterLink}
+                          to={`/services/${path}`}
+                          onClick={() => setServicesMenuOpen(false)}
+                          sx={{
+                            display: "block",
+                            fontWeight: 500,
+                            fontSize: "14.5px",
+                            letterSpacing: "0.2px",
+                            padding: "11px 18px",
+                            margin: "1px 8px",
+                            borderRadius: "10px",
+                            color: "rgba(255,255,255,0.85)",
+                            textDecoration: "none",
+                            whiteSpace: "nowrap",
+                            transition: "background-color 0.18s ease, color 0.18s ease",
+                            "&:hover, &:focus-visible": {
+                              background: "rgba(39,148,210,0.14)",
+                              color: "#5fb8ec",
+                              outline: "none",
+                            },
+                          }}
+                        >
+                          {label}
+                        </Box>
+                      ))}
                     </Box>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("vehicle-window-tinting")
-                      }
-                    >
-                      Vehicle Window Tinting
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("tesla-window-tinting")
-                      }
-                    >
-                      Tesla Window Tinting
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("commercial-window-tinting")
-                      }
-                    >
-                      Commercial Window Tinting
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("residential-window-tinting")
-                      }
-                    >
-                      Residential Window Tinting
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("vehicle-paint-correction")
-                      }
-                    >
-                      Vehicle Paint Correction
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("vehicle-paint-protection")
-                      }
-                    >
-                      Vehicle Paint Protection
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => handleServiceSelect("headlight-services")}
-                    >
-                      Headlight & Taillight Services
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => handleServiceSelect("ceramic-coating")}
-                    >
-                      Ceramic Coating
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        handleServiceSelect("windshield-protection-film")
-                      }
-                    >
-                      Windshield Protection Film
-                    </MenuItem>
-                  </Menu>
+                  </Box>
                 </Box>
 
                 {/* Other Navigation Links */}
-                {["Gallery", "Support", "Blogs", "Contact"].map((item) => (
+                {NAV_LINKS.map((link) => (
                   <Button
-                    key={item}
+                    key={link.label}
                     color="inherit"
-                    onClick={() => scrollToSection(item.toLowerCase())}
+                    component={RouterLink}
+                    to={link.to}
+                    onClick={(e) => handleNavLinkClick(e, link)}
                     sx={{
                       fontSize: "27px",
                       fontWeight: 600,
@@ -375,7 +359,7 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
                       },
                     }}
                   >
-                    {item}
+                    {link.label}
                   </Button>
                 ))}
               </Box>
@@ -401,6 +385,7 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         transitionDuration={500}
+        keepMounted // keep the nav links in the DOM for crawlers while closed
         sx={{
           "& .MuiDrawer-paper": {
             backgroundColor: "black",
@@ -453,9 +438,9 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
           }}
         >
           {/* Services with dropdown */}
-          <ListItem
-            button
+          <ListItemButton
             disableGutters
+            aria-expanded={servicesOpen}
             onClick={() => setServicesOpen(!servicesOpen)}
             sx={{
               py: "10px",
@@ -502,49 +487,16 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
                 )}
               </Box>
             </Box>
-          </ListItem>
+          </ListItemButton>
 
-          <Collapse in={servicesOpen} timeout="auto" unmountOnExit>
+          <Collapse in={servicesOpen} timeout="auto">
             <List component="div" disablePadding>
-              {[
-                {
-                  label: "Vehicle Window Tinting",
-                  path: "vehicle-window-tinting",
-                },
-                { label: "Tesla Window Tinting", path: "tesla-window-tinting" },
-                {
-                  label: "Commercial Window Tinting",
-                  path: "commercial-window-tinting",
-                },
-                {
-                  label: "Residential Window Tinting",
-                  path: "residential-window-tinting",
-                },
-                {
-                  label: "Vehicle Paint Correction",
-                  path: "vehicle-paint-correction",
-                },
-                {
-                  label: "Vehicle Paint Protection",
-                  path: "vehicle-paint-protection",
-                },
-                {
-                  label: "Headlight & Taillight Services",
-                  path: "headlight-services",
-                },
-                { label: "Ceramic Coating", path: "ceramic-coating" },
-                {
-                  label: "Windshield Protection Film",
-                  path: "windshield-protection-film",
-                },
-              ].map(({ label, path }) => (
+              {SERVICE_LINKS.map(({ label, path }) => (
                 <ListItem
                   key={label}
-                  button
-                  onClick={() => {
-                    handleServiceSelect(path);
-                    setDrawerOpen(false);
-                  }}
+                  component={RouterLink}
+                  to={`/services/${path}`}
+                  onClick={() => setDrawerOpen(false)}
                   sx={{
                     paddingLeft: "20px",
                     "& .MuiListItemText-primary": {
@@ -565,14 +517,15 @@ const Topbar = ({ notFound, handleOpenChatbot }) => {
             </List>
           </Collapse>
 
-          {["Reviews", "Gallery", "Support", "Blogs", "Contact"].map((item) => (
+          {MOBILE_NAV_LINKS.map((link) => (
             <ListItem
-              button
-              key={item}
-              onClick={() => scrollToSection(item.toLowerCase())}
+              key={link.label}
+              component={RouterLink}
+              to={link.to}
+              onClick={(e) => handleNavLinkClick(e, link)}
             >
               <ListItemText
-                primary={item}
+                primary={link.label}
                 primaryTypographyProps={{
                   sx: {
                     fontWeight: "bold",

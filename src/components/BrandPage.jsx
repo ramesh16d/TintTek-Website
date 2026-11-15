@@ -1,87 +1,147 @@
-import InViewMount from "./InViewMount";
 // src/components/BrandPage.jsx
-import React, { lazy, Suspense } from "react";
+// /brands/:brand — same structure as the city landing pages (CityPage.jsx):
+// Hero → SEO content → Testimonials → Videos → Why this brand → Products →
+// Installation CTA → FAQ → Other brands → Contact → CTA → Quick links → Footer.
 import { useParams, Link as RouterLink } from "react-router-dom";
-import {
-  Box,
-  Typography,
-  Container,
-  Grid,
-  Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  GlobalStyles,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Box, Typography, Container, Grid } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
+import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
 import SEO from "./SEO";
-import BusinessInfo from "./hero/BusinessInfo";
+import BrandHero from "./landing-pages/BrandHero";
+import Testimonials from "./landing-pages/Testimonials";
+import VideoCTA from "./landing-pages/VideoCTA";
+import VideoCTA2 from "./landing-pages/VideoCTA2";
+import { BenefitsSection, InstallationCTA } from "./landing-pages/LandingSections";
+import CitySEOContent from "./CitySEOContent";
+import CityFAQ from "./CityFAQ";
+import LinkGridPanel from "./LinkGridPanel";
+import Contact from "./SubContact";
+import CallToAction from "./SubCTA";
+import QuickLinks from "./SubQuickLinks";
+import Footer from "./key-components/Footer";
 import { brands } from "../data/brandData";
-
-const SubContact = lazy(() => import("./SubContact"));
-const SubCTA = lazy(() => import("./SubCTA"));
-const SubQuickLinks = lazy(() => import("./SubQuickLinks"));
-const BlogCTA = lazy(() => import("./BlogCTA"));
-const Footer = lazy(() => import("./key-components/Footer"));
+import { brandSeoContent } from "../data/brandSeoContent";
+import { cityList } from "../data/cityData";
 
 const SITE = "https://tinttekplus.com";
-const GRADIENT = `radial-gradient(circle at top left, rgba(39,148,210,0.15), transparent 50%),
-  radial-gradient(circle at bottom right, rgba(77,184,240,0.15), transparent 50%),
-  linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%)`;
+const BENEFIT_ICONS = [
+  VerifiedOutlinedIcon,
+  AutoAwesomeOutlinedIcon,
+  GradeOutlinedIcon,
+  ShieldOutlinedIcon,
+];
 
-const TYPE_LABELS = {
-  "Window Film": { emoji: "🪟", color: "#2794d2" },
-  "Paint Protection Film": { emoji: "🛡️", color: "#22c55e" },
-  "Ceramic Coating": { emoji: "✨", color: "#a855f7" },
-  "Windshield Protection Film": { emoji: "🪟", color: "#f59e0b" },
+const FloatingElement = styled(motion.div)(() => ({
+  position: "absolute",
+  borderRadius: "50%",
+  background:
+    "radial-gradient(circle, rgba(39, 148, 210, 0.1) 0%, transparent 70%)",
+  filter: "blur(1px)",
+  pointerEvents: "none",
+}));
+
+const floatVariants = {
+  animate: {
+    y: [0, -20, 0],
+    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+  },
 };
 
-
+const handleScrollTop = () => {
+  if (typeof window !== "undefined") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
 
 export default function BrandPage() {
   const { brand: brandSlug } = useParams();
   const brand = brands[brandSlug];
+  const extra = brand ? brandSeoContent[brand.slug] : null;
 
-  if (!brand) {
+  if (!brand || !extra) {
     return (
-      <Box sx={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: GRADIENT }}>
-        <SEO title="Brand Not Found | Tint Tek Plus" description="This brand page does not exist." robots="noindex, nofollow" />
-        <Typography sx={{ color: "#fff" }}>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#0a0a0a",
+        }}
+      >
+        <SEO
+          title="Brand Not Found | Tint Tek Plus"
+          description="This brand page does not exist."
+          robots="noindex, nofollow"
+          canonical={false}
+        />
+        <Typography sx={{ color: "#fff", fontSize: "1.5rem" }}>
           Brand not found.{" "}
-          <RouterLink to="/services" style={{ color: "#2794d2" }}>
-            View Our Services
+          <RouterLink to="/" style={{ color: "#2794d2" }}>
+            Go home
           </RouterLink>
         </Typography>
       </Box>
     );
   }
 
-  const url = `${SITE}/brands/${brand.slug}`;
-  const typeInfo = TYPE_LABELS[brand.type] || { emoji: "⭐", color: "#2794d2" };
+  // —— SEO: Helmet + JSON-LD —— //
+  const canonical = `${SITE}/brands/${brand.slug}`;
+  const ogImage = `${SITE}${encodeURI(extra.image)}`;
+  const brandLd = { "@type": "Brand", name: brand.name, url: extra.manufacturerUrl };
 
-  const faqSchema = {
+  const webPageLd = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: brand.faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
+    "@type": "WebPage",
+    "@id": `${canonical}#webpage`,
+    name: brand.metaTitle,
+    url: canonical,
+    description: brand.metaDescription,
+    inLanguage: "en-US",
+    primaryImageOfPage: ogImage,
+    about: brandLd,
+    isPartOf: { "@type": "WebSite", name: "Tint Tek Plus", url: SITE },
   };
-  const serviceSchema = {
+
+  const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: `${brand.fullName} Installation in Dallas, TX`,
+    serviceType: brand.type,
     description: brand.metaDescription,
-    url,
-    areaServed: { "@type": "AdministrativeArea", name: "Dallas–Fort Worth, TX" },
+    url: canonical,
+    image: ogImage,
+    brand: brandLd,
+    areaServed: [
+      { "@type": "City", name: "Garland" },
+      { "@type": "City", name: "Dallas" },
+      ...cityList.map((c) => ({ "@type": "City", name: c.name })),
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${brand.name} products installed by Tint Tek Plus`,
+      itemListElement: brand.products.map((p) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Product",
+          name: p.name,
+          description: p.description,
+          brand: { "@type": "Brand", name: brand.name },
+        },
+      })),
+    },
     provider: {
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "AutoRepair"],
+      "@id": `${SITE}/#business`,
       name: "Tint Tek Plus",
       url: SITE,
       telephone: "+1-972-362-8468",
+      priceRange: "$$",
+      image: `${SITE}/logo.webp`,
       address: {
         "@type": "PostalAddress",
         streetAddress: "2518 West Kingsley Rd",
@@ -92,412 +152,252 @@ export default function BrandPage() {
       },
     },
   };
-  const breadcrumbSchema = {
+
+  const breadcrumbsLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE },
-      { "@type": "ListItem", position: 2, name: "Brands", item: `${SITE}/brands` },
-      { "@type": "ListItem", position: 3, name: brand.name, item: url },
+      { "@type": "ListItem", position: 2, name: brand.fullName, item: canonical },
     ],
   };
+
+  const faqLd = brand.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: brand.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      }
+    : null;
 
   const otherBrands = Object.values(brands).filter((b) => b.slug !== brand.slug);
 
   return (
     <>
+      {/* HEAD */}
       <SEO
         title={brand.metaTitle}
         description={brand.metaDescription}
         keywords={brand.keywords}
-        canonical={url}
+        canonical={canonical}
+        image={ogImage}
+        jsonLd={[webPageLd, serviceLd, breadcrumbsLd, faqLd].filter(Boolean)}
         type="website"
-        jsonLd={[serviceSchema, breadcrumbSchema, faqSchema]}
       />
 
-      <GlobalStyles
-        styles={{
-          ".BrandPageRoot::before": {
-            content: '""',
-            position: "fixed",
-            inset: 0,
-            zIndex: -1,
-            background: GRADIENT,
-          },
+      {/* ===== Landing content ===== */}
+      <Box
+        sx={{
+          background: `
+      radial-gradient(circle at top left, rgba(39,148,210,0.15), transparent 50%),
+      radial-gradient(circle at bottom right, rgba(77,184,240,0.15), transparent 50%),
+      linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%)
+    `,
+          color: "#fff",
+          minHeight: "100vh",
+          position: "relative",
+          overflow: "hidden",
         }}
-      />
+      >
+        {/* Floating Background Elements */}
+        <FloatingElement
+          variants={floatVariants}
+          animate="animate"
+          sx={{ top: "10%", right: "10%", width: "200px", height: "200px" }}
+        />
+        <FloatingElement
+          variants={floatVariants}
+          animate="animate"
+          sx={{ bottom: "20%", left: "5%", width: "150px", height: "150px" }}
+          transition={{ delay: 2 }}
+        />
 
-      <Box className="BrandPageRoot" sx={{ minHeight: "100vh", background: GRADIENT }}>
-        {/* ── Hero ── */}
-        <Box sx={{ pt: { xs: 14, md: 18 }, pb: { xs: 6, md: 10 }, textAlign: "center", px: 2 }}>
-          <BusinessInfo />
+        <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
+          <BrandHero brand={brand} extra={extra} />
+
+          {/* Brand-specific SEO copy directly under the hero */}
+          <Box sx={{ pt: { xs: 2, md: 4 } }}>
+            <CitySEOContent
+              content={extra.seo}
+              highlightsTitle={`Popular ${brand.name} services`}
+            />
+          </Box>
+
+          <Testimonials />
+          <VideoCTA />
+          <VideoCTA2 />
+
+          {/* Why this brand */}
+          <BenefitsSection
+            eyebrow={`WHY WE CHOOSE ${brand.name.toUpperCase()}`}
+            title={`${brand.name} ${brand.type}, Done Right`}
+            subtitle={`We've tested and compared the leading brands in the industry. Here's why ${brand.name} earned a place in our Garland shop.`}
+            onQuoteClick={handleScrollTop}
+            items={brand.whyThisBrand.map((item, i) => {
+              const Icon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
+              return { ...item, icon: <Icon sx={{ fontSize: 44 }} /> };
+            })}
+          />
+
+          {/* Products */}
           <Box
-            sx={{
-              display: "inline-block",
-              px: 2.5,
-              py: 0.75,
-              borderRadius: "100px",
-              border: `1px solid ${typeInfo.color}40`,
-              background: `${typeInfo.color}14`,
-              mb: 3,
-            }}
+            component="section"
+            aria-labelledby="brand-products-heading"
+            sx={{ py: { xs: 6, md: 10 } }}
           >
-            <Typography sx={{ color: typeInfo.color, fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase" }}>
-              {typeInfo.emoji} {brand.type} · Garland, TX · DFW
-            </Typography>
-          </Box>
-
-          <Typography
-            component="h1"
-            sx={{
-              color: "#fff",
-              fontWeight: 900,
-              fontSize: { xs: "2rem", sm: "2.8rem", md: "3.8rem" },
-              lineHeight: 1.15,
-              mb: 2,
-              letterSpacing: "-0.5px",
-            }}
-          >
-            {brand.h1}
-          </Typography>
-
-          <Typography
-            sx={{
-              color: "rgba(255,255,255,0.7)",
-              fontSize: { xs: "1rem", md: "1.25rem" },
-              maxWidth: 700,
-              mx: "auto",
-              mb: 5,
-              lineHeight: 1.6,
-            }}
-          >
-            {brand.heroSubtitle}
-          </Typography>
-
-          <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
-            <Button
-              component="a"
-              href="tel:+19723628468"
-              variant="contained"
-              size="large"
-              sx={{
-                backgroundColor: "#2794d2",
-                color: "#fff",
-                fontWeight: 700,
-                borderRadius: "100px",
-                px: 4,
-                py: 1.5,
-                "&:hover": { backgroundColor: "#1a7bb0" },
-              }}
-            >
-              Call (972) 362-8468
-            </Button>
-            <Button
-              component={RouterLink}
-              to="/support"
-              variant="outlined"
-              size="large"
-              sx={{
-                borderColor: "rgba(255,255,255,0.3)",
-                color: "#fff",
-                fontWeight: 700,
-                borderRadius: "100px",
-                px: 4,
-                py: 1.5,
-                "&:hover": { borderColor: "#2794d2", color: "#2794d2" },
-              }}
-            >
-              Get a Free Quote
-            </Button>
-          </Box>
-        </Box>
-
-        {/* ── Intro ── */}
-        <Container maxWidth="md" sx={{ pb: { xs: 6, md: 8 } }}>
-          <Box
-            sx={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: 4,
-              p: { xs: 3, md: 5 },
-            }}
-          >
-            <Typography sx={{ color: "rgba(255,255,255,0.85)", fontSize: { xs: "1rem", md: "1.15rem" }, lineHeight: 1.8 }}>
-              {brand.intro}
-            </Typography>
-          </Box>
-        </Container>
-
-        {/* ── Why This Brand ── */}
-        <InViewMount>
-          <Box sx={{ background: "rgba(255,255,255,0.02)", py: { xs: 8, md: 10 } }}>
-            <Container maxWidth="lg">
+            <Box sx={{ textAlign: "center", mb: { xs: 5, md: 7 } }}>
               <Typography
-                component="h2"
-                sx={{ color: "#fff", fontWeight: 800, fontSize: { xs: "1.8rem", md: "2.4rem" }, mb: 2 }}
+                variant="overline"
+                sx={{
+                  color: "#2794d2",
+                  fontSize: "0.9rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  mb: 2,
+                  display: "block",
+                }}
               >
-                Why We Choose {brand.name}
+                THE {brand.name.toUpperCase()} LINEUP
               </Typography>
-              <Typography sx={{ color: "rgba(255,255,255,0.6)", mb: 6, lineHeight: 1.6 }}>
-                We've tested and compared the leading brands in the industry. Here's why {brand.name} earned a place in our shop.
+              <Typography
+                id="brand-products-heading"
+                component="h2"
+                sx={{
+                  fontWeight: 800,
+                  fontSize: { xs: "2rem", md: "2.8rem" },
+                  lineHeight: 1.1,
+                  mb: 2,
+                }}
+              >
+                {brand.name} Products{" "}
+                <Box component="span" sx={{ color: "#4db8f0" }}>
+                  We Install
+                </Box>
               </Typography>
-              <Grid container spacing={3}>
-                {brand.whyThisBrand.map((item, i) => (
-                  <Grid item xs={12} sm={6} key={i}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                    >
-                      <Box
-                        sx={{
-                          height: "100%",
-                          p: 3.5,
-                          borderRadius: 4,
-                          background: "rgba(255,255,255,0.04)",
-                          border: "1px solid rgba(255,255,255,0.08)",
-                          transition: "border-color 0.2s",
-                          "&:hover": { borderColor: "rgba(39,148,210,0.35)" },
-                        }}
-                      >
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                          <CheckCircleIcon sx={{ color: "#2794d2", fontSize: "1.25rem", flexShrink: 0 }} />
-                          <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "1rem" }}>
-                            {item.title}
-                          </Typography>
-                        </Box>
-                        <Typography sx={{ color: "rgba(255,255,255,0.7)", fontSize: "0.93rem", lineHeight: 1.7 }}>
-                          {item.body}
-                        </Typography>
-                      </Box>
-                    </motion.div>
-                  </Grid>
-                ))}
-              </Grid>
-            </Container>
-          </Box>
-        </InViewMount>
+              <Typography
+                sx={{
+                  color: "rgba(255,255,255,0.72)",
+                  maxWidth: 760,
+                  mx: "auto",
+                  fontSize: { xs: "1rem", md: "1.1rem" },
+                  lineHeight: 1.7,
+                }}
+              >
+                During your consultation, we&apos;ll recommend the right{" "}
+                {brand.name} product for your vehicle, goals, and budget.
+              </Typography>
+            </Box>
 
-        {/* ── Products ── */}
-        <InViewMount>
-          <Container maxWidth="lg" sx={{ py: { xs: 8, md: 10 } }}>
-            <Typography
-              component="h2"
-              sx={{ color: "#fff", fontWeight: 800, fontSize: { xs: "1.8rem", md: "2.4rem" }, mb: 2 }}
-            >
-              {brand.name} Products We Install
-            </Typography>
-            <Typography sx={{ color: "rgba(255,255,255,0.6)", mb: 6, lineHeight: 1.6 }}>
-              We carry the full {brand.name} lineup. During your consultation, we'll recommend the right product for your vehicle and goals.
-            </Typography>
-            <Grid container spacing={3}>
-              {brand.products.map((product, i) => (
-                <Grid item xs={12} sm={6} md={4} key={i}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                    style={{ height: "100%" }}
+            <Grid container spacing={3} justifyContent="center">
+              {brand.products.map((product) => (
+                <Grid item xs={12} sm={6} md={4} key={product.name}>
+                  <Box
+                    sx={{
+                      height: "100%",
+                      p: { xs: 3, md: 3.5 },
+                      borderRadius: 4,
+                      border: "1px solid rgba(77,184,240,0.25)",
+                      background:
+                        "linear-gradient(135deg, rgba(39,148,210,0.10), rgba(255,255,255,0.02))",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1.5,
+                      transition: "border-color 0.2s",
+                      "&:hover": { borderColor: "rgba(77,184,240,0.6)" },
+                    }}
                   >
-                    <Box
+                    <Typography
+                      component="h3"
+                      sx={{ color: "#fff", fontWeight: 700, fontSize: "1.1rem" }}
+                    >
+                      {product.name}
+                    </Typography>
+                    <Typography
                       sx={{
-                        height: "100%",
-                        p: 3,
-                        borderRadius: 4,
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2,
-                        transition: "border-color 0.2s",
-                        "&:hover": { borderColor: "rgba(39,148,210,0.35)" },
+                        color: "rgba(255,255,255,0.75)",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.7,
+                        flexGrow: 1,
                       }}
                     >
-                      <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "1rem" }}>
-                        {product.name}
-                      </Typography>
-                      <Typography sx={{ color: "rgba(255,255,255,0.7)", fontSize: "0.9rem", lineHeight: 1.65, flexGrow: 1 }}>
-                        {product.description}
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 1,
-                          px: 2,
-                          py: 0.6,
-                          borderRadius: "100px",
-                          background: "rgba(39,148,210,0.1)",
-                          border: "1px solid rgba(39,148,210,0.25)",
-                          alignSelf: "flex-start",
-                        }}
-                      >
-                        <Typography sx={{ color: "#2794d2", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.05em" }}>
-                          Best for: {product.bestFor}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </motion.div>
+                      {product.description}
+                    </Typography>
+                    <Typography
+                      sx={{ color: "#4db8f0", fontWeight: 600, fontSize: "0.85rem" }}
+                    >
+                      Best for: {product.bestFor}
+                    </Typography>
+                  </Box>
                 </Grid>
               ))}
             </Grid>
-          </Container>
-        </InViewMount>
-
-        {/* ── Trust bar ── */}
-        <InViewMount>
-          <Box sx={{ background: "rgba(39,148,210,0.05)", borderTop: "1px solid rgba(39,148,210,0.1)", borderBottom: "1px solid rgba(39,148,210,0.1)", py: { xs: 5, md: 6 } }}>
-            <Container maxWidth="lg">
-              <Grid container spacing={3} justifyContent="center">
-                {[
-                  { label: "Authorized Dealer", value: "Certified" },
-                  { label: "DFW Service Area", value: "All 12 Cities" },
-                  { label: "Location", value: "Garland, TX" },
-                  { label: "Phone", value: "(972) 362-8468" },
-                ].map((item, i) => (
-                  <Grid item xs={6} sm={3} key={i} sx={{ textAlign: "center" }}>
-                    <Typography sx={{ color: "#2794d2", fontWeight: 800, fontSize: { xs: "1.1rem", md: "1.4rem" } }}>
-                      {item.value}
-                    </Typography>
-                    <Typography sx={{ color: "rgba(255,255,255,0.5)", fontSize: "0.78rem", mt: 0.5, textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                      {item.label}
-                    </Typography>
-                  </Grid>
-                ))}
-              </Grid>
-            </Container>
           </Box>
-        </InViewMount>
 
-        {/* ── FAQ ── */}
-        <InViewMount>
-          <Box sx={{ background: "rgba(255,255,255,0.02)", py: { xs: 8, md: 12 } }}>
-            <Container maxWidth="lg">
-              <Typography
-                component="h2"
-                sx={{ color: "#fff", fontWeight: 800, fontSize: { xs: "1.8rem", md: "2.4rem" }, mb: 6, textAlign: "center" }}
-              >
-                {brand.name} — Frequently Asked Questions
-              </Typography>
-              {brand.faqs.map((faq, i) => (
-                <Accordion
-                  key={i}
-                  disableGutters
-                  square={false}
-                  sx={{
-                    my: 2,
-                    borderRadius: "14px !important",
-                    overflow: "hidden",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    boxShadow: "none",
-                    "&::before": { display: "none" },
-                    "&:hover": { border: "1px solid rgba(39,148,210,0.3)" },
-                  }}
-                >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />} sx={{ px: 3, py: 1.5 }}>
-                    <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: { xs: "1rem", md: "1.1rem" } }}>
-                      {faq.question}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails sx={{ px: 3, pb: 2.5 }}>
-                    <Typography sx={{ color: "rgba(255,255,255,0.8)", fontSize: "0.97rem", lineHeight: 1.75 }}>
-                      {faq.answer}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              ))}
-            </Container>
-          </Box>
-        </InViewMount>
+          {/* Installation CTA */}
+          <InstallationCTA
+            eyebrow={`AUTHORIZED ${brand.name.toUpperCase()} INSTALLER · GARLAND, TX`}
+            title={`Professional ${brand.name} Installation`}
+            intro={brand.intro}
+            image={extra.image}
+            imageAlt={extra.imageAlt}
+            onQuoteClick={handleScrollTop}
+            bullets={[
+              {
+                title: `Trained on ${brand.name} installation standards`,
+                body: "Our technicians follow the manufacturer's process for fit, finish, and warranty compliance.",
+              },
+              {
+                title: "Dust-free, climate-controlled environment",
+                body: "Clean room prep reduces contamination for a flawless finish.",
+              },
+              extra.warranty,
+            ]}
+          />
 
-        {/* ── Other Brands ── */}
-        <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
-          <Typography sx={{ color: "rgba(255,255,255,0.5)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", mb: 3, textAlign: "center" }}>
-            Other Premium Brands We Install
-          </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 1.5 }}>
-            {otherBrands.map((b) => (
-              <Button
-                key={b.slug}
-                component={RouterLink}
-                to={`/brands/${b.slug}`}
-                variant="outlined"
-                sx={{
-                  borderColor: "rgba(255,255,255,0.15)",
-                  color: "rgba(255,255,255,0.7)",
-                  borderRadius: "100px",
-                  px: 3,
-                  py: 0.75,
-                  fontSize: "0.85rem",
-                  "&:hover": { borderColor: "#2794d2", color: "#2794d2" },
-                }}
-              >
-                {b.name}
-              </Button>
-            ))}
+          <CityFAQ
+            cityName={brand.name}
+            faqs={brand.faqs}
+            onQuoteClick={handleScrollTop}
+            eyebrow={`${brand.name} FAQ`}
+            title={
+              <>
+                Questions about{" "}
+                <Box component="span" sx={{ color: "#4db8f0" }}>
+                  {brand.name}
+                </Box>
+              </>
+            }
+            description={`Straight answers about ${brand.fullName}, pricing, and warranties from our Garland, TX shop.`}
+          />
+
+          {/* Other brands */}
+          <Box sx={{ py: { xs: 4, md: 6 } }}>
+            <LinkGridPanel
+              eyebrow="Other Premium Brands We Install"
+              title="Complete protection."
+              highlight="From one trusted shop."
+              headingId="other-brands-heading"
+              headingComponent="h2"
+              navLabel="Other premium brands we install"
+              columns={{ xs: 1, sm: 3 }}
+              links={otherBrands.map((b) => ({
+                name: b.fullName,
+                to: `/brands/${b.slug}`,
+                title: `${b.fullName} installation in Dallas, TX — Tint Tek Plus`,
+                ariaLabel: `${b.fullName} installation`,
+              }))}
+            />
           </Box>
+
+          <Contact />
         </Container>
-
-        {/* ── Bottom CTA ── */}
-        <Box sx={{ py: { xs: 8, md: 10 }, textAlign: "center", background: "rgba(39,148,210,0.05)", borderTop: "1px solid rgba(39,148,210,0.1)" }}>
-          <Container maxWidth="sm">
-            <Typography sx={{ color: "#fff", fontWeight: 900, fontSize: { xs: "1.8rem", md: "2.5rem" }, mb: 2, lineHeight: 1.2 }}>
-              Book Your {brand.name} Installation
-            </Typography>
-            <Typography sx={{ color: "rgba(255,255,255,0.6)", mb: 4, fontSize: "1rem" }}>
-              2518 W Kingsley Rd, Garland, TX 75041 · Mon–Sat 9am–6pm
-            </Typography>
-            <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
-              <Button
-                component="a"
-                href="tel:+19723628468"
-                variant="contained"
-                size="large"
-                sx={{
-                  backgroundColor: "#2794d2",
-                  color: "#fff",
-                  fontWeight: 700,
-                  borderRadius: "100px",
-                  px: 5,
-                  py: 1.75,
-                  fontSize: "1.05rem",
-                  "&:hover": { backgroundColor: "#1a7bb0" },
-                }}
-              >
-                (972) 362-8468
-              </Button>
-              <Button
-                component={RouterLink}
-                to="/support"
-                variant="outlined"
-                size="large"
-                sx={{
-                  borderColor: "rgba(255,255,255,0.3)",
-                  color: "#fff",
-                  fontWeight: 700,
-                  borderRadius: "100px",
-                  px: 5,
-                  py: 1.75,
-                  fontSize: "1.05rem",
-                  "&:hover": { borderColor: "#2794d2", color: "#2794d2" },
-                }}
-              >
-                Get a Free Quote
-              </Button>
-            </Box>
-          </Container>
-        </Box>
-
-        <Suspense fallback={null}>
-          <BlogCTA />
-          <SubCTA />
-          <Box><SubContact /></Box>
-          <SubQuickLinks />
-          <Footer />
-        </Suspense>
+        <CallToAction />
+        <QuickLinks />
+        <Footer />
       </Box>
     </>
   );

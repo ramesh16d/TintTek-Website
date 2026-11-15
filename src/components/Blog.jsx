@@ -152,6 +152,7 @@ const Blog = () => {
         description={description}
         canonical={canonical}
         jsonLd={blogLd}
+        image="https://tinttekplus.com/v-window-tint/vehicle-window-tint.webp"
         type="website"
       />
 
@@ -232,6 +233,7 @@ const Blog = () => {
 
             <Typography
               variant="h2"
+              component="h1"
               sx={{
                 fontWeight: 800,
                 color: "#fff",
@@ -398,9 +400,9 @@ const Blog = () => {
                   sx={{
                     width: "100%",
                     height: "100%",
-                    backgroundImage: `url(${featuredPost.image})`,
+                    backgroundImage: `url("${featuredPost.image}")`,
                     backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    backgroundPosition: featuredPost.imagePosition || "center",
                     transition: "transform 0.5s ease",
                   }}
                 />
@@ -567,9 +569,9 @@ const Blog = () => {
                           sx={{
                             width: "100%",
                             height: "100%",
-                            backgroundImage: `url(${post.image})`,
+                            backgroundImage: `url("${post.image}")`,
                             backgroundSize: "cover",
-                            backgroundPosition: "center",
+                            backgroundPosition: post.imagePosition || "center",
                             transition: "transform 0.5s ease-in-out",
                           }}
                         />

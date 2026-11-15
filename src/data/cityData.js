@@ -8,9 +8,9 @@ export const cities = {
     state: "TX",
     zip: "75023",
     distanceNote: "15 miles north of our Garland shop via US-75",
-    metaTitle: "Window Tinting Plano, TX | Tint Tek Plus | LLumar, STEK & Gtechniq",
+    metaTitle: "Window Tinting Plano, TX | Ceramic Tint, PPF | Tint Tek Plus",
     metaDescription:
-      "Looking for window tinting in Plano, TX? Tint Tek Plus serves Plano with premium LLumar ceramic tint, STEK PPF, and Gtechniq ceramic coating. Serving Legacy West, Haggard Park & all of Plano. Book today!",
+      "Window tinting in Plano, TX with LLumar ceramic film, STEK PPF & Gtechniq coating. Cooler cabins for Legacy West commuters. Same-day installs. Free quote.",
     keywords:
       "window tinting plano tx, window tint plano, ceramic tint plano, ppf plano tx, paint protection film plano, ceramic coating plano, llumar plano, stek ppf plano",
     h1: "Window Tinting in Plano, TX",
@@ -70,9 +70,9 @@ export const cities = {
     state: "TX",
     zip: "75034",
     distanceNote: "25 miles north of our Garland shop",
-    metaTitle: "Window Tinting Frisco, TX | Tint Tek Plus | Premium Ceramic Tint & PPF",
+    metaTitle: "Window Tinting & PPF Frisco, TX | Tint Tek Plus",
     metaDescription:
-      "Premium window tinting in Frisco, TX from Tint Tek Plus. LLumar ceramic films, STEK PPF, and Gtechniq coating for Frisco's luxury vehicles and sports cars. Serving The Star, Stonebriar, and all of Frisco.",
+      "Paint protection film and ceramic window tint for Frisco, TX vehicles and new homes. STEK PPF, LLumar tint & Gtechniq coating. Get a free quote today.",
     keywords:
       "window tinting frisco tx, window tint frisco, ceramic tint frisco, ppf frisco, paint protection film frisco tx, llumar frisco, ceramic coating frisco tx",
     h1: "Window Tinting in Frisco, TX",
@@ -127,9 +127,9 @@ export const cities = {
     state: "TX",
     zip: "75080",
     distanceNote: "10 miles north of our Garland shop",
-    metaTitle: "Window Tinting Richardson, TX | Tint Tek Plus | LLumar Certified",
+    metaTitle: "Window Tinting Richardson, TX | Ceramic Tint | Tint Tek Plus",
     metaDescription:
-      "Top-rated window tinting in Richardson, TX from Tint Tek Plus. LLumar ceramic tint, STEK PPF, and ceramic coating serving the Telecom Corridor, UTD area, and all of Richardson, TX.",
+      "Signal-safe ceramic window tinting in Richardson, TX with no GPS, phone or TxTag interference. LLumar certified, 10 miles away, same-day service.",
     keywords:
       "window tinting richardson tx, window tint richardson, ceramic tint richardson, ppf richardson tx, llumar richardson, ceramic coating richardson tx, car tint near me richardson",
     h1: "Window Tinting in Richardson, TX",
@@ -179,9 +179,9 @@ export const cities = {
     state: "TX",
     zip: "75149",
     distanceNote: "8 miles southeast of our Garland shop",
-    metaTitle: "Window Tinting Mesquite, TX | Tint Tek Plus | Ceramic Tint & PPF",
+    metaTitle: "Window Tinting Mesquite, TX | Trucks & SUVs | Tint Tek Plus",
     metaDescription:
-      "Professional window tinting in Mesquite, TX. Tint Tek Plus installs LLumar ceramic films, STEK PPF, and Gtechniq ceramic coating for Mesquite drivers. Near US-80, I-635, and Town East. Book today!",
+      "Window tinting in Mesquite, TX for trucks, SUVs & daily drivers. LLumar ceramic tint, PPF and headlight restoration just 8 miles away. Free quote.",
     keywords:
       "window tinting mesquite tx, window tint mesquite, ceramic tint mesquite, ppf mesquite tx, llumar mesquite, car tint near me mesquite, auto tinting mesquite tx",
     h1: "Window Tinting in Mesquite, TX",
@@ -231,9 +231,9 @@ export const cities = {
     state: "TX",
     zip: "75088",
     distanceNote: "12 miles east of our Garland shop",
-    metaTitle: "Window Tinting Rowlett, TX | Tint Tek Plus | LLumar & STEK Installer",
+    metaTitle: "Window Tinting Rowlett, TX | Car & Home Tint | Tint Tek Plus",
     metaDescription:
-      "Premium window tinting in Rowlett, TX from Tint Tek Plus. LLumar ceramic tint, STEK PPF, and Gtechniq ceramic coating serving Lake Ray Hubbard, Lakeview Parkway, and all of Rowlett. Book today!",
+      "Window tinting in Rowlett, TX that cuts Lake Ray Hubbard glare. LLumar ceramic car tint, home window film, PPF & ceramic coating. Get a free quote.",
     keywords:
       "window tinting rowlett tx, window tint rowlett, ceramic tint rowlett, ppf rowlett tx, llumar rowlett, car tint near rowlett, ceramic coating rowlett",
     h1: "Window Tinting in Rowlett, TX",
@@ -283,9 +283,9 @@ export const cities = {
     state: "TX",
     zip: "75048",
     distanceNote: "8 miles northeast of our Garland shop",
-    metaTitle: "Window Tinting Sachse, TX | Tint Tek Plus | Ceramic Tint & PPF Near You",
+    metaTitle: "Window Tinting Sachse, TX | UV-Blocking Tint | Tint Tek Plus",
     metaDescription:
-      "Window tinting in Sachse, TX from Tint Tek Plus. Just 8 miles from Sachse — LLumar ceramic tint, STEK PPF, and ceramic coating for all vehicles. Serving Miles Road, SH-78 area. Call today!",
+      "Family-friendly window tinting in Sachse, TX. LLumar ceramic tint blocks 99% of UV for back-seat passengers. 8 miles away, same-day service.",
     keywords:
       "window tinting sachse tx, window tint sachse, ceramic tint sachse, ppf sachse tx, car tint near sachse, llumar sachse, auto tinting sachse texas",
     h1: "Window Tinting in Sachse, TX",
@@ -335,9 +335,9 @@ export const cities = {
     state: "TX",
     zip: "75098",
     distanceNote: "18 miles northeast of our Garland shop",
-    metaTitle: "Window Tinting Wylie, TX | Tint Tek Plus | Premium LLumar & STEK PPF",
+    metaTitle: "Window Tinting Wylie, TX | Tint, PPF & Windshield Film",
     metaDescription:
-      "Professional window tinting in Wylie, TX from Tint Tek Plus. LLumar certified installer offering ceramic tint, STEK PPF, and Gtechniq ceramic coating for Wylie drivers on SH-78 and FM 544.",
+      "Window tinting in Wylie, TX plus ExoShield windshield film and STEK PPF to stop rock chips on FM 544 and SH-78. LLumar certified. Get a free quote.",
     keywords:
       "window tinting wylie tx, window tint wylie, ceramic tint wylie, ppf wylie tx, llumar wylie, ceramic coating wylie, car tint wylie texas",
     h1: "Window Tinting in Wylie, TX",
@@ -387,9 +387,9 @@ export const cities = {
     state: "TX",
     zip: "75094",
     distanceNote: "14 miles northeast of our Garland shop",
-    metaTitle: "Window Tinting Murphy, TX | Tint Tek Plus | LLumar Ceramic Tint Near You",
+    metaTitle: "Window Tinting Murphy, TX | Tint, PPF & Ceramic Coating",
     metaDescription:
-      "Window tinting near Murphy, TX from Tint Tek Plus. LLumar certified ceramic tint, STEK PPF, and ceramic coating for Murphy and Collin County vehicles. Convenient to FM 544 and SH-78. Book today!",
+      "Window tinting in Murphy, TX with LLumar ceramic tint, STEK PPF & Gtechniq ceramic coating packages. Lifetime tint warranty. Get a free quote.",
     keywords:
       "window tinting murphy tx, window tint murphy, ceramic tint murphy tx, car tint near murphy, llumar murphy texas, ppf murphy tx, auto tint murphy",
     h1: "Window Tinting Near Murphy, TX",
@@ -439,9 +439,9 @@ export const cities = {
     state: "TX",
     zip: "75013",
     distanceNote: "20 miles north of our Garland shop",
-    metaTitle: "Window Tinting Allen, TX | Tint Tek Plus | LLumar & STEK Certified",
+    metaTitle: "Window Tinting Allen, TX | Luxury & EV Tint | Tint Tek Plus",
     metaDescription:
-      "Top-rated window tinting in Allen, TX from Tint Tek Plus. LLumar ceramic tint, STEK PPF, and Gtechniq coating for Allen drivers near US-75, Allen Premium Outlets, and Watters Creek. Book today!",
+      "Window tinting in Allen, TX for luxury cars, EVs & Teslas. Factory-look LLumar ceramic tint, paint correction & ceramic coating. Get a free quote.",
     keywords:
       "window tinting allen tx, window tint allen, ceramic tint allen, ppf allen tx, llumar allen, ceramic coating allen tx, car tint near allen",
     h1: "Window Tinting in Allen, TX",
@@ -491,9 +491,9 @@ export const cities = {
     state: "TX",
     zip: "75070",
     distanceNote: "30 miles north of our Garland shop",
-    metaTitle: "Window Tinting McKinney, TX | Tint Tek Plus | Premium Ceramic & PPF",
+    metaTitle: "Window Tinting McKinney, TX | Tint & Windshield Film",
     metaDescription:
-      "Professional window tinting in McKinney, TX from Tint Tek Plus. LLumar ceramic tint, STEK PPF, and Gtechniq ceramic coating for McKinney's luxury vehicles, new-construction homes, and daily drivers.",
+      "Window tinting in McKinney, TX plus ExoShield windshield film and home window tint. LLumar ceramic, STEK PPF and single-visit packages. Free quote.",
     keywords:
       "window tinting mckinney tx, window tint mckinney, ceramic tint mckinney, ppf mckinney tx, llumar mckinney, ceramic coating mckinney, car tint near mckinney",
     h1: "Window Tinting in McKinney, TX",
@@ -543,9 +543,9 @@ export const cities = {
     state: "TX",
     zip: "75006",
     distanceNote: "25 miles northwest of our Garland shop",
-    metaTitle: "Window Tinting Carrollton, TX | Tint Tek Plus | LLumar & STEK Installer",
+    metaTitle: "Window Tinting Carrollton, TX | Commercial & Auto Tint",
     metaDescription:
-      "Premium window tinting in Carrollton, TX from Tint Tek Plus. LLumar ceramic tint, STEK PPF, and Gtechniq coating serving Carrollton's I-35E, Josey Lane, and Belt Line Road corridors.",
+      "Commercial, fleet and car window tinting in Carrollton, TX. LLumar ceramic film for storefronts, offices & vehicles, plus STEK PPF. Free estimates.",
     keywords:
       "window tinting carrollton tx, window tint carrollton, ceramic tint carrollton, ppf carrollton tx, llumar carrollton, car tint near carrollton tx",
     h1: "Window Tinting in Carrollton, TX",
@@ -580,6 +580,16 @@ export const cities = {
         answer:
           "Yes — LLumar commercial window films are available for Carrollton storefronts, offices, and warehouses. We provide free estimates for commercial projects of any size.",
       },
+      {
+        question: "Can you tint fleet vehicles for Carrollton businesses?",
+        answer:
+          "Yes. We tint service vans, pickups, and company cars for Carrollton businesses, from a single vehicle to an entire fleet. Ceramic tint keeps drivers cooler and keeps tools and equipment out of sight. Contact us for fleet scheduling and pricing.",
+      },
+      {
+        question: "Is PPF worth it for driving on I-35E and I-635 in Carrollton?",
+        answer:
+          "For most daily commuters, yes. Carrollton sits where I-35E, I-635, and the Dallas North Tollway meet, and high-speed debris on those roads chips bumpers and hoods quickly. A front-end STEK PPF package covers the most exposed panels and self-heals light scratches.",
+      },
     ],
     nearbyAreas: ["Addison", "Farmers Branch", "Coppell", "Lewisville", "Irving"],
   },
@@ -590,9 +600,9 @@ export const cities = {
     state: "TX",
     zip: "75001",
     distanceNote: "22 miles northwest of our Garland shop",
-    metaTitle: "Window Tinting Addison, TX | Tint Tek Plus | Ceramic Tint & PPF Near Dallas",
+    metaTitle: "Window Tinting Addison, TX | Commercial & Car Tint",
     metaDescription:
-      "Premium window tinting near Addison, TX from Tint Tek Plus. LLumar ceramic tint, STEK PPF, and Gtechniq ceramic coating for Addison's restaurant and entertainment district vehicles. Book today!",
+      "Commercial and car window tinting in Addison, TX for restaurants, offices & apartments. LLumar film, ceramic coating & PPF. Free estimates.",
     keywords:
       "window tinting addison tx, window tint addison, ceramic tint addison, ppf addison tx, llumar addison, car tint near addison tx, auto tinting addison",
     h1: "Window Tinting Near Addison, TX",
@@ -626,6 +636,16 @@ export const cities = {
         question: "Can you tint commercial buildings near Addison?",
         answer:
           "Absolutely. Addison's commercial district has many properties that benefit from solar control film. We offer free estimates for restaurants, offices, and storefronts throughout the Addison area.",
+      },
+      {
+        question: "Can I tint the windows of my Addison apartment or townhome?",
+        answer:
+          "Yes. Residential window film reduces heat, glare, and UV fading on large sun-facing windows. If you rent, check with your property manager first — many approve professionally installed film because it can be removed cleanly.",
+      },
+      {
+        question: "How does window tint help a car parked all day in Addison?",
+        answer:
+          "Cars parked in open lots near Addison's offices and restaurants sit in direct sun for hours. LLumar ceramic tint blocks 99% of UV rays and rejects much of the infrared heat, so the cabin is cooler and the dashboard and seats are protected from sun damage.",
       },
     ],
     nearbyAreas: ["Carrollton", "Dallas", "Plano", "Farmers Branch", "Richardson"],

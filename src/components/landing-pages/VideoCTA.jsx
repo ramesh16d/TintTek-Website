@@ -22,8 +22,6 @@ import ScrollToTop from "../ScrollToTop";
 /* ---------- Styles ---------- */
 
 const SectionWrap = styled(Box)(({ theme }) => ({
-  background:
-    "linear-gradient(180deg, rgba(10,10,10,0.0) 0%, rgba(10,10,10,0.4) 100%)",
   color: "#fff",
   position: "relative",
 }));
@@ -33,7 +31,6 @@ const Panel = styled(Box)(() => ({
   background:
     "radial-gradient(1200px 500px at -10% -40%, rgba(39,148,210,0.08) 0%, transparent 60%), #0f0f0f",
   border: "1px solid rgba(39,148,210,0.18)",
-  boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
   overflow: "hidden",
 }));
 

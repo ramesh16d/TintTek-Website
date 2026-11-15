@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Fade,
-  Tooltip,
-  useMediaQuery,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import { FaCarSide, FaSun, FaShieldAlt } from "react-icons/fa";
+// src/components/Pricing.jsx
+// Apple-style pricing for the services pages: a pill segmented control for the
+// vehicle / size options and equal-height tier cards. Pure-CSS responsive
+// layout (no JS media queries); all prices stay in the HTML for SEO.
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { Box, Container, Typography } from "@mui/material";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { useLocation } from "react-router-dom";
 
 // Pricing Data Configuration
@@ -190,234 +185,262 @@ const pricingConfig = {
   },
 };
 
-const PricingComponent = () => {
-  const location = useLocation();
-  const path = location.pathname.split("/").pop();
+const ACCENT = "#4db8f0";
+const EASE = "cubic-bezier(.25,.1,.25,1)";
 
-  const service =
-    pricingConfig[path] || pricingConfig["vehicle-window-tinting"];
-  const [selectedOption, setSelectedOption] = useState(
-    service.pricingOptions[0]
-  );
-  const [fadeIn, setFadeIn] = useState(true);
-  const isMobile = useMediaQuery("(max-width: 768px)"); // Detect mobile screens
+// "FULL SUV" → "Full SUV", "MODEL 3" → "Model 3", "PINNACLE" → "Pinnacle", "CTX" stays "CTX"
+const pretty = (label) =>
+  label
+    .split(" ")
+    .map((w) => (w.length <= 3 ? w : w.charAt(0) + w.slice(1).toLowerCase()))
+    .join(" ");
 
-  useEffect(() => {
-    setSelectedOption(service.pricingOptions[0]);
-  }, [service]);
+/**
+ * Reusable pricing block. `service` = { title, pricingOptions, pricingData,
+ * descriptions }. The option selector only shows when there is more than one
+ * option (e.g. a single Tesla model page shows just its tiers). `resetKey`
+ * resets the selection when the page/route changes.
+ */
+export function PricingSection({ service, resetKey = "" }) {
+  const path = resetKey;
+  const [selected, setSelected] = useState({ path, option: service.pricingOptions[0] });
+  // Reset to the first option when navigating to another page
+  const selectedOption =
+    selected.path === path && service.pricingOptions.includes(selected.option)
+      ? selected.option
+      : service.pricingOptions[0];
+  const showSelector = service.pricingOptions.length > 1;
 
-  const handleOptionChange = (option) => {
-    setFadeIn(false);
-    setTimeout(() => {
-      setSelectedOption(option);
-      setFadeIn(true);
-    }, 200);
-  };
+  const tiers = Object.keys(service.descriptions);
+  const tierCols = Math.min(tiers.length, 4);
 
   return (
     <Box
+      component="section"
       id="pricing"
-      sx={{
-        py: isMobile ? 2 : 15,
-        textAlign: "center",
-        color: "#fff",
-        minHeight: "20vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
+      aria-labelledby="pricing-heading"
+      sx={{ py: { xs: 8, md: 14 } }}
     >
       <Container maxWidth="lg">
-        <Typography
-          variant={isMobile ? "h4" : "h2"}
-          sx={{ mb: 2, fontWeight: "bold", color: "#fff" }}
-        >
-          {service.title}
-        </Typography>
-        <Typography
-          variant={isMobile ? "h3" : "h3"}
-          align="center"
+        {/* Heading */}
+        <Box sx={{ textAlign: "center", maxWidth: 860, mx: "auto", mb: { xs: 4, md: 5 } }}>
+          <Typography
+            id="pricing-heading"
+            component="h2"
+            sx={{
+              color: "#f5f5f7",
+              fontWeight: 700,
+              fontSize: { xs: "2.1rem", sm: "2.8rem", md: "3.5rem" },
+              lineHeight: 1.07,
+              letterSpacing: "-0.025em",
+              mb: { xs: 1.5, md: 2 },
+            }}
+          >
+            {service.title}
+          </Typography>
+          <Typography
+            sx={{ color: "rgba(245,245,247,0.62)", fontSize: { xs: "1rem", md: "1.15rem" }, lineHeight: 1.5 }}
+          >
+            All Side Windows and Back Glass are Included in Standard Package
+          </Typography>
+        </Box>
+
+        {showSelector && (
+          /* Segmented control — scrolls sideways on narrow phones */
+        <Box
           sx={{
-            color: "#ccc",
-            mb: 4,
-            fontWeight: "bold",
-            fontSize: "1rem",
+            display: "flex",
+            justifyContent: { xs: "flex-start", sm: "center" },
+            overflowX: "auto",
+            mx: { xs: -2, sm: 0 },
+            px: { xs: 2, sm: 0 },
+            mb: { xs: 3, md: 5 },
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": { display: "none" },
           }}
         >
-          **All Side Windows and Back Glass are Included in Standard Package**
-        </Typography>
-
-        {/* ✅ Show Tabs on Desktop | Show Dropdown on Mobile */}
-        {isMobile ? (
-          <Select
-            value={selectedOption}
-            onChange={(e) => handleOptionChange(e.target.value)}
-            fullWidth
-            displayEmpty
-            // the menu lives in a portal → style it here
-            MenuProps={{
-              disableScrollLock: true,
-              PaperProps: {
-                sx: {
-                  backgroundColor: "transparent",
-                  backgroundImage: "none",
-                  backdropFilter: "blur(0px)", // set to 'blur(8px)' if you want frosted look
-                  WebkitBackdropFilter: "blur(0px)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.45)",
-                },
-                elevation: 0,
-              },
-              MenuListProps: {
-                sx: {
-                  backgroundColor: "#111",
-                  "& .MuiMenuItem-root": {
-                    backgroundColor: "transparent !important",
-                    color: "#fff",
-                    "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.06) !important",
-                    },
-                    "&.Mui-selected, &.Mui-selected:hover": {
-                      backgroundColor: "rgba(39,148,210,0.18) !important",
-                    },
-                  },
-                },
-              },
-            }}
+          <Box
+            role="group"
+            aria-label="Choose your vehicle"
             sx={{
-              // trigger looks transparent
-              backgroundColor: "transparent",
-              backgroundImage: "none",
-              backdropFilter: "none",
-              border: "1px solid rgba(255,255,255,0.35)",
-              borderRadius: "30px",
-              color: "#fff",
-              fontWeight: 500,
-              fontSize: "16px",
-              textTransform: "uppercase",
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: "none", // we’re already drawing a custom border above
-              },
-              "& .MuiSelect-icon": { color: "#2794d2" },
-              "& .MuiSelect-select": {
-                padding: "14px 18px",
-                display: "flex",
-                alignItems: "center",
-              },
+              display: "inline-flex",
+              flexShrink: 0,
+              gap: 0.5,
+              p: 0.5,
+              borderRadius: 999,
+              backgroundColor: "rgba(255,255,255,0.08)",
             }}
           >
-            {service.pricingOptions.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </Select>
-        ) : (
-          <Grid container spacing={0} sx={{ borderBottom: "2px solid #555" }}>
-            {service.pricingOptions.map((option) => (
-              <Grid
-                item
-                xs={12 / service.pricingOptions.length}
-                key={option}
-                sx={{
-                  textAlign: "center",
-                  py: 2,
-                  fontWeight: "bold",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  borderBottom:
-                    selectedOption === option ? "4px solid #2794d2" : "none",
-                  backgroundColor:
-                    selectedOption === option ? "#2794d2" : "transparent",
-                  color: selectedOption === option ? "white" : "#ddd",
-                  transition: "all 0.3s ease-in-out",
-                  "&:hover": {
-                    backgroundColor:
-                      selectedOption === option ? "#2794d2" : "#222",
-                    color: "white",
-                  },
-                }}
-                onClick={() => handleOptionChange(option)}
-              >
-                {option}
-              </Grid>
-            ))}
-          </Grid>
+            {service.pricingOptions.map((option) => {
+              const active = option === selectedOption;
+              return (
+                <Box
+                  key={option}
+                  component="button"
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setSelected({ path, option })}
+                  sx={{
+                    border: 0,
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    px: { xs: 2, md: 2.75 },
+                    py: 1.1,
+                    borderRadius: 999,
+                    fontFamily: "inherit",
+                    fontSize: { xs: "0.92rem", md: "0.98rem" },
+                    fontWeight: active ? 600 : 500,
+                    color: active ? "#0b0b0c" : "rgba(245,245,247,0.8)",
+                    backgroundColor: active ? "#f5f5f7" : "transparent",
+                    transition: `background-color .3s ${EASE}, color .3s ${EASE}`,
+                    "&:hover": { color: active ? "#0b0b0c" : "#fff" },
+                    "&:focus-visible": { outline: "2px solid #2794d2", outlineOffset: 2 },
+                  }}
+                >
+                  {pretty(option)}
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
         )}
 
-        {/* Pricing Cards */}
-        <Fade in={fadeIn} timeout={500}>
-          <Box
-            sx={{
-              mt: 3,
-              overflowX: isMobile ? "auto" : "unset",
-              display: "flex",
-              flexDirection: isMobile ? "row" : "row",
-              gap: 2,
-              p: isMobile ? 1 : 0,
-            }}
-          >
-            {Object.keys(service.descriptions).map((tier) => (
-              <Box
-                key={tier}
+        {/* Tier cards: swipe row on phones; equal-height grid on tablet+ */}
+        <Box
+          aria-live="polite"
+          sx={{
+            display: { xs: "flex", sm: "grid" },
+            gridTemplateColumns: {
+              sm: `repeat(${Math.min(tierCols, 2)}, 1fr)`,
+              md: `repeat(${tierCols}, 1fr)`,
+            },
+            gridAutoRows: { sm: "1fr" },
+            alignItems: "stretch",
+            maxWidth: tierCols <= 2 ? 820 : "none",
+            mx: { xs: -2, sm: "auto" },
+            px: { xs: 2, sm: 0 },
+            gap: { xs: 1.5, md: 2.5 },
+            overflowX: { xs: "auto", sm: "visible" },
+            scrollSnapType: { xs: "x mandatory", sm: "none" },
+            scrollPaddingInline: { xs: "16px", sm: 0 },
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": { display: "none" },
+          }}
+        >
+          {tiers.map((tier) => (
+            <Box
+              key={tier}
+              component="article"
+              sx={{
+                flex: { xs: "0 0 78%", sm: "initial" },
+                scrollSnapAlign: { xs: "start", sm: "none" },
+                display: "flex",
+                flexDirection: "column",
+                p: { xs: 3.5, md: 4 },
+                borderRadius: { xs: "24px", md: "28px" },
+                backgroundColor: "rgba(255,255,255,0.045)",
+              }}
+            >
+              <Typography
+                component="h3"
                 sx={{
-                  flex: isMobile ? "0 0 90%" : "1",
-                  minWidth: isMobile ? "90%" : "auto",
-                  maxWidth: isMobile ? "90%" : "100%",
-                  textAlign: "center",
-                  p: 3,
-                  border: "2px solid #444",
-                  borderRadius: 4,
-                  background: "rgba(255,255,255,0.04)",
+                  color: "#f5f5f7",
+                  fontWeight: 700,
+                  fontSize: { xs: "1.35rem", md: "1.45rem" },
+                  letterSpacing: "-0.015em",
                 }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ fontWeight: "bold", color: "#2794d2", fontSize: "1.5rem" }}
-                >
-                  {tier}
-                </Typography>
+                {pretty(tier)}
+              </Typography>
 
-                <Typography
-                  variant="h3"
-                  sx={{ fontWeight: "bold", color: "#00FF99", fontSize: "2rem" }}
-                >
-                  {service.pricingData[selectedOption]?.[tier] || "N/A"}
-                </Typography>
+              {/* Re-keyed on change so the new price fades in */}
+              <Typography
+                key={selectedOption}
+                sx={{
+                  mt: 1.5,
+                  color: "#f5f5f7",
+                  fontWeight: 600,
+                  fontSize: { xs: "2.2rem", md: "2.6rem" },
+                  lineHeight: 1,
+                  letterSpacing: "-0.03em",
+                  fontVariantNumeric: "tabular-nums",
+                  "@keyframes priceIn": {
+                    from: { opacity: 0, transform: "translateY(6px)" },
+                    to: { opacity: 1, transform: "none" },
+                  },
+                  animation: `priceIn .45s ${EASE}`,
+                  "@media (prefers-reduced-motion: reduce)": { animation: "none" },
+                }}
+              >
+                {service.pricingData[selectedOption]?.[tier] || "N/A"}
+              </Typography>
 
-                {/* Feature Descriptions */}
-                <Box sx={{ mt: 2 }}>
-                  {service.descriptions[tier]?.map((feature, i) => (
-                    <Tooltip key={i} title="More info" arrow>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          mb: 1,
-                          color: "#ccc",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {i === 0 && (
-                          <FaCarSide style={{ marginRight: "5px" }} />
-                        )}
-                        {i === 1 && <FaSun style={{ marginRight: "5px" }} />}
-                        {i === 2 && (
-                          <FaShieldAlt style={{ marginRight: "5px" }} />
-                        )}
-                        {feature}
-                      </Typography>
-                    </Tooltip>
-                  ))}
-                </Box>
+              <Box sx={{ height: "1px", backgroundColor: "rgba(255,255,255,0.1)", my: 3 }} />
+
+              <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1.5 }}>
+                {service.descriptions[tier].map((feature) => (
+                  <Box
+                    component="li"
+                    key={feature}
+                    sx={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 1.25,
+                      color: "rgba(245,245,247,0.78)",
+                      fontSize: "0.98rem",
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    <CheckRoundedIcon aria-hidden="true" sx={{ fontSize: 20, color: ACCENT, mt: "1px" }} />
+                    {feature}
+                  </Box>
+                ))}
               </Box>
-            ))}
-          </Box>
-        </Fade>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );
+}
+
+PricingSection.propTypes = {
+  service: PropTypes.shape({
+    title: PropTypes.node.isRequired,
+    pricingOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    pricingData: PropTypes.object.isRequired,
+    descriptions: PropTypes.object.isRequired,
+  }).isRequired,
+  resetKey: PropTypes.string,
+};
+
+// Tesla model pages (/tesla/:model): one model's CTX / Pinnacle prices with the
+// same tier features as the Tesla services page — no selector (single option).
+export function TeslaModelPricing({ model }) {
+  if (!model.pricing) return null;
+  const service = {
+    title: `${model.displayName} Window Tinting Pricing`,
+    pricingOptions: [model.displayName],
+    pricingData: { [model.displayName]: model.pricing },
+    descriptions: pricingConfig["tesla-window-tinting"].descriptions,
+  };
+  return <PricingSection service={service} resetKey={model.slug} />;
+}
+
+TeslaModelPricing.propTypes = {
+  model: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+    pricing: PropTypes.object,
+  }).isRequired,
+};
+
+// Services pages: pick the config from the URL (/services/<id>)
+const PricingComponent = () => {
+  const location = useLocation();
+  const path = location.pathname.split("/").pop();
+  const service = pricingConfig[path] || pricingConfig["vehicle-window-tinting"];
+  return <PricingSection service={service} resetKey={path} />;
 };
 
 export default PricingComponent;

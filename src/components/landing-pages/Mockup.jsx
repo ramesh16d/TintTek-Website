@@ -25,8 +25,25 @@ import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
 import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
 import VideoCTA from "./VideoCTA";
 import VideoCTA2 from "./VideoCTA2";
-import Hero from "./Hero";
+import LandingHero from "./LandingHero";
+import { brandSeoContent } from "../../data/brandSeoContent";
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
+
+// Hero benefit points (previously the old Hero's built-in defaults)
+const MOCKUP_HERO_POINTS = [
+  {
+    title: "Superior Heat Rejection",
+    body: "Advanced nano-ceramic tech blocks up to 89% of heat so you stay cool and save your A/C.",
+  },
+  {
+    title: "Reduce Glare • Boost Safety",
+    body: "Cut harsh glare for clearer vision and safer driving—day or night.",
+  },
+  {
+    title: "Privacy + Style Upgrade",
+    body: "A sleek, modern look that keeps prying eyes out without sacrificing clarity.",
+  },
+];
 
 /** —— SITE / ROUTE SETTINGS —— */
 const SITE = "https://tinttekplus.com";
@@ -456,6 +473,8 @@ const Mockup = () => {
         title={pageTitle}
         description={pageDesc}
         canonical={canonical}
+        // Landing-page mockup: keep it out of search results and sitelinks
+        robots="noindex, follow"
         jsonLd={[webPageLd, videoLd, breadcrumbsLd]}
         type="website"
       >
@@ -491,7 +510,14 @@ const Mockup = () => {
         />
 
         <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
-          <Hero />
+          {/* Same hero as the brand and city pages, with the copy the old Hero
+              used by default on this page (headline + the three tint benefits) */}
+          <LandingHero
+            headline="Block 89% Of Heat. Drive Cooler In 3 Hours!"
+            points={MOCKUP_HERO_POINTS}
+            pointsLabel="Key benefits"
+            trust={{ ...brandSeoContent.llumar.warranty, showBadge: true }}
+          />
 
           <Testimonials />
           <VideoCTA />

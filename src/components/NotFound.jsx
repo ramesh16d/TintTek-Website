@@ -8,6 +8,7 @@ import QuickLinks from "./key-components/QuickLinks";
 import SubCTA from "./SubCTA";
 import SubContact from "./SubContact";
 import SubQuickLinks from "./SubQuickLinks";
+import SEO from "./SEO";
 
 const GRADIENT = `radial-gradient(circle at top left, rgba(39,148,210,0.15), transparent 50%),
    radial-gradient(circle at bottom right, rgba(77,184,240,0.15), transparent 50%),
@@ -36,6 +37,12 @@ const NotFound = () => {
             background: GRADIENT,
           },
         }}
+      />
+      <SEO
+        title="Page Not Found | Tint Tek Plus"
+        description="The page you're looking for doesn't exist."
+        robots="noindex, follow"
+        canonical={false}
       />
       <Topbar notFound={true} />
 

@@ -8,7 +8,7 @@ const normalize = (pathname) => pathname.replace(/\/+$/, "") || "/";
  * navigation to another route, retain the original IntersectionObserver gate.
  * The static build stamps the root with its route; this value never changes.
  */
-export default function InViewMount({ children, rootMargin = "400px" }) {
+export default function InViewMount({ children, rootMargin = "400px", minHeight = 0 }) {
   const { pathname } = useLocation();
   const ref = useRef(null);
   const [ready, setReady] = useState(() => {
@@ -34,10 +34,16 @@ export default function InViewMount({ children, rootMargin = "400px" }) {
     return () => observer.disconnect();
   }, [ready, rootMargin]);
 
-  return <div ref={ref}>{ready ? children : null}</div>;
+  // Reserve space until revealed so the page doesn't end early and stall scrolling.
+  return (
+    <div ref={ref} style={ready ? undefined : { minHeight }}>
+      {ready ? children : null}
+    </div>
+  );
 }
 
 InViewMount.propTypes = {
   children: PropTypes.node,
   rootMargin: PropTypes.string,
+  minHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };

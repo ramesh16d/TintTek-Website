@@ -90,6 +90,27 @@ export function AppContent() {
   // Sends a page_view/PageView on every route change, including the first.
   useRouteTracking();
 
+  // Fetch below-fold home chunks once the page is idle, so they're ready before
+  // the user scrolls to them instead of loading at the bottom of the page.
+  useEffect(() => {
+    if (!isHomePage) return;
+    const prefetch = () => {
+      import("./components/landing/Testimonials");
+      import("./components/landing-pages/VideoCTA2");
+      import("./components/landing/Vision");
+      import("./components/SubCTA");
+      import("./components/SubContact");
+      import("./components/SubQuickLinks");
+      import("./components/key-components/Footer");
+    };
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(prefetch, { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const timer = setTimeout(prefetch, 1500);
+    return () => clearTimeout(timer);
+  }, [isHomePage]);
+
   // Delay chatbot teaser past the TBT-critical window (first ~4s of interaction)
   useEffect(() => {
     let popupTimer;
@@ -154,17 +175,18 @@ export function AppContent() {
                     <WhyChooseUs />
                   </Suspense>
                   {/* Below-fold: deferred until scrolled near + own Suspense.
-                      rootMargin="800px" pre-loads content 800px before the
-                      user reaches it, preventing scroll from sticking at
-                      WhyChooseUs while IntersectionObserver catches up. */}
-                  <InViewMount rootMargin="800px">
-                    <Suspense fallback={null}>
+                      minHeight and the Suspense fallback reserve roughly each
+                      block's desktop height so the page doesn't end at
+                      WhyChooseUs (which stalled scrolling) while the observer
+                      fires and the chunks download. */}
+                  <InViewMount rootMargin="800px" minHeight={1500}>
+                    <Suspense fallback={<Box sx={{ minHeight: 1500 }} />}>
                       <Testimonials />
                       <VideoCTA2 />
                     </Suspense>
                   </InViewMount>
-                  <InViewMount rootMargin="800px">
-                    <Suspense fallback={null}>
+                  <InViewMount rootMargin="800px" minHeight={3500}>
+                    <Suspense fallback={<Box sx={{ minHeight: 3500 }} />}>
                       <Vision />
                       <SubCTA />
                       <SubContact />
